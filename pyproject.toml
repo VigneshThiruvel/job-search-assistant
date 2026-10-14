@@ -5,6 +5,7 @@ description = "Personal job-search agent: ingest, extract, RAG, knowledge graph,
 requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.28.1",
+    "lingua-language-detector>=2.1.1",
 ]
 
 [build-system]
