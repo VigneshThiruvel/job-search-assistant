@@ -1,0 +1,14 @@
+CLAUDE.md
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Data (cached raw responses + database)
+data/raw/
+data/*.db
+
+# Secrets
+.env
