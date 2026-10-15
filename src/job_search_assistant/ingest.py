@@ -11,10 +11,12 @@ from dotenv import load_dotenv
 from job_search_assistant import db
 from job_search_assistant.config import ROLES
 from job_search_assistant.http import PoliteFetcher, default_client
+from job_search_assistant.mailbox import Mailbox
 from job_search_assistant.sources.adzuna import Adzuna
 from job_search_assistant.sources.arbeitnow import Arbeitnow
 from job_search_assistant.sources.base import Source
 from job_search_assistant.sources.bundesagentur import Bundesagentur
+from job_search_assistant.sources.email_alerts import linkedin, xing
 from job_search_assistant.text import content_hash, detect_language
 
 log = logging.getLogger(__name__)
@@ -66,12 +68,18 @@ def build_sources(raw_dir: Path) -> list[Source]:
     ]
     app_id, app_key = os.getenv("ADZUNA_APP_ID"), os.getenv("ADZUNA_APP_KEY")
     if app_id and app_key:
-        # 3 s keeps us under 25 hits/min; 7 countries x 7 roles = 49 hits/day.
+        # 3 s keeps us under 25 hits/min; 7 roles x 3 countries = 21 hits/day.
         sources.append(
             Adzuna(PoliteFetcher(client, delay=3.0), raw_dir, app_id, app_key, queries=ROLES)
         )
     else:
         log.warning("adzuna: ADZUNA_APP_ID/ADZUNA_APP_KEY not set in .env, skipping")
+    address, password = os.getenv("GMAIL_ADDRESS"), os.getenv("GMAIL_APP_PASSWORD")
+    if address and password:
+        mailbox = Mailbox(address.strip(), password)
+        sources += [linkedin(mailbox, raw_dir), xing(mailbox, raw_dir)]
+    else:
+        log.warning("email alerts: GMAIL_ADDRESS/GMAIL_APP_PASSWORD not set in .env, skipping")
     return sources
 
 

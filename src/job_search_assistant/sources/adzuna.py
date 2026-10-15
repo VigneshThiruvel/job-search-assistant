@@ -20,8 +20,9 @@ log = logging.getLogger(__name__)
 
 SEARCH_URL = "https://api.adzuna.com/v1/api/jobs/{country}/search/{page}"
 RESULTS_PER_PAGE = 50  # API maximum
-# Germany and the neighbours Adzuna covers.
-COUNTRIES = ("de", "at", "ch", "nl", "be", "fr", "pl")
+# Germany plus the neighbours most likely to have English-language roles. Kept
+# small so a daily run (roles x countries) stays under the tightest reported quota.
+COUNTRIES = ("de", "at", "ch")
 
 
 class Adzuna:

@@ -10,7 +10,8 @@ def test_html_to_text_keeps_structure() -> None:
 def test_content_hash_ignores_gender_markers_case_and_punctuation() -> None:
     a = content_hash("Data Analyst (m/w/d)", "ACME GmbH", "Berlin")
     b = content_hash("data analyst (f/m/x)", "Acme GmbH.", " berlin ")
-    assert a == b
+    c = content_hash("Data Analyst (w|m|d)", "ACME GmbH", "Berlin")
+    assert a == b == c
     assert a != content_hash("Data Engineer (m/w/d)", "ACME GmbH", "Berlin")
 
 

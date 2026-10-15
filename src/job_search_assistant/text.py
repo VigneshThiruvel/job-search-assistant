@@ -42,7 +42,7 @@ def html_to_text(html: str) -> str:
 
 
 # Gender/diversity markers carry no identity: "Data Analyst (m/w/d)" == "Data Analyst (f/m/x)".
-_GENDER_MARKER = re.compile(r"\((?:[mwfdx]\s*/\s*)+[mwfdx]\)|\((?:gn|all genders?)\)", re.I)
+_GENDER_MARKER = re.compile(r"\((?:[mwfdx]\s*[/|]\s*)+[mwfdx]\)|\((?:gn|all genders?)\)", re.I)
 _NON_WORD = re.compile(r"[^\w]+")
 
 

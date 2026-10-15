@@ -1,51 +1,90 @@
 {
   "__CLASS__": "Adzuna::API::Response::JobSearchResults",
-  "count": 2,
+  "count": 3,
   "results": [
     {
-      "__CLASS__": "Adzuna::API::Response::Job",
-      "id": "4711000001",
-      "title": "Junior <strong>Data Analyst</strong> (m/w/d)",
-      "description": "We are looking for a junior data analyst with SQL and Python skills to join our team in Munich&hellip;",
-      "redirect_url": "https://www.adzuna.de/land/ad/4711000001?se=example",
-      "created": "2026-10-12T08:15:00Z",
+      "id": "5928441864",
+      "salary_is_predicted": "0",
+      "category": {
+        "label": "Unknown",
+        "__CLASS__": "Adzuna::API::Response::Category",
+        "tag": "unknown"
+      },
+      "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkyODQ0MTg2NCIsInMiOiJnTjRiTTNqSThSR3pUYkx5dXM2dTdnIn0.n_1gCo0A-h_1pmDkbwTUPfROm3FpI-lxCs9JrZ8dL1k",
       "company": {
         "__CLASS__": "Adzuna::API::Response::Company",
-        "display_name": "Example Analytics GmbH"
+        "display_name": "Lidl Stiftung & Co KG"
       },
-      "location": {
-        "__CLASS__": "Adzuna::API::Response::Location",
-        "area": [
-          "Deutschland",
-          "Bayern",
-          "München"
-        ],
-        "display_name": "München, Bayern"
-      },
-      "category": {
-        "__CLASS__": "Adzuna::API::Response::Category",
-        "label": "IT-Stellen",
-        "tag": "it-jobs"
-      },
-      "contract_type": "permanent",
-      "contract_time": "full_time",
-      "latitude": 48.137,
-      "longitude": 11.575
-    },
-    {
+      "created": "2026-10-15T05:41:39Z",
+      "description": "Deine Aufgaben Als Customer Data Analyst (m/w/d) bist du für die ganzheitliche Analyse von Kundendaten und -verhalten verantwortlich, um unseren Kunden das beste Einkaufserlebnis zu ermöglichen. Nachfolgend finden Sie alles, was Sie über diese Stelle wissen müssen und was von den Bewerbern erwartet wird. …konkret heißt das: Erarbeitung von Lösungen für aufkommende Fragestellungen zu den Themen Kundendaten und -verhalten, von der Zielsetzung bis hin zu einer datengetriebenen Handlungsempfehlung …",
       "__CLASS__": "Adzuna::API::Response::Job",
-      "id": "4711000002",
-      "title": "Data Analyst",
-      "description": "Analyse data...",
-      "redirect_url": "https://www.adzuna.de/land/ad/4711000002?se=example",
-      "created": "2026-10-11T10:00:00Z",
+      "redirect_url": "https://www.adzuna.de/details/5928441864?utm_medium=api&utm_source=APP_ID",
+      "title": "Customer Data Analyst (m/w/d) - befristet",
       "location": {
-        "__CLASS__": "Adzuna::API::Response::Location",
         "area": [
           "Deutschland"
         ],
-        "display_name": "Deutschland"
+        "display_name": "Deutschland",
+        "__CLASS__": "Adzuna::API::Response::Location"
       }
+    },
+    {
+      "longitude": 9.987297,
+      "id": "5928685314",
+      "category": {
+        "label": "Stellen für Hochschulabsolventen",
+        "__CLASS__": "Adzuna::API::Response::Category",
+        "tag": "graduate-jobs"
+      },
+      "salary_is_predicted": "0",
+      "company": {
+        "display_name": "zeb",
+        "__CLASS__": "Adzuna::API::Response::Company"
+      },
+      "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkyODY4NTMxNCIsInMiOiJnTjRiTTNqSThSR3pUYkx5dXM2dTdnIn0.ATJpkQREAjmAg_8ZeMHgXXYXbhAjB8yc0Pn7UwE01Zo",
+      "latitude": 53.557429,
+      "created": "2026-10-15T10:16:20Z",
+      "location": {
+        "area": [
+          "Deutschland",
+          "Hamburg"
+        ],
+        "display_name": "Hamburg, Deutschland",
+        "__CLASS__": "Adzuna::API::Response::Location"
+      },
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "redirect_url": "https://www.adzuna.de/details/5928685314?utm_medium=api&utm_source=APP_ID",
+      "title": "IT Architekt und Consultant für Datenmanagement (w|m|d) - Projektmanagement, Business Analysis, Datenbankentwicklung/BI, Ingenieur",
+      "description": " Deine Benefits Versicherung & Altersvorsorge Sicher unterwegs mit zeb – über eine Gruppenunfallversicherung bist du auch privat in Deutschland versichert. Für Auslandsdienstreisen besteht eine zusätzliche Auslandsversicherung, und für deine Altersvorsorge kannst du über zeb eine betriebliche Altersvorsorge abschließen. Mobiles Arbeiten Durch unsere technische Ausstattung ist mobiles Arbeiten von überall möglich – unabhängig davon, ob du gerade im Zug, zu Hause oder im Office bist. zeb.life Dei…"
+    },
+    {
+      "longitude": 13.420806,
+      "id": "5928685318",
+      "salary_is_predicted": "0",
+      "category": {
+        "tag": "graduate-jobs",
+        "__CLASS__": "Adzuna::API::Response::Category",
+        "label": "Stellen für Hochschulabsolventen"
+      },
+      "created": "2026-10-15T10:16:20Z",
+      "description": " Deine Benefits Versicherung & Altersvorsorge Sicher unterwegs mit zeb – über eine Gruppenunfallversicherung bist du auch privat in Deutschland versichert. Für Auslandsdienstreisen besteht eine zusätzliche Auslandsversicherung, und für deine Altersvorsorge kannst du über zeb eine betriebliche Altersvorsorge abschließen. Mobiles Arbeiten Durch unsere technische Ausstattung ist mobiles Arbeiten von überall möglich – unabhängig davon, ob du gerade im Zug, zu Hause oder im Office bist. zeb.life Dei…",
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "redirect_url": "https://www.adzuna.de/details/5928685318?utm_medium=api&utm_source=APP_ID",
+      "location": {
+        "area": [
+          "Deutschland",
+          "Berlin"
+        ],
+        "display_name": "Berlin, Deutschland",
+        "__CLASS__": "Adzuna::API::Response::Location"
+      },
+      "title": "IT Architekt und Consultant für Datenmanagement (w|m|d) - Projektmanagement, Business Analysis, Datenbankentwicklung/BI, Ingenieur",
+      "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoiZ040Yk0zakk4Ukd6VGJMeXVzNnU3ZyIsImkiOiI1OTI4Njg1MzE4In0.rLdQqAKGsI_GafXsHTIBu40DLuPMbXYWsM1PAWe2tCo",
+      "company": {
+        "display_name": "zeb",
+        "__CLASS__": "Adzuna::API::Response::Company"
+      },
+      "latitude": 52.507706
     }
   ]
 }
