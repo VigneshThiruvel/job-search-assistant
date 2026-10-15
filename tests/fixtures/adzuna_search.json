@@ -1,0 +1,51 @@
+{
+  "__CLASS__": "Adzuna::API::Response::JobSearchResults",
+  "count": 2,
+  "results": [
+    {
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "id": "4711000001",
+      "title": "Junior <strong>Data Analyst</strong> (m/w/d)",
+      "description": "We are looking for a junior data analyst with SQL and Python skills to join our team in Munich&hellip;",
+      "redirect_url": "https://www.adzuna.de/land/ad/4711000001?se=example",
+      "created": "2026-10-12T08:15:00Z",
+      "company": {
+        "__CLASS__": "Adzuna::API::Response::Company",
+        "display_name": "Example Analytics GmbH"
+      },
+      "location": {
+        "__CLASS__": "Adzuna::API::Response::Location",
+        "area": [
+          "Deutschland",
+          "Bayern",
+          "München"
+        ],
+        "display_name": "München, Bayern"
+      },
+      "category": {
+        "__CLASS__": "Adzuna::API::Response::Category",
+        "label": "IT-Stellen",
+        "tag": "it-jobs"
+      },
+      "contract_type": "permanent",
+      "contract_time": "full_time",
+      "latitude": 48.137,
+      "longitude": 11.575
+    },
+    {
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "id": "4711000002",
+      "title": "Data Analyst",
+      "description": "Analyse data...",
+      "redirect_url": "https://www.adzuna.de/land/ad/4711000002?se=example",
+      "created": "2026-10-11T10:00:00Z",
+      "location": {
+        "__CLASS__": "Adzuna::API::Response::Location",
+        "area": [
+          "Deutschland"
+        ],
+        "display_name": "Deutschland"
+      }
+    }
+  ]
+}

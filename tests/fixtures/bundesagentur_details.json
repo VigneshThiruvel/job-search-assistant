@@ -1,0 +1,47 @@
+{
+  "stellenangebotsart": "ARBEIT",
+  "stellenangebotsTitel": "Data Analyst (m/w/d)",
+  "quereinstiegGeeignet": false,
+  "stellenangebotsBeschreibung": "Sie möchten mit Daten echten Mehrwert schaffen und innovative\nTechnologien aktiv mitgestalten? Dann ist diese Position genau das\nRichtige für Sie! Für ein innovatives Unternehmen in Dresden suchen\nwir im Rahmen der Personalvermittlung einen Data Scientist (m/w/d) ,\nder Machine Learning, Datenanalyse und Softwareentwicklung verbindet\nund an zukunftsweisenden Lösungen im industriellen Umfeld mitwirkt.\nAufgaben Analyse und Auswertung von Betriebs-, Mess- und\nSimulationsdaten sowie Interpretation von Zeitreihen mit klassischen\nVerfahren und Methoden des Machine Learning Entwicklung und\nOptimierung von ML-gestützten Lösungen, z. B. für Klassifikation,\nRegression, Anomalieerkennung und Prognosen Aufbereitung und\nIntegration der Analyseergebnisse zur Weiterentwicklung von Produkten,\nServices und technischen Prozessen Mitarbeit an der Pflege und\nWeiterentwicklung der Steuerungssoftware mit Structured Text (ST) bzw.\nSiemens SCL (IEC 61131-3) Unterstützung bei der Parametrierung,\nDiagnose und Optimierung von Anlagen sowie gelegentliche Begleitung\nvon Inbetriebnahmen Mitwirkung bei Störungsanalysen und der\nkontinuierlichen Verbesserung der Maschinensteuerung Mitarbeit an der\nEntwicklung innovativer Edge-Devices für KI- und ML-gestützte\nSteuerungslösungen Profil Erfahrung in der Analyse von\nZeitreihendaten sowie Grundkenntnisse im Machine Learning Kenntnisse\nin Python und idealerweise mit scikit-learn , TensorFlow oder PyTorch\nStrukturierte, selbstständige Arbeitsweise sowie Begeisterung für\nDatenanalyse, Softwareentwicklung und technische Systeme Interesse an\nder Entwicklung von Steuerungssoftware mit Structured Text (ST) bzw.\nSCL Freude am Einsatz moderner KI-Tools im Entwicklungsalltag\nVerhandlungssichere Deutschkenntnisse Von Vorteil, aber kein Muss:\nErfahrung mit SPS-Programmierung, industriellen\nKommunikationsprotokollen, Edge-Computing oder Container-Technologien\nKenntnisse im Maschinenbau, der Automatisierungs- oder Umwelttechnik\nPerspektiven Mitarbeit an innovativen Produkten mit direktem\nUmweltbezug. Beitrag zur Entwicklung effizienter und nachhaltiger\nTechnologien. Verbindung von Datenanalyse, Steuerungssoftware und\nAnlagentechnik. Analyse von Maschinendaten zur Optimierung von\nAnlagen, Prozessen und Services. Mitgestaltung intelligenter und\nzukunftsorientierter Steuerungslösungen. Interessiert? Bei uns wird\nIhr Berufsweg zum persönlichen Walk of Fame – wir bieten Ihnen\nspannende Perspektiven in den Bereichen Assistenz & Sekretariat,\nMarketing, Vertrieb, HR sowie Einkauf & Logistik. Jetzt auf \"direkt\nbewerben\" klicken! Kontakt zu uns Vincent Stapel\nvincent.stapel@dis-ag.com +49 351 4391026",
+  "arbeitszeitSchichtNachtWochenende": false,
+  "arbeitszeitTeilzeitAbend": false,
+  "arbeitszeitTeilzeitNachmittag": false,
+  "arbeitszeitTeilzeitVormittag": false,
+  "arbeitszeitTeilzeitFlexibel": false,
+  "arbeitszeitVollzeit": true,
+  "eintrittszeitraum": {
+    "von": "2026-10-15"
+  },
+  "verguetungsangabe": "KEINE_ANGABEN",
+  "vertragsdauer": "UNBEFRISTET",
+  "istGeringfuegigeBeschaeftigung": false,
+  "istBehinderungGefordert": false,
+  "stellenlokationen": [
+    {
+      "adresse": {
+        "plz": "01219",
+        "ort": "Dresden",
+        "region": "SACHSEN",
+        "land": "DEUTSCHLAND"
+      },
+      "breite": 51.0209672,
+      "laenge": 13.7648651
+    }
+  ],
+  "homeofficemoeglich": false,
+  "chiffrenummer": "34968672",
+  "istPrivateArbeitsvermittlung": true,
+  "istArbeitnehmerUeberlassung": false,
+  "veroeffentlichungszeitraum": {
+    "von": "2026-10-13"
+  },
+  "datumErsteVeroeffentlichung": "2026-10-13",
+  "aenderungsdatum": "2026-10-14T18:05:24.910",
+  "externeURL": "https://www.persy.jobs/persy/l/job-jpcx4-b",
+  "istBetreut": false,
+  "hauptberuf": "Data-Analyst/in",
+  "firma": "DIS AG Germany",
+  "allianzpartnerUrl": "www.xing.com",
+  "allianzpartnerName": "XING GmbH & Co. KG",
+  "referenznummer": "12288-4963186761-S"
+}

@@ -1,0 +1,137 @@
+{
+  "ergebnisliste": [
+    {
+      "stellenangebotsart": "ARBEIT",
+      "stellenangebotsTitel": "Data Analyst (m/w/d)",
+      "quereinstiegGeeignet": false,
+      "arbeitszeitSchichtNachtWochenende": false,
+      "arbeitszeitTeilzeitAbend": false,
+      "arbeitszeitTeilzeitNachmittag": false,
+      "arbeitszeitTeilzeitVormittag": false,
+      "arbeitszeitTeilzeitFlexibel": false,
+      "arbeitszeitVollzeit": true,
+      "eintrittszeitraum": {
+        "von": "2026-10-15"
+      },
+      "verguetungsangabe": "KEINE_ANGABEN",
+      "vertragsdauer": "UNBEFRISTET",
+      "istGeringfuegigeBeschaeftigung": false,
+      "stellenlokationen": [
+        {
+          "adresse": {
+            "plz": "01219",
+            "ort": "Dresden",
+            "region": "SACHSEN",
+            "land": "DEUTSCHLAND"
+          },
+          "breite": 51.0209672,
+          "laenge": 13.7648651
+        }
+      ],
+      "homeofficemoeglich": false,
+      "chiffrenummer": "34968672",
+      "veroeffentlichungszeitraum": {
+        "von": "2026-10-13"
+      },
+      "datumErsteVeroeffentlichung": "2026-10-13",
+      "aenderungsdatum": "2026-10-14T18:05:24.910",
+      "externeURL": "https://www.persy.jobs/persy/l/job-jpcx4-b",
+      "hauptberuf": "Data-Analyst/in",
+      "firma": "DIS AG Germany",
+      "referenznummer": "12288-4963186761-S",
+      "alleBerufe": [
+        "Data-Analyst/in"
+      ]
+    },
+    {
+      "stellenangebotsart": "ARBEIT",
+      "stellenangebotsTitel": "Data Analyst (w/m/d)",
+      "quereinstiegGeeignet": false,
+      "arbeitszeitSchichtNachtWochenende": false,
+      "arbeitszeitTeilzeitAbend": false,
+      "arbeitszeitTeilzeitNachmittag": false,
+      "arbeitszeitTeilzeitVormittag": false,
+      "arbeitszeitTeilzeitFlexibel": false,
+      "arbeitszeitVollzeit": true,
+      "eintrittszeitraum": {
+        "von": "2026-10-10"
+      },
+      "verguetungsangabe": "KEINE_ANGABEN",
+      "vertragsdauer": "KEINE_ANGABE",
+      "istGeringfuegigeBeschaeftigung": false,
+      "stellenlokationen": [
+        {
+          "adresse": {
+            "plz": "74172",
+            "ort": "Neckarsulm",
+            "region": "BADEN_WUERTTEMBERG",
+            "land": "DEUTSCHLAND"
+          },
+          "breite": 49.1988851,
+          "laenge": 9.2378473
+        }
+      ],
+      "homeofficemoeglich": true,
+      "homeofficetyp": "NACH_VEREINBARUNG",
+      "chiffrenummer": "83526",
+      "veroeffentlichungszeitraum": {
+        "von": "2026-10-10"
+      },
+      "datumErsteVeroeffentlichung": "2026-10-10",
+      "aenderungsdatum": "2026-10-09T16:57:35.703",
+      "hauptberuf": "Data-Analyst/in",
+      "firma": "Bechtle AG",
+      "arbeitgeberKundennummerHash": "EJiA5e5WtbxLv88mkzJRHL_DgiNrKSJ6r1oaRKtlSIU=",
+      "referenznummer": "15086-44497982-109-S",
+      "alleBerufe": [
+        "Data-Analyst/in"
+      ]
+    },
+    {
+      "stellenangebotsart": "ARBEIT",
+      "stellenangebotsTitel": "Data Analyst (m/w/d)",
+      "quereinstiegGeeignet": false,
+      "arbeitszeitSchichtNachtWochenende": false,
+      "arbeitszeitTeilzeitAbend": false,
+      "arbeitszeitTeilzeitNachmittag": false,
+      "arbeitszeitTeilzeitVormittag": false,
+      "arbeitszeitTeilzeitFlexibel": false,
+      "arbeitszeitVollzeit": true,
+      "eintrittszeitraum": {
+        "von": "2026-10-12"
+      },
+      "verguetungsangabe": "KEINE_ANGABEN",
+      "vertragsdauer": "KEINE_ANGABE",
+      "istGeringfuegigeBeschaeftigung": false,
+      "stellenlokationen": [
+        {
+          "adresse": {
+            "plz": "47652",
+            "ort": "Weeze",
+            "region": "NORDRHEIN_WESTFALEN",
+            "land": "DEUTSCHLAND"
+          },
+          "breite": 51.6214095,
+          "laenge": 6.1820861
+        }
+      ],
+      "homeofficemoeglich": true,
+      "homeofficetyp": "NACH_VEREINBARUNG",
+      "veroeffentlichungszeitraum": {
+        "von": "2026-10-12"
+      },
+      "datumErsteVeroeffentlichung": "2026-10-12",
+      "aenderungsdatum": "2026-10-12T07:56:31.341",
+      "externeURL": "https://www.yourfirm.de/job/detail/YF-51513/?utm_source=bundesagentur&utm_medium=unpaid-partner&utm_campaign=000",
+      "hauptberuf": "Data-Analyst/in",
+      "firma": "CHEFS CULINAR West GmbH & Co. KG",
+      "referenznummer": "12117-YF-51513-YF-S",
+      "alleBerufe": [
+        "Data-Analyst/in"
+      ]
+    }
+  ],
+  "maxErgebnisse": 3,
+  "page": 1,
+  "size": 5
+}
