@@ -117,6 +117,18 @@ async def test_corpus_scope_lists_all_postings(server) -> None:
     assert len(result.structured_content["result"]) == 1
 
 
+async def test_target_scope_needs_dedup_groups_and_target_titles(server) -> None:
+    mcp_server, path = server
+    conn = db.connect(path)
+    with conn:
+        conn.execute("UPDATE jobs SET description = ? WHERE id = 2", ("x" * 500,))
+        conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 2)")
+    async with Client(mcp_server) as client:
+        result = await client.call_tool("list_jobs_to_extract", {"model": "m", "scope": "target"})
+    # Job 1's description is too short to count as a full posting.
+    assert [j["job_id"] for j in result.structured_content["result"]] == [2]
+
+
 async def test_save_rejects_bad_input(server) -> None:
     base = {"job_id": 1, "model": "m", "prompt_version": version(), "extraction": LABELS}
     async with Client(server[0]) as client:
@@ -138,5 +150,6 @@ async def test_save_rejects_bad_input(server) -> None:
 
 async def test_prompt_warns_against_reading_labels(server) -> None:
     async with Client(server[0]) as client:
-        prompt = await client.get_prompt("extract_postings", {"scope": "eval"})
-    assert "eval/labels/" in prompt.messages[0].content.text
+        prompt = await client.get_prompt("extract_postings", {"scope": "target", "max_jobs": "5"})
+    text = prompt.messages[0].content.text
+    assert "eval/labels/" in text and "up to 5" in text

@@ -12,7 +12,7 @@ labels:
   workplace: "unknown"      # onsite | hybrid | remote | unknown
   years_experience_min: 5   # integer, or leave empty if not stated
   degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["Python", "Pandas", "NumPy", "Multiprocessing", "ETL/ELT", "Data Orchestration", "Dataset Versioning", "Object Detection", "Detectron2", "MMDetection", "COCO", "Active Learning", "Uncertainty Sampling", "Semi-supervised Learning", "CVAT", "Label Studio", "IoU", "mAP", "SQL", "NoSQL"]  # as written, e.g. [SQL, Python, Power BI]
+  required_skills: ["Python", "Pandas", "NumPy", "Multiprocessing", "ETL", "ELT", "Data Orchestration", "Dataset Versioning", "Object Detection", "Detectron2", "MMDetection", "COCO", "Active Learning", "Uncertainty Sampling", "Semi-supervised Learning", "CVAT", "Label Studio", "IoU", "mAP", "SQL", "NoSQL"]  # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: ["AWS S3", "MinIO", "ClearML", "MLflow", "Weights & Biases", "ROS", "Docker", "Embedded ML", "LiDAR", "Radar"]
   restrictions: ["NATO-aligned or close-ally citizenship"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                   # as written, or leave empty

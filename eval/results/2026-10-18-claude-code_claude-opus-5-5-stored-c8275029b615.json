@@ -1,0 +1,666 @@
+{
+  "groups": {
+    "all": {
+      "n": 30,
+      "fields": {
+        "role_family": 0.9333333333333333,
+        "seniority": 0.9333333333333333,
+        "employment_type": 0.9666666666666667,
+        "german_level": 1.0,
+        "english_level": 1.0,
+        "workplace": 0.9,
+        "degree": 1.0,
+        "is_target_role": 0.9666666666666667,
+        "german_implied": 1.0,
+        "years_experience_min": 1.0,
+        "salary_present": 0.9666666666666667,
+        "restrictions_present": 1.0,
+        "other_languages": 1.0,
+        "required_skills": {
+          "precision": 0.8125,
+          "recall": 0.8804780876494024
+        },
+        "nice_to_have_skills": {
+          "precision": 0.6235955056179775,
+          "recall": 0.9173553719008265
+        },
+        "any_skills": {
+          "precision": 0.76,
+          "recall": 0.9193548387096774
+        }
+      }
+    },
+    "human": {
+      "n": 4,
+      "fields": {
+        "role_family": 0.75,
+        "seniority": 1.0,
+        "employment_type": 1.0,
+        "german_level": 1.0,
+        "english_level": 1.0,
+        "workplace": 0.75,
+        "degree": 1.0,
+        "is_target_role": 1.0,
+        "german_implied": 1.0,
+        "years_experience_min": 1.0,
+        "salary_present": 1.0,
+        "restrictions_present": 1.0,
+        "other_languages": 1.0,
+        "required_skills": {
+          "precision": 0.45454545454545453,
+          "recall": 0.45454545454545453
+        },
+        "nice_to_have_skills": {
+          "precision": 0.07692307692307693,
+          "recall": 1.0
+        },
+        "any_skills": {
+          "precision": 0.4166666666666667,
+          "recall": 0.8333333333333334
+        }
+      }
+    },
+    "claude-draft": {
+      "n": 26,
+      "fields": {
+        "role_family": 0.9615384615384616,
+        "seniority": 0.9230769230769231,
+        "employment_type": 0.9615384615384616,
+        "german_level": 1.0,
+        "english_level": 1.0,
+        "workplace": 0.9230769230769231,
+        "degree": 1.0,
+        "is_target_role": 0.9615384615384616,
+        "german_implied": 1.0,
+        "years_experience_min": 1.0,
+        "salary_present": 0.9615384615384616,
+        "restrictions_present": 1.0,
+        "other_languages": 1.0,
+        "required_skills": {
+          "precision": 0.8275862068965517,
+          "recall": 0.9
+        },
+        "nice_to_have_skills": {
+          "precision": 0.6666666666666666,
+          "recall": 0.9166666666666666
+        },
+        "any_skills": {
+          "precision": 0.7793427230046949,
+          "recall": 0.9222222222222223
+        }
+      }
+    }
+  },
+  "mismatches": {
+    "role_family": [
+      {
+        "file": "03-arbeitnow-working-student-analytics-engineering-be.yaml",
+        "label": "analytics_engineer",
+        "predicted": "data_analyst"
+      },
+      {
+        "file": "20-arbeitnow-remote-ai-platform-engineer-koln-155430.yaml",
+        "label": "ai_engineer",
+        "predicted": "other"
+      }
+    ],
+    "seniority": [
+      {
+        "file": "07-arbeitnow-legal-ai-engineer-berlin-or-leipzig-3761.yaml",
+        "label": "unknown",
+        "predicted": "mid"
+      },
+      {
+        "file": "27-arbeitnow-senior-commercial-producer-munich-office.yaml",
+        "label": "senior",
+        "predicted": "mid"
+      }
+    ],
+    "employment_type": [
+      {
+        "file": "15-arbeitnow-remote-senior-data-scientist-304274.yaml",
+        "label": "unknown",
+        "predicted": "full_time"
+      }
+    ],
+    "german_level": [],
+    "english_level": [],
+    "workplace": [
+      {
+        "file": "02-arbeitnow-ml-engineering-intern-llm-research-devel.yaml",
+        "label": "onsite",
+        "predicted": "hybrid"
+      },
+      {
+        "file": "06-arbeitnow-working-student-data-engineering-amsterd.yaml",
+        "label": "onsite",
+        "predicted": "hybrid"
+      },
+      {
+        "file": "30-arbeitnow-praktikantin-logopadie-in-frankfurt-gesu.yaml",
+        "label": "onsite",
+        "predicted": "unknown"
+      }
+    ],
+    "degree": [],
+    "is_target_role": [
+      {
+        "file": "20-arbeitnow-remote-ai-platform-engineer-koln-155430.yaml",
+        "label": true,
+        "predicted": false
+      }
+    ],
+    "german_implied": [],
+    "years_experience_min": [],
+    "other_languages": [],
+    "salary": [
+      {
+        "file": "05-arbeitnow-data-ai-engineer-intern-6-months-105875.yaml",
+        "label": "2000€ gross monthly",
+        "predicted": "2000€ gross monthly gratification"
+      },
+      {
+        "file": "22-bundesagentur-15240-k50661-4158-s.yaml",
+        "label": "70.000–88.000 € Jahresbrutto",
+        "predicted": "70.000–88.000 €"
+      },
+      {
+        "file": "24-bundesagentur-12288-4961410192-s.yaml",
+        "label": "bis zu 80.400 € Bruttojahresgehalt (Vollzeit, Tarif)",
+        "predicted": "bis zu 80.400,00 Euro"
+      },
+      {
+        "file": "26-bundesagentur-19470-488223551-s.yaml",
+        "label": "Tarif Metall- und Elektroindustrie Baden-Württemberg",
+        "predicted": null
+      },
+      {
+        "file": "28-arbeitnow-commercial-analytics-praktikum-dusseldor.yaml",
+        "label": "2.410 €/Monat (freiwilliges Praktikum), 1.000 €/Monat (Pflichtpraktikum)",
+        "predicted": "2.410,00 €/Monat für ein freiwilliges Praktikum bzw. 1.000,00 €/Monat für ein Pflichtpraktikum"
+      }
+    ],
+    "restrictions": [
+      {
+        "file": "02-arbeitnow-ml-engineering-intern-llm-research-devel.yaml",
+        "label": [
+          "enrolled at a university",
+          "EU citizen or studying in the Netherlands",
+          "no visa support for internships"
+        ],
+        "predicted": [
+          "currently enrolled at a university",
+          "EU citizen or studying in the Netherlands",
+          "no visa sponsorship"
+        ]
+      },
+      {
+        "file": "03-arbeitnow-working-student-analytics-engineering-be.yaml",
+        "label": [
+          "enrolled student"
+        ],
+        "predicted": [
+          "enrolled student, at least two semesters remaining"
+        ]
+      },
+      {
+        "file": "05-arbeitnow-data-ai-engineer-intern-6-months-105875.yaml",
+        "label": [
+          "enrolled Master's student",
+          "6-month internship agreement (Convention de stage) from university"
+        ],
+        "predicted": [
+          "enrolled Master's student",
+          "6-month internship agreement signed by school/university"
+        ]
+      },
+      {
+        "file": "06-arbeitnow-working-student-data-engineering-amsterd.yaml",
+        "label": [
+          "enrolled student, 3rd year or beyond of a STEM Bachelor's/Master's"
+        ],
+        "predicted": [
+          "enrolled student, 3rd year or beyond of a Bachelor's or Master's program"
+        ]
+      },
+      {
+        "file": "16-arbeitnow-ml-data-engineer-sensor-data-pipelines-m.yaml",
+        "label": [
+          "NATO-aligned or close-ally citizenship"
+        ],
+        "predicted": [
+          "NATO-aligned nationality or close ally citizenship"
+        ]
+      },
+      {
+        "file": "17-arbeitnow-senior-ai-product-engineer-amsterdam-238.yaml",
+        "label": [
+          "4+ hour working overlap with Asia/Dubai time zones"
+        ],
+        "predicted": [
+          "4+ hour overlap with Asia/Dubai"
+        ]
+      },
+      {
+        "file": "30-arbeitnow-praktikantin-logopadie-in-frankfurt-gesu.yaml",
+        "label": [
+          "speech therapist in vocational training (Logopäd:in in Ausbildung)"
+        ],
+        "predicted": [
+          "Logopäd:in in Ausbildung"
+        ]
+      }
+    ],
+    "required_skills": [
+      {
+        "file": "01-arbeitnow-junior-data-engineer-amsterdam-298061.yaml",
+        "missed": [],
+        "extra": [
+          "data pipelines"
+        ]
+      },
+      {
+        "file": "02-arbeitnow-ml-engineering-intern-llm-research-devel.yaml",
+        "missed": [
+          "ai assistants",
+          "huggingface",
+          "python",
+          "pytorch"
+        ],
+        "extra": []
+      },
+      {
+        "file": "03-arbeitnow-working-student-analytics-engineering-be.yaml",
+        "missed": [
+          "ai assistants",
+          "power bi"
+        ],
+        "extra": [
+          "ai tools",
+          "bi tool"
+        ]
+      },
+      {
+        "file": "04-arbeitnow-data-engineer-working-student-koln-48215.yaml",
+        "missed": [],
+        "extra": [
+          "data modeling",
+          "elt",
+          "etl"
+        ]
+      },
+      {
+        "file": "07-arbeitnow-legal-ai-engineer-berlin-or-leipzig-3761.yaml",
+        "missed": [
+          "apis",
+          "git",
+          "scripting"
+        ],
+        "extra": []
+      },
+      {
+        "file": "08-arbeitnow-ml-engineer-computer-vision-ml-ops-munic.yaml",
+        "missed": [],
+        "extra": [
+          "classification",
+          "cloud platforms",
+          "fine tuning",
+          "generative models",
+          "ml lifecycle"
+        ]
+      },
+      {
+        "file": "10-arbeitnow-remote-senior-ai-product-engineer-berlin.yaml",
+        "missed": [
+          "function calling",
+          "llm apis"
+        ],
+        "extra": [
+          "function tool calling",
+          "llm provider apis"
+        ]
+      },
+      {
+        "file": "11-arbeitnow-senior-generative-ai-engineer-zurich-706.yaml",
+        "missed": [],
+        "extra": [
+          "cloud native deployments"
+        ]
+      },
+      {
+        "file": "12-arbeitnow-senior-ml-engineer-speech-berlin-35903.yaml",
+        "missed": [
+          "mlops",
+          "speech to text",
+          "testing"
+        ],
+        "extra": [
+          "guardrails",
+          "stt",
+          "tests"
+        ]
+      },
+      {
+        "file": "13-arbeitnow-staff-ai-engineer-agentic-shopping-amste.yaml",
+        "missed": [
+          "llm fine tuning"
+        ],
+        "extra": [
+          "fine tuning",
+          "framework tools",
+          "open weight llms"
+        ]
+      },
+      {
+        "file": "15-arbeitnow-remote-senior-data-scientist-304274.yaml",
+        "missed": [],
+        "extra": [
+          "data modeling",
+          "hex",
+          "llms",
+          "omni",
+          "software development lifecycle"
+        ]
+      },
+      {
+        "file": "16-arbeitnow-ml-data-engineer-sensor-data-pipelines-m.yaml",
+        "missed": [
+          "coco"
+        ],
+        "extra": [
+          "coco format"
+        ]
+      },
+      {
+        "file": "17-arbeitnow-senior-ai-product-engineer-amsterdam-238.yaml",
+        "missed": [
+          "authentication",
+          "data modeling",
+          "function calling",
+          "llm apis"
+        ],
+        "extra": [
+          "auth",
+          "claude code",
+          "codex",
+          "cursor",
+          "data models",
+          "model apis",
+          "tool function calling"
+        ]
+      },
+      {
+        "file": "18-arbeitnow-senior-data-scientist-amsterdam-145692.yaml",
+        "missed": [],
+        "extra": [
+          "llms",
+          "model evaluation"
+        ]
+      },
+      {
+        "file": "19-arbeitnow-senior-data-analytics-engineer-berlin-39.yaml",
+        "missed": [
+          "ai workflow automation",
+          "bi tools",
+          "monitoring",
+          "testing"
+        ],
+        "extra": [
+          "bi tool",
+          "ci",
+          "semantic layer"
+        ]
+      },
+      {
+        "file": "20-arbeitnow-remote-ai-platform-engineer-koln-155430.yaml",
+        "missed": [],
+        "extra": [
+          "cloud operations"
+        ]
+      },
+      {
+        "file": "21-bundesagentur-13319-897506-1_626028ls-s.yaml",
+        "missed": [],
+        "extra": [
+          "stakeholdermanagement",
+          "workshop moderation"
+        ]
+      },
+      {
+        "file": "22-bundesagentur-15240-k50661-4158-s.yaml",
+        "missed": [],
+        "extra": [
+          "analytics",
+          "reporting",
+          "stammdatenprozesse"
+        ]
+      },
+      {
+        "file": "24-bundesagentur-12288-4961410192-s.yaml",
+        "missed": [
+          "cloud",
+          "operationalisierung von ml modellen",
+          "prognoseanalysen",
+          "semantische suche"
+        ],
+        "extra": [
+          "cloud technologien",
+          "code versionierung",
+          "datenarchitekturen",
+          "ki entwicklungsplattform",
+          "prognose",
+          "semantische suchverfahren"
+        ]
+      },
+      {
+        "file": "29-arbeitnow-senior-director-people-operations-and-fa.yaml",
+        "missed": [
+          "compliance",
+          "employee relations"
+        ],
+        "extra": [
+          "salary benchmarking"
+        ]
+      }
+    ],
+    "nice_to_have_skills": [
+      {
+        "file": "02-arbeitnow-ml-engineering-intern-llm-research-devel.yaml",
+        "missed": [],
+        "extra": [
+          "a b testing",
+          "distributed systems",
+          "huggingface",
+          "llms",
+          "ml fundamentals",
+          "python",
+          "pytorch"
+        ]
+      },
+      {
+        "file": "03-arbeitnow-working-student-analytics-engineering-be.yaml",
+        "missed": [],
+        "extra": [
+          "claude",
+          "gemini",
+          "looker",
+          "power bi",
+          "tableau"
+        ]
+      },
+      {
+        "file": "05-arbeitnow-data-ai-engineer-intern-6-months-105875.yaml",
+        "missed": [],
+        "extra": [
+          "agentic workflows",
+          "llms",
+          "rag"
+        ]
+      },
+      {
+        "file": "06-arbeitnow-working-student-data-engineering-amsterd.yaml",
+        "missed": [],
+        "extra": [
+          "cloud environments",
+          "data pipelines",
+          "ml platforms"
+        ]
+      },
+      {
+        "file": "07-arbeitnow-legal-ai-engineer-berlin-or-leipzig-3761.yaml",
+        "missed": [],
+        "extra": [
+          "apis",
+          "evaluation frameworks",
+          "git",
+          "prompt engineering",
+          "scripting"
+        ]
+      },
+      {
+        "file": "08-arbeitnow-ml-engineer-computer-vision-ml-ops-munic.yaml",
+        "missed": [],
+        "extra": [
+          "3d data processing",
+          "adversarial robustness",
+          "depth maps",
+          "edge ai",
+          "eu mdr",
+          "iec 62304",
+          "mesh reconstruction",
+          "mlops",
+          "small language models",
+          "speech pipelines"
+        ]
+      },
+      {
+        "file": "09-bundesagentur-11949-17383626-s.yaml",
+        "missed": [],
+        "extra": [
+          "cloud data platforms",
+          "data models",
+          "data pipelines"
+        ]
+      },
+      {
+        "file": "10-arbeitnow-remote-senior-ai-product-engineer-berlin.yaml",
+        "missed": [],
+        "extra": [
+          "agents",
+          "chaining",
+          "llm observability",
+          "routing",
+          "summarization"
+        ]
+      },
+      {
+        "file": "11-arbeitnow-senior-generative-ai-engineer-zurich-706.yaml",
+        "missed": [],
+        "extra": [
+          "data pipelines",
+          "observability"
+        ]
+      },
+      {
+        "file": "12-arbeitnow-senior-ml-engineer-speech-berlin-35903.yaml",
+        "missed": [],
+        "extra": [
+          "mlops"
+        ]
+      },
+      {
+        "file": "13-arbeitnow-staff-ai-engineer-agentic-shopping-amste.yaml",
+        "missed": [],
+        "extra": [
+          "distillation"
+        ]
+      },
+      {
+        "file": "14-arbeitnow-lead-ai-engineer-freelance-paris-247328.yaml",
+        "missed": [],
+        "extra": [
+          "guardrails",
+          "observability",
+          "testing"
+        ]
+      },
+      {
+        "file": "15-arbeitnow-remote-senior-data-scientist-304274.yaml",
+        "missed": [
+          "hex",
+          "omni"
+        ],
+        "extra": [
+          "classification",
+          "clustering",
+          "feature engineering",
+          "predictive modeling"
+        ]
+      },
+      {
+        "file": "17-arbeitnow-senior-ai-product-engineer-amsterdam-238.yaml",
+        "missed": [
+          "crm",
+          "telephony"
+        ],
+        "extra": [
+          "prediction"
+        ]
+      },
+      {
+        "file": "18-arbeitnow-senior-data-scientist-amsterdam-145692.yaml",
+        "missed": [
+          "knowledge graphs",
+          "nlp"
+        ],
+        "extra": [
+          "graph neural networks",
+          "knowledge graph design",
+          "natural language processing",
+          "rag"
+        ]
+      },
+      {
+        "file": "19-arbeitnow-senior-data-analytics-engineer-berlin-39.yaml",
+        "missed": [],
+        "extra": [
+          "etl"
+        ]
+      },
+      {
+        "file": "20-arbeitnow-remote-ai-platform-engineer-koln-155430.yaml",
+        "missed": [
+          "ai agents",
+          "multi tenant cloud",
+          "open source"
+        ],
+        "extra": [
+          "agents",
+          "multi tenant",
+          "open webui",
+          "redis",
+          "waf"
+        ]
+      },
+      {
+        "file": "22-bundesagentur-15240-k50661-4158-s.yaml",
+        "missed": [],
+        "extra": [
+          "data cleansing",
+          "datenvalidierung",
+          "root cause analysen"
+        ]
+      },
+      {
+        "file": "24-bundesagentur-12288-4961410192-s.yaml",
+        "missed": [
+          "azure"
+        ],
+        "extra": [
+          "microsoft azure"
+        ]
+      }
+    ]
+  },
+  "missing": []
+}

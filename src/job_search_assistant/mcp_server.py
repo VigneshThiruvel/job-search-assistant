@@ -55,18 +55,21 @@ def build_server(
 
     @server.tool()
     def list_jobs_to_extract(
-        model: str, scope: Literal["eval", "corpus"] = "eval", limit: int = 10
+        model: str, scope: Literal["eval", "target", "corpus"] = "eval", limit: int = 10
     ) -> list[dict[str, Any]]:
         """Postings that have no extraction yet from `model` under the current guidelines.
 
         model: your own model id, e.g. "claude-opus-5-5".
-        scope: "eval" = the 30 hand-labelled postings; "corpus" = every posting with a
-        description.
+        scope: "eval" = the 30 hand-labelled postings; "target" = one posting per duplicate
+        group with a target-role title, in-scope location and full description;
+        "corpus" = every posting with a description.
         """
         limit = max(1, min(limit, MAX_LIMIT))
         with closing(connect()) as conn:
             if scope == "eval":
                 jobs = [job for _, _, job in extract.eval_jobs(conn, labels_dir)]
+            elif scope == "target":
+                jobs = [job for job in evalset.candidates(conn) if job["target"]]
             else:
                 jobs = [dict(r) for r in conn.execute(
                     "SELECT id, title FROM jobs WHERE description != '' ORDER BY id"
@@ -118,13 +121,14 @@ def build_server(
         return f"saved job {job_id} as {stored_model(model)} / {version}"
 
     @server.prompt()
-    def extract_postings(scope: str = "eval") -> str:
-        """Extract every remaining posting in a scope (eval or corpus)."""
+    def extract_postings(scope: str = "eval", max_jobs: str = "50") -> str:
+        """Extract up to max_jobs remaining postings in a scope (eval, target or corpus)."""
         return (
-            f"Extract the remaining job postings in scope {scope!r} with the "
+            f"Extract up to {max_jobs} remaining job postings in scope {scope!r} with the "
             "job-search-assistant tools. First call get_extraction_guidelines. Then, until "
-            "list_jobs_to_extract returns nothing: get_job, extract exactly per the "
-            "guidelines, save_extraction with your own model id. Use only the text returned "
+            f"you have saved {max_jobs} or list_jobs_to_extract returns nothing: get_job, "
+            "extract exactly per the guidelines, save_extraction with your own model id. "
+            "Use only the text returned "
             "by get_job; do not read files in this repository (in particular eval/labels/, "
             "which holds the answers you are graded against). Report how many you saved."
         )

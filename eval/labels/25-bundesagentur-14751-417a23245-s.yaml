@@ -12,8 +12,8 @@ labels:
   workplace: "unknown"      # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["RAG", "MCP", "AI Security", "LLM Evaluation", "Vector Databases", "Qdrant", "Chroma", "AI Coding Agents", "Claude Code", "OpenCode", "Python"]  # as written, e.g. [SQL, Python, Power BI]
-  nice_to_have_skills: ["Docker", "Kubernetes", "Container Networking", "Git", "CI/CD", "Logging", "Monitoring"]
+  required_skills: ["RAG", "MCP", "Cybersecurity für KI-Systeme", "LLM-Evaluation-Frameworks", "Vector-DBs", "Qdrant", "Chroma", "AI Agenten", "Claude Code", "OpenCode", "Python"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Docker", "Kubernetes", "Netzwerkkonzepte in Container-Umgebungen", "Git", "CI/CD", "Logging", "Monitoring"]
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                   # as written, or leave empty
   notes: "'Grundlegende Erfahrung' / 'Grundkenntnisse' -> junior. Placed at Airbus via a temp agency (Personalüberlassung) -> contract. 'Verhandlungssicheres Deutsch' -> fluent; 'versierte Englischkenntnisse' -> business (proficient, no level). Docker/Kubernetes only in tasks -> nice_to_have; Git/CI/CD 'von (sehr) großem Vorteil' -> nice_to_have. 'On-Premise' is about hosting, not workplace."  # anything ambiguous; why you chose a label

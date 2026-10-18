@@ -12,7 +12,7 @@ labels:
   workplace: "hybrid"       # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["Master Data Management", "Data Quality Management", "SAP MDG", "SAP S/4HANA", "Data Migration", "Power BI", "Excel", "SQL", "Data Modeling"]  # as written, e.g. [SQL, Python, Power BI]
+  required_skills: ["Master Data Management", "Data Quality Management", "SAP MDG", "SAP S/4HANA", "Datenmigration", "Power BI", "Advanced Excel", "SQL", "Datenmodellierung"]  # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: [] 
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary: "70.000–88.000 € Jahresbrutto"  # as written, or leave empty

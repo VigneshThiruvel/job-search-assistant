@@ -4,7 +4,7 @@ labels:
   is_target_role: true         # true/false: one of the roles in CLAUDE.md "Search scope"
   role_family: data_engineer   # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
   seniority: junior            # intern | working_student | junior | mid | senior | lead | unknown
-  employment_type: full_time   # full_time | part_time | contract | freelance | unknown
+  employment_type: unknown     # full_time | part_time | contract | freelance | unknown
   german_level: none           # none | plus | basic | business | fluent | native
   german_implied: false        # true/false: level inferred (e.g. German-only posting), not stated
   english_level: fluent        # none | plus | basic | business | fluent | native

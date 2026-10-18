@@ -41,9 +41,20 @@ agents, RAG → ai_engineer.
 - `lead` – lead, principal, staff, head, manager of people
 - `unknown` – nothing to go on
 
+No years stated? Use the experience wording: "first/some experience",
+"erste/grundlegende Erfahrung", "Grundkenntnisse" → `junior`; "solid/proven/
+several years of experience", "fundierte/mehrjährige/langjährige Erfahrung" →
+`mid` (unless a level word says otherwise). Only when neither years nor such
+wording exist → `unknown`.
+
 **employment_type** — `full_time`, `part_time`, `contract` (fixed-term via an
 agency or project contract), `freelance`, `unknown`. A fixed-term (befristet)
 employee job is still `full_time`/`part_time`.
+Only what the posting states ("Vollzeit", "full-time", "20 h/week"), with one
+exception: working student / Werkstudent → `part_time` (part-time by
+definition in Germany). Never infer it from seniority: a junior or intern
+posting that says nothing → `unknown`. Both offered ("Voll- oder Teilzeit")
+→ `full_time`.
 
 **german_level / english_level** — the *requirement*, using this scale:
 | value | meaning | typical wording |
@@ -85,13 +96,22 @@ is needed.
 **required_skills / nice_to_have_skills** — tools, languages, methods, as
 written in the posting (`Power BI`, `PySpark`, `A/B testing`). Not soft skills,
 not human languages, not degrees. Don't normalize names (that's Phase 4);
-do split lists ("Python/R" → `[Python, R]`). Ambiguous wording ("ideally",
+do split lists ("Python/R" → `[Python, R]`, "ETL/ELT" → `[ETL, ELT]`;
+established names like `CI/CD` and `A/B testing` stay whole). In a German
+posting, keep the posting's own word — `Datenmodellierung`, not "Data
+Modeling"; English terms it already uses (`Power BI`, `RAG`) stay English.
+Translating is normalization, i.e. Phase 4. Ambiguous wording ("ideally",
 "wünschenswert", "a plus") → nice to have.
 
 **restrictions** — who may apply, as short phrases close to the posting's
 wording: `["enrolled student", "EU citizen or studying in NL", "no visa
 sponsorship", "valid German work permit"]`. Not skills or languages (those
-have their own fields). Empty if none stated.
+have their own fields). Empty if none stated. Only *eligibility* — conditions
+that rule a person out: student status, citizenship, work permit, visa,
+time-zone overlap. Not availability or willingness (travel, weekly hours,
+start date, duration): those are part of the job, not who may apply. One
+phrase per condition; details of the same condition stay in it
+(`"enrolled student, 3rd year or beyond"`).
 
 **salary** — copy as written (`"€55,000–65,000"`), else leave empty.
 

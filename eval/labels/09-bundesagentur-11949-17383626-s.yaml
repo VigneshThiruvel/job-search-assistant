@@ -13,7 +13,7 @@ labels:
   years_experience_min: 3   # integer, or leave empty if not stated
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
   required_skills: ["SQL", "Python", "Power BI", "Git", "CI/CD", "Agile", "Scrum", "Kanban"]  # as written, e.g. [SQL, Python, Power BI]
-  nice_to_have_skills: ["Microsoft Fabric", "Azure", "Snowflake", "SAP BDC", "ETL/ELT"]
+  nice_to_have_skills: ["Microsoft Fabric", "Azure", "Snowflake", "SAP BDC", "ETL", "ELT"]
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                   # as written, or leave empty
   notes: "Titled Data Scientist but the work is pipelines/ETL/data platform -> data_engineer (guideline: judge by the work). 3 years -> mid. 'Flexible working time' is about hours, not home office -> workplace unknown. Location Hötting = Innsbruck, Austria."  # anything ambiguous; why you chose a label

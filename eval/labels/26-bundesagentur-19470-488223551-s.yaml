@@ -12,11 +12,11 @@ labels:
   workplace: "hybrid"       # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["Data Engineering", "Machine Learning", "MLOps"]  # as written, e.g. [SQL, Python, Power BI]
-  nice_to_have_skills: ["Event-driven Architecture", "AI Agents", "Explainable AI"]
+  required_skills: ["Data Engineering", "Machine Learning"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Explainable AI", "ereignisgetriebene AI-Ansätze", "agentenbasierte AI-Ansätze"]
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary: "Tarif Metall- und Elektroindustrie Baden-Württemberg"  # as written, or leave empty
-  notes: "Data engineering + ML taken into stable operation, explainable models for production -> ml_engineer. 'Fundierte praktische Erfahrung' -> mid. C1 -> fluent; 'gute Englischkenntnisse' -> business. 'Mobile Arbeit' -> hybrid. 'Von der Entwicklung in den stabilen operativen Betrieb' -> MLOps. Explainable AI only in tasks -> nice_to_have. Salary is a collective-agreement reference, not an amount."  # anything ambiguous; why you chose a label
+  notes: "Data engineering + ML taken into stable operation, explainable models for production -> ml_engineer. 'Fundierte praktische Erfahrung' -> mid. C1 -> fluent; 'gute Englischkenntnisse' -> business. 'Mobile Arbeit' -> hybrid. 'Von der Entwicklung in den stabilen operativen Betrieb' not listed as MLOps (that would be translating; Phase 4). Explainable AI only in tasks -> nice_to_have. Salary is a collective-agreement reference, not an amount."  # anything ambiguous; why you chose a label
 
 job:
   source: bundesagentur

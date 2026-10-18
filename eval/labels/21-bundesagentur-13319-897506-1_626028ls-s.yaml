@@ -3,7 +3,7 @@ labelled_by: claude-draft   # human | claude-draft (who wrote the labels before 
 labels:
   is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
   role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
-  seniority: "unknown"      # intern | working_student | junior | mid | senior | lead | unknown
+  seniority: "mid"          # intern | working_student | junior | mid | senior | lead | unknown
   employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
   german_level: "fluent"    # none | plus | basic | business | fluent | native
   german_implied: true      # true/false: level inferred (e.g. German-only posting), not stated
@@ -12,11 +12,11 @@ labels:
   workplace: "unknown"      # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["Business Analysis", "Solution Design", "Requirements Analysis", "Process Documentation", "Solution Architecture", "Integration Concepts", "Data Concepts"]  # as written, e.g. [SQL, Python, Power BI]
+  required_skills: ["Business Analyse", "Solution Design", "Anforderungsanalyse", "Prozessdokumentation", "Lösungsarchitekturen", "Integrationen", "Datenkonzepte"]  # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: [] 
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                   # as written, or leave empty
-  notes: "Titled Data Scientist, but the work is business analysis/solution design for AI automation projects; no modelling, statistics or code -> not a target role. German-only posting, no language statement -> fluent, implied. Insurance/finance background is preferred (domain, not a skill). Workshop/stakeholder skills omitted as soft skills."  # anything ambiguous; why you chose a label
+  notes: "Titled Data Scientist, but the work is business analysis/solution design for AI automation projects; no modelling, statistics or code -> not a target role. German-only posting, no language statement -> fluent, implied. Insurance/finance background is preferred (domain, not a skill). Workshop/stakeholder skills omitted as soft skills. 'Fundierte Erfahrung' -> mid."  # anything ambiguous; why you chose a label
 
 job:
   source: bundesagentur

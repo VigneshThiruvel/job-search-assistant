@@ -14,7 +14,7 @@ labels:
   degree: bachelor                 # none | vocational | bachelor | master | phd | unknown (minimum required)
   required_skills: [Python, SQL, Power BI, Microsoft Fabric]      # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: [Databricks]      # as written, e.g. [SQL, Python, Power BI]
-  restrictions: []         # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  restrictions: ["enrolled student"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                  # as written, or leave empty
   notes:                   # anything ambiguous; why you chose a label
 

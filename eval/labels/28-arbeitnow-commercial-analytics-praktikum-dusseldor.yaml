@@ -14,7 +14,7 @@ labels:
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
   required_skills: ["Google Sheets", "Excel", "Dashboards"]  # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: ["Python", "SQL", "Tableau"]
-  restrictions: ["enrolled student"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  restrictions: []  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary: "2.410 €/Monat (freiwilliges Praktikum), 1.000 €/Monat (Pflichtpraktikum)"  # as written, or leave empty
   notes: "Sampled as not_target (title regex missed 'Commercial Analytics'), but the work is SQL/Python/Excel analysis and Tableau dashboards -> target, data_analyst. 16-20h/week -> part_time. 'Fließende Deutsch- und Englischkenntnisse' -> fluent both. SQL/Tableau only in tasks; Python 'idealerweise' -> nice_to_have. Ideally final Bachelor's phase or Master's."  # anything ambiguous; why you chose a label
 

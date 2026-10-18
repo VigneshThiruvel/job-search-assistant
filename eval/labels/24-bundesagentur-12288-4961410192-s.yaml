@@ -12,7 +12,7 @@ labels:
   workplace: "hybrid"       # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "vocational"      # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["Machine Learning", "Forecasting", "Time Series Analysis", "MLOps", "Generative AI", "LLMs", "RAG", "AI Agents", "Python", "Git", "CI/CD", "Vector Databases", "Semantic Search", "MCP", "Cloud"]  # as written, e.g. [SQL, Python, Power BI]
+  required_skills: ["Machine Learning", "Prognoseanalysen", "Zeitreihenanalysen", "Operationalisierung von ML-Modellen", "Generative KI", "LLMs", "RAG", "KI-Agenten", "Python", "Git", "CI/CD", "Vektordatenbanken", "semantische Suche", "MCP", "Cloud"]  # as written, e.g. [SQL, Python, Power BI]
   nice_to_have_skills: ["Databricks", "Azure", "AWS", "Google Cloud"]
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary: "bis zu 80.400 € Bruttojahresgehalt (Vollzeit, Tarif)"  # as written, or leave empty

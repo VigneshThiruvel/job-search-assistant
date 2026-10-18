@@ -12,8 +12,8 @@ labels:
   workplace: "hybrid"       # onsite | hybrid | remote | unknown
   years_experience_min:     # integer, or leave empty if not stated
   degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
-  required_skills: ["React", "TypeScript", "Automated Testing", "Claude Code", "Agentic Coding Tools", "UX Design", "UI Design"]  # as written, e.g. [SQL, Python, Power BI]
-  nice_to_have_skills: ["Python", "LangGraph", "Agent Frameworks"]
+  required_skills: ["React", "TypeScript", "automatisierte Tests", "agentische Werkzeuge", "Claude Code", "UX-Design", "UI-Design"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Python", "Agent-Frameworks", "LangGraph", "MCP"]
   restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
   salary:                   # as written, or leave empty
   notes: "Frontend (React/TypeScript) for an AI app -> not a target role (guideline example). 'Gute Deutschkenntnisse (mind. C1)': stated CEFR wins -> fluent. 'Gute Englischkenntnisse' -> business. 37.5h week -> full_time. 'Mobiles Arbeiten' -> hybrid. 'Mehrjährige Erfahrung' -> mid."  # anything ambiguous; why you chose a label
