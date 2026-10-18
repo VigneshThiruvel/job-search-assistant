@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "job-search": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--quiet", "python", "-m", "job_search_assistant.mcp_server"]
+    }
+  }
+}

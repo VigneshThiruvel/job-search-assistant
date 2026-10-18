@@ -7,6 +7,8 @@ dependencies = [
     "anthropic>=1.15.0",
     "httpx>=0.28.1",
     "lingua-language-detector>=2.1.1",
+    "mcp>=2.3.0",
+    "pydantic>=2.14.1",
     "python-dotenv>=1.2.4",
     "pyyaml>=6.0.3",
 ]
