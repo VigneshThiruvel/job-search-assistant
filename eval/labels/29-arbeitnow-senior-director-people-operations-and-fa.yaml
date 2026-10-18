@@ -1,0 +1,116 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "lead"         # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "none"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: ["Dutch: plus"]  # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min: 12  # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["People Operations", "Payroll", "Reward and Benefits", "Employment Law", "Employee Relations", "Compliance"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "HR leadership role -> not target. Senior Director managing teams -> lead. 'Professional fluency in English; Dutch is a strong plus'. Hybrid, min 2 office days in Amsterdam."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: senior-director-people-operations-and-facilities-440314
+  stratum: not_target
+  title: Senior Director People Operations and Facilities
+  company: Catawiki
+  location: null
+  url: https://www.arbeitnow.nl/jobs/companies/catawiki/senior-director-people-operations-and-facilities-440314
+  lang: en
+
+description: |
+  At Catawiki, every day brings the extraordinary! Whether it’s Daniel Ricciardo’s Formula 1 Car, a Woolly Mammoth’s Skeleton, Lady Gaga's Jumpsuit or Usain Bolt’s running shoe, we encounter exceptional objects every day.
+
+  We’re a one-of-a-kind marketplace for buying and selling special objects. Each week, more than 100,000 unique items are auctioned, all carefully curated by our passionate in-house experts.
+
+  Having sold over 25 million unique objects, our mission is to become the world’s most popular destination for special objects. As a growing, diverse and sustainable scale-up, we proudly live by three core values. If these values resonate with you, we’d love to explore how you can join us.
+
+  - Taking ownership and driving impact 
+
+  - Being open to change and feedback
+
+  - Being passionate about our mission and our customers. 
+
+  Your Mission
+
+  As Senior Director, People Operations, you will lead the operational backbone of the People function across Catawiki’s operating countries. You will set the strategic direction for People Operations, Payroll, Reward and Benefits, Compliance, Employee relations & Wellbeing, Facilities and Workplace Experience.
+
+  You will strengthen scalable and compliant operations while maintaining a consistent employee experience. This includes improving processes through automation, AI and self-service, strengthening governance and controls, and enabling better decisions through people insights.
+
+  What You’ll Do
+
+  - Define and own the strategic roadmap for People Operations, payroll, well-being and facilities, aligned with the Business and People strategy.
+
+  - Lead and develop the People Operations, payroll and facilities teams and well-being expert, establishing clear priorities, ownership, service standards and ways of working.
+
+  - Strengthen people operations across the employee lifecycle, including payroll, benefits, compensation operations, documentation and compliance, using automation, AI and self-service to improve scalability and efficiency.
+
+  - Ensure compliance with employment legislation, payroll, tax, audit and people-related ESG requirements, partnering with HRIS, Finance, Legal and external providers to maintain strong controls and resolve issues.
+
+  - Oversee employee relations, well-being and absence management, providing senior direction on complex cases and using data and insights to identify risks and improve policies and practices.
+
+  - Own the facilities and workplace experience strategy for the Amsterdam and Lisbon offices, ensuring effective operations and appropriate standards for health, safety, security and hybrid working.
+
+  - Act as a senior escalation point for complex people, operational and workplace matters, working closely with the CPO on employee relations and Works Council topics.
+
+  - Evolve and implement the reward and benefits strategy with the CPO, including compensation visibility, role and salary benchmarking, and sustainable, data-informed improvements.
+
+  What You’ll Bring
+
+  - Bring 12+ years of relevant experience in an international, fast-growing organisation, with deep expertise in People Operations and experience in areas such as Reward, Employee Relations, well-being or Facilities.
+
+  - Demonstrate experience leading multi-country People Operations at scale, including payroll, benefits, compensation operations, compliance and process improvement.
+
+  - Apply strong knowledge of employment law and employee relations practices in the Netherlands and other European countries, with sound judgement on complex cases and when to involve legal specialists.
+
+  - Bring experience with reward and benefits programmes inside and outside the Netherlands, including role and salary benchmarking.
+
+  - Use data, automation and emerging technologies, including AI, to challenge existing processes, improve decision-making and build scalable ways of working.
+
+  - Translate strategy into practical execution while managing priorities effectively in a fast-paced, hybrid and international environment.
+
+  - Communicate effectively and build trusted relationships with employees, managers, senior leaders and external partners, with professional fluency in English; Dutch is a strong plus.
+
+  How We Work
+
+  - Our People team of around 40 people, mainly based across Amsterdam and Lisbon, works collaboratively and openly, using data and AI to inform our thinking while staying closely connected to the needs of the business. We also make time to connect socially and enjoy working together.
+
+  - Our senior leaders combine strategic direction with hands-on operational execution, with a focus on clear ownership, speed and scalable foundations.
+
+  - Our People team use data, insights and employee feedback to identify risks and opportunities and turn them into practical improvements.
+
+  - In this Sr Director role, you'll work closely with the CPO, People Leadership Team, People Business Partners, Talent Acquisition, HRIS, IT, Finance, Legal and business leaders across Catawiki.
+
+  Where You’ll Be
+
+  This is a hybrid role based in Amsterdam. You will work from our Amsterdam HQ a minimum of 2 days per week.
+
+  Why You'll Love Working with Us
+
+  - Create a visible impact by working at scale in a global organisation serving millions of customers across 80+ categories. In our flat structure, every role has a broad scope and directly impacts both our customers and the business.
+
+  - Learn and grow through our Learning & Development initiatives, including clear development plans and mentorship programmes to support your career progression.
+
+  - A culture of connection defines us. We’re a passionate, diverse team of 800+ Catawikians representing 60+ nationalities. We foster an inclusive and queer-friendly environment where everyone is encouraged to bring their full self to work.
+
+  - Celebrate life’s moments with us. You’ll receive a €100 Catavoucher when you join, a €50 Catavoucher on your birthday, and an extra day off each year to “Pursue Your Passion”. We also offer additional leave for key work anniversaries and important life events. Benefits may vary by location.
+
+  Our Offices and Way of Working
+
+  Our vibrant offices in Amsterdam and Lisbon are designed to inspire collaboration. Most Catawikians operate in a hybrid setup, combining office-based and remote work, with a minimum of two days per week in the office, unless a role is explicitly stated as fully remote or fully office-based.
+
+  Interested?
+
+  Apply with an English CV and Cover Letter. By applying, you agree to Catawiki’s Applicant Privacy Policy. If you’re excited about this role but don’t meet every requirement, we still encourage you to apply anyway. You may be just the right candidate for this or other roles.
+
+  Find more English Speaking Jobs in Netherlands on Arbeitnow

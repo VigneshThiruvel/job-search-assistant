@@ -1,0 +1,76 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "data_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "mid"          # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "full_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "plus"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "unknown"      # onsite | hybrid | remote | unknown
+  years_experience_min: 3   # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["SQL", "Python", "Power BI", "Git", "CI/CD", "Agile", "Scrum", "Kanban"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Microsoft Fabric", "Azure", "Snowflake", "SAP BDC", "ETL/ELT"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Titled Data Scientist but the work is pipelines/ETL/data platform -> data_engineer (guideline: judge by the work). 3 years -> mid. 'Flexible working time' is about hours, not home office -> workplace unknown. Location Hötting = Innsbruck, Austria."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 11949-17383626-S
+  stratum: target_en_mentions_german
+  title: Data Scientist
+  company: MED-EL Elektromedizinische Geräte GmbH
+  location: Hötting
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/11949-17383626-S
+  lang: en
+
+description: |
+  As Information Technology Department we enable digital processes and reliable IT services across the company. Our Data & Analytics Team collaborates with the business to develop, support, maintain, and govern data warehouse, data platform, and BI solutions that enable informed decision-making.
+
+
+
+  Your Tasks
+
+  Design, build, maintain, and optimize scalable data pipelines that integrate data from APIs, databases, and other sources
+
+  Develop and enhance ETL/ELT processes and data models to support analytics, reporting, and business intelligence
+
+  Collaborate with business stakeholders to gather requirements and deliver reliable, high-quality data solutions
+
+  Ensure the scalability, performance, and reliability of the data platform while continuously improving the data architecture
+
+  Support users of the data warehouse and data platform, contribute to data quality initiatives, and participate in code reviews and CI/CD processes
+
+
+
+  Your Profile
+
+  Completed Bachelor's degree or higher (University, FH) in Data Science, Computer Science, or a related field, along with at least 3 years of professional experience
+
+  Strong SQL skills and solid Python experience for data engineering and automation
+
+  Hands-on experience with Microsoft Fabric, Azure, Snowflake, SAP BDC or similar cloud data platforms, including ETL/ELT development, is desirable
+
+  Experience with Power BI, Git, CI/CD, and working in Agile (Scrum/Kanban) development environments
+
+  Strong analytical and problem-solving skills with excellent English communication skills; German is an advantage
+
+  Please apply in English!
+
+  Further information about MED-EL can be found https://www.medel.com/about-medel.
+
+
+
+  Full-time post 38,5 hours per week, flexible working time model with core working hours, details will be discussed in a personal interview.
+
+
+
+  Want to join a company that helps bring the joy of sound to people with hearing loss? Apply now!
+
+  https://jobs.medel.com/EN/open-position/IT_12610/online 
+
+  A personal interview is only possible after prior invitation from the HR department.

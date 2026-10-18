@@ -1,0 +1,92 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "senior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "plus"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min: 3   # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Production Management", "Project Management"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Marketing production role -> not target. Title '(Senior)' (guideline: title first) though 3+ years would suggest mid. 'German is a strong plus' -> plus. 3 office days/week -> hybrid."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: senior-commercial-producer-munich-office-412020
+  stratum: not_target
+  title: (Senior) Commercial Producer (m/f/d)
+  company: Westwing Group SE
+  location: Munich Office
+  url: https://www.arbeitnow.com/jobs/companies/westwing-group-se/senior-commercial-producer-munich-office-412020
+  lang: en
+
+description: |
+  JOIN OUR TEAM
+  As a (Senior) Commercial Producer, you will manage end-to-end campaign productions, ensuring smooth execution, high creative standards, and timely delivery. You will be an integral part of Westwing's Marketing team, driving a wide range of productions across brand campaigns, product launches, and content initiatives. This position is permanent and based in Munich.
+
+  WHAT YOU'LL DO
+
+  - Own end-to-end productions from initial briefing through final delivery, ensuring projects are delivered on time, within budget, and to premium quality standards
+  - Coordinate project setups, production schedules, post-production, multi-channel asset delivery, and all production documentation, including PPMs, call sheets, contracts, and travel logistics
+  - Collaborate with Creative, Marketing, Brand, and external production partners to bring creative concepts to life while guaranteeing production feasibility
+  - Enable creative development by providing production expertise, talent research, supplier recommendations, and feasibility checks
+  - Drive seamless execution across the full production lifecycle, acting as the main point of contact, resolving production challenges, and integrating AI-driven production solutions
+
+  YOU COME WITH
+
+  -
+  3+ years of experience in production management within a production company, agency, or comparable in-house creative environment
+
+  -
+  Experience managing multiple productions simultaneously from briefing to final delivery
+
+  -
+  Strong project management skills with excellent organisational and prioritisation abilities
+
+  -
+  Excellent communication and stakeholder management skills with a hands-on mindset and the ability to work independently in a fast-paced, international environment 
+
+  -
+  Attention to detail and a high standard for creative quality and execution, as well as interest in production innovation and emerging technologies, including AI
+
+  -
+  Fluency in English; German is a strong plus
+
+  WHY WESTWING
+  If you are looking for a place where ambition meets creativity, where ideas turn into impact fast, and where people are trusted to grow - you have found it.
+  At Westwing, we’re building the Superbrand in Design with a team that’s shaping the future of beautiful home & living.
+
+  Here is what you can look forward to:
+
+  - A high-performance culture built on trust, feedback and collaboration
+  - An inspiring, international environment that empowers you to think big, take ownership, and grow beyond your comfort zone
+  - A flexible hybrid setup with 3 office days per week - because strong connections and quick collaboration make great ideas happen
+  - Work-from-anywhere opportunities for up to 4 weeks per year - as fresh perspectives spark bold ideas
+  - 30 days of paid holiday to rest, recharge, and come back ready to create
+  - A beautiful, centrally located, dog-friendly office with inspiring spaces, a sunny terrace, and good food - designed for moments that energise and connect
+  - Exclusive discounts - 40% off Westwing Collection, 20% off third-party brands (each on non-reduced items), and 20% Family & Friends discount on Westwing Collection, plus special-occasion vouchers
+  - Wellbeing support through mental health resources, sports memberships, and preventive care
+  - Sustainable mobility options with discounted public transport and JobRad - moving with purpose and care for the planet
+  - Support for working parents, including our on-site Westwing Wichtel daycare and a partnership with multilingual provider Elly & Stoffl
+  - One annual Social Impact Day to give back to a cause you care about - because being human is our true superpower
+  - Team rituals that celebrate results and togetherness - from Movie Nights and Oktoberfest to Summer & Winter Parties
+
+  ABOUT US
+  Westwing, Europe’s #1 in Beautiful Living e-commerce, is present in 20+ European countries and achieved a GMV (Gross Merchandise Volume) of EUR 507 million in 2025. As Europe’s premium one-stop destination for Design Lovers, it offers a unique brand experience with a carefully curated assortment of the Westwing Collection and 3rd party design brands. The integrated platform combines Shop, Daily Specials, Stores, the B2B Service (Westwing Business) and the Westwing Design Service. Westwing’s team works together on its shared purpose to “Excite people to create homes that unlock the full beauty of life”. Founded in 2011, Westwing is headquartered in Munich and went public on the Frankfurt Stock Exchange in October 2018.
+
+  Our team is a diverse group of professionals aiming for high performance, working together at a fast pace in an inspiring, international and informal environment that enables you to grow your career while working with a brand and products our customers love. We’re made up of passionate people who are creative enough to disrupt the status quo, brave enough to fail and smart enough to win. So come, be part of the “wow, you work at Westwing?” crowd.
+
+  Diversity is deeply rooted in our culture. Our mission doesn’t stop to inspire only your design choices, it continues to embrace an inclusive lifestyle filled with respect to everyone’s uniqueness, cultural differences and equal opportunity.
+
+  Department
+  Marketing
+
+  Find Jobs in Germany on Arbeitnow

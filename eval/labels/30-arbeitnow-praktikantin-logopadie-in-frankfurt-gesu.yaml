@@ -1,0 +1,60 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "intern"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: true      # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "none"     # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "onsite"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "vocational"      # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: []       # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: ["speech therapist in vocational training (Logopäd:in in Ausbildung)"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Speech-therapy internship -> not target. German-only posting -> fluent, implied. Shadowing in a therapy practice -> onsite. Requires being in Logopädie training -> vocational + restriction."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: praktikantin-logopadie-in-frankfurt-gesucht-frankfurt-am-sachsenhausen-478502
+  stratum: not_target
+  title: Praktikant:in Logopädie in Frankfurt gesucht
+  company: Palabra
+  location: Frankfurt a.M. - Sachsenhausen
+  url: https://www.arbeitnow.com/jobs/companies/palabra/praktikantin-logopadie-in-frankfurt-gesucht-frankfurt-am-sachsenhausen-478502
+  lang: de
+
+description: |
+  Über deinen neuen Arbeitsplatz:
+  Die Praxis liegt zentral zwischen den Bahnhöfen Frankfurt (Main) Lokalbahnhof und Frankfurt (Main) Süd und ist damit hervorragend erreichbar. Das lebendige Umfeld aus urbanem Flair, Apfelweintradition und kreativer Szene schafft einen besonderen Praktikumsplatz.
+
+  Geleitet wird die Praxis von unserer erfahrenen Logopädin Harisha Haritas. Und falls während deines Praktikums mal Fragen aufkommen: Unser gesamtes Team aus Logopäd:innen und Ergotherapeut:innen steht dir jederzeit mit Rat und Tat zur Seite!
+
+  Warum wir?
+
+  - Teile uns deine priorisierten Behandlungsfelder gerne mit, teils können wir dies berücksichtigen und dir die richtige Logopäd:in zuteilen 
+  - Unsere erfahrenen Therapeut:innen geben euch gerne Einblicke in die moderne Therapiegestaltung und anfallenden Tätigkeiten im Praxisalltag
+  - Wir unterstützen dich dabei unter Supervision auch selbst erste Therapieversuche zu starten
+  - Wir bieten in all unseren Praxen Praktika an und stehen mit Herz dahinter, unseren Praktikant:innen erste Einblicke in den Praxisalltag zu geben
+  - Bei Palabra haben wir bereits reichlich Erfahrung in unserem Praktiprogramm gesammelt- wir organisieren Events wie die PraktiCON. Hier sind auch ehemalige Praktikant:innen gerne zu Besuch.
+  - Bei Interesse schau gerne bei unserem Instagram vorbei: palabra_therapie
+
+  Was dich bei uns erwartet:
+
+  - Hospitation in der Logopädie
+  - Unterstützung der Logopäd:innen im Praxisalltag
+  - Du teilst dein bisherig erworbenes Wissen zu Störungsbildern
+  - Du stellst proaktiv Fragen bei Unsicherheiten
+  - Diskreter Umgang mit den persönlichen Informationen der Patient:innen
+
+  Dein Profil
+
+  - Du bist Logopäd:in in Ausbildung
+  - Du hast Lust dein erworbenes theoretischen Wissen in die Praxis umzusetzen
+  - Du bist motiviert mehr über logopädische Behandlungsfelder zu erfahren und zusammen mit deiner Praktikumsanleitung Lösungen zu erarbeiten
+
+  Find more English Speaking Jobs in Germany on Arbeitnow

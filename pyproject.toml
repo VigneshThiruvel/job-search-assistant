@@ -4,9 +4,11 @@ version = "0.1.0"
 description = "Personal job-search agent: ingest, extract, RAG, knowledge graph, MCP, agent."
 requires-python = ">=3.11"
 dependencies = [
+    "anthropic>=1.15.0",
     "httpx>=0.28.1",
     "lingua-language-detector>=2.1.1",
     "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
 ]
 
 [build-system]

@@ -1,0 +1,142 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: human          # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true         # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: ml_engineer            # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: intern              # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: part_time        # full_time | part_time | contract | freelance | unknown
+  german_level: none           # none | plus | basic | business | fluent | native
+  german_implied: false         # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: none         # none | plus | basic | business | fluent | native
+  other_languages: []      # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: onsite              # onsite | hybrid | remote | unknown
+  years_experience_min:    # integer, or leave empty if not stated
+  degree: bachelor                 # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: [Python, HuggingFace, PyTorch, AI Assistants]      # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: []
+  restrictions: ["enrolled student in the Netherlands", "EU citizens only"]         # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                  # as written, or leave empty
+  notes:               # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: ml-engineering-intern-llm-research-development-amsterdam-266755
+  stratum: target_en_junior
+  title: ML Engineering Intern - LLM Research & Development
+  company: Prosus
+  location: Amsterdam
+  url: https://www.arbeitnow.nl/jobs/companies/prosus/ml-engineering-intern-llm-research-development-amsterdam-266755
+  lang: en
+
+description: |
+  Who We Are
+
+  You've ordered dinner through Just Eat Takeaway. You've bought and sold on OLX. You've paid with PayU. Chances are, you've already used a Prosus company today.
+
+  We are Prosus, a global technology company powering some of the world's leading lifestyle ecommerce businesses. Every day, billions of people across India, Latin America, Europe and beyond use our products and services to buy, sell, pay, connect and discover.
+
+  Our AI-driven ecosystem spans 100+ companies across ecommerce, food delivery, fintech and experiences, serving billions of consumers worldwide. AI powers how we operate and innovate, with more than 60,000 active AI agents helping our teams build, scale and move faster. Through our investment team, we also back the founders and technologies shaping the future: From robotics and autonomous systems to synthetic biology and frontier AI.
+
+  Guided by our five values Innovation, Results, People, Impact, and Entrepreneurship, culture is our competitive advantage. We thrive with experimentation; we build, we test, we learn, we iterate.
+
+  Join us in shaping the future of technology at global scale.
+
+  What you'll do:
+
+  -
+  Train, fine-tune, and serve open-source LLMs (Qwen, Mistral, etc.) that power real products
+
+  -
+  Design experiments, evaluate results, and ship solutions that win in A/B tests
+
+  -
+  Work on the full ML lifecycle: from training runs to production serving infrastructure
+
+  Preferred qualifications & traits:
+
+  -
+  You know how to write good Python code from experience building real projects (or close to it). Bonus points if you've worked with distributed systems.
+
+  -
+  You've actually used PyTorch and HuggingFace and you also have an idea of what's going on under the hood.
+
+  -
+  You understand ML fundamentals because you've trained models yourself and understand the core concepts.
+
+  -
+  You can make sense of research by reading papers, getting the key ideas, and turning them into working code (with the help of your AI assistant).
+
+  -
+  You think for yourself and can come up with ideas.
+
+  -
+  You're genuinely curious and actually care about understanding how things work and get excited by new ideas
+
+  -
+  You love learning new tech and applying it.
+
+  -
+  You work well with others by communicating clearly, not being shy to ask questions, and helping your teammates.
+
+  -
+  You're flexible when priorities shift and okay with switching from research to data processing when needed.
+
+  -
+  You're friends with AI assistants and use them regularly for coding and writing.
+
+  -
+  You can commit to 6-12 months working with us in Amsterdam (minimum 3 days in the office weekly). We'll work with your academic schedule.
+
+   
+
+  What we offer:
+
+  -
+  Learn from the best: Work with AI engineers who've published at NeurIPS, released top models on Huggingface, and built production systems at scale
+
+  -
+  Ship from day one: Your code goes into production quickly, not after months of onboarding
+
+  -
+  Real infrastructure: Access to H200 GPU clusters, large-scale datasets, and all major LLM APIs (OpenAI, Anthropic, Google)
+
+  -
+  Unique data at scale: Access to billions of customer interactions from 500+ million users across our e-commerce platforms, with millions of products
+
+  -
+  Grow your career: People who excel here tend to stick around
+
+  -
+  Junior Engineer compensation: We pay competitively for the impact you'll have
+
+  -
+  Best-in-class tools: MacBook Pro, access to all major LLM APIs and premium coding assistants
+
+  -
+  Great workspace: Modern office in Amsterdam South with free barista coffee and NS travel card for your commute
+
+   
+
+  This internship puts you right in the middle of AI innovation at a European tech leader. If you're excited about using AI to change how people shop and want to work on something with real impact, get in touch!
+
+   
+
+  Eligibility: 
+
+  This internship is open to candidates who are currently enrolled at a university and either hold EU citizenship or are studying in the Netherlands. We are unable to support visa applications for internships for candidates who do not meet these criteria.
+
+  Why Prosus?
+
+  At Prosus, your colleagues include 60,000 AI agents… and your job is to figure out what that actually means. We're one of the largest operators of agentic AI on the planet, inside a $100B+ portfolio across 100+ companies and two billion people. The humans here own what AI can't do alone: judgment, creativity, and the call on what gets built next.
+
+  Own the impact. Work the ecosystem. Earn your growth. Build with backing.
+
+  Curious about our perks and benefits? Take a look at this page.
+
+  Our Diversity & Inclusion Commitment
+
+  We respect the dignity and human rights of individuals and communities wherever we operate in the world. Building an inclusive workplace where everyone feels welcome and can thrive is critical for us. We provide access to education, which helps everyone understand the important role they play and the positive impact they can have.
+
+  Want to know more about life at Prosus? Explore our culture and values.
+
+  Find more English Speaking Jobs in Netherlands on Arbeitnow

@@ -1,0 +1,91 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ai_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "senior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "plus"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "business"  # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Python", "Git", "Testing", "CI/CD", "Code Review", "LangGraph", "LangChain", "LLM APIs", "Function Calling", "Structured Outputs", "Streaming", "Evaluations", "Golden Datasets", "Guardrails", "Prompt Engineering"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "'German is a major plus' -> plus (not required). '3 days office, 2 home' -> hybrid. Title '(Senior)' and must-have 'multiple production systems shipped' -> senior."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: remote-senior-ai-product-engineer-berlin-355736
+  stratum: target_en_mentions_german
+  title: (Senior) AI Product Engineer (m/w/d)
+  company: Legalhero
+  location: Berlin
+  url: https://www.arbeitnow.com/jobs/companies/legalhero/remote-senior-ai-product-engineer-berlin-355736
+  lang: en
+
+description: |
+  What You'll Do
+  You’ll identify open AI opportunities, build them from start to finish, and bring them to real users. As a Senior AI Product Engineer, you’ll work across our three product squads: You’ll single-handedly turn unaddressed topics into products, hand them off once they’re up and running, and serve as a sparring partner for the squad PMs on all AI-related topics. For us, “senior” refers to your approach to work, not your years of experience. You’ll report directly to Product Leadership.
+
+  Your Responsibilities
+
+  - Independent AI projects (about half of your time)
+  - You’ll identify high-impact AI opportunities in our legal workflows - in areas where no specific squad is responsible
+  - Validation happens quickly: discussions with attorneys, Legal Ops, and insurers; prototypes built in days
+  - You’ll bring the winning solutions into production yourself: routing, chaining, summarization, and agent-based loops
+  - You’ll hand off mature features to the squad - complete with documentation, evaluations, and a handover plan
+  Support for the squads (the other half)
+
+  - Feasibility, costs, model selection, risks: You’ll answer these questions before every AI feature is launched
+  - You support the teams in designing evaluations, golden datasets, and guardrails
+  - You review concepts before they go into the roadmap - including prompt injection and compliance risks (GDPR, Section 203 of the German Criminal Code)
+  - You advance AI best practices: prompt engineering standards, LLM observability, and agent-based coding workflows
+
+  What you bring
+  Must-have
+
+  - Multiple production-ready AI/LLM systems that you’ve shipped to real users and taken responsibility for - no prototypes
+  - Demonstrable product ownership: from a vague problem to a finished product
+  - Strong Python skills and a solid foundation in software engineering (Git, testing, CI/CD, code review)
+  - In-depth experience with LangGraph, LangChain, or similar - including an understanding of what’s happening under the hood
+  - Proficiency with LLM provider APIs: function/tool calling, structured outputs, streaming
+  - Evaluations, golden datasets, and guardrails before deployment
+  - Solid prompt engineering - you know when to use which technique
+  - Business-level English; German is a major plus due to our legal domain
+  Soft Skills
+
+  - The maturity to work without a squad around you: You set your own priorities and know when to say no
+  - You can explain a technical trade-off to a lawyer and a legal workflow to an engineer
+
+  What we promise
+  Work Environment & Flexibility
+
+  - Office-first: 3 days in the office, 2 days working from home - with flexibility in how you structure your work
+  - Modern, air-conditioned office with plenty of natural light and a large rooftop terrace overlooking Berlin
+  - Central location between Gleisdreieck and Potsdamer Platz
+  Benefits
+
+  - Full coverage of the public-transport ticket
+  - Company pension plan with a 20% employer contribution
+  - Corporate benefits platform with discounts from many brands
+  - Dog-friendly office
+  - Regular company and team events, after-work fun with Switch, PS5, darts, and foosball
+  - Free drinks, fresh fruit, and granola
+  Culture & Collaboration
+
+  - Agile mindset with open communication - every voice counts
+  - Feedback is part of our culture - we believe in growing together
+  Fast application process
+
+  - Your application as an AI Product Engineer (Senior) - short and to the point
+  - Approx. 20-minute introductory conversation with our HR team
+  - Approx. 60-minute in-person interview with your hiring manager
+  - Approx. 30-minute discussion with the management team
+  - A prompt job offer
+  Your contact: Nadine · HR Manager ·
+  Find Jobs in Germany on Arbeitnow

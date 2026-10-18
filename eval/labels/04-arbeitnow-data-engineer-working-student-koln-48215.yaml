@@ -1,0 +1,60 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: human          # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true         # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: data_engineer             # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: working_student               # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: part_time        # full_time | part_time | contract | freelance | unknown
+  german_level: fluent           # none | plus | basic | business | fluent | native
+  german_implied: false         # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: fluent          # none | plus | basic | business | fluent | native
+  other_languages: []      # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: hybrid              # onsite | hybrid | remote | unknown
+  years_experience_min:    # integer, or leave empty if not stated
+  degree: bachelor                 # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: [Python, SQL, Power BI, Microsoft Fabric]      # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [Databricks]      # as written, e.g. [SQL, Python, Power BI]
+  restrictions: []         # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                  # as written, or leave empty
+  notes:                   # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: data-engineer-working-student-koln-482150
+  stratum: target_en_junior
+  title: Data Engineer Working Student (m/w/d)
+  company: Trusteq Gmbh
+  location: Köln
+  url: https://www.arbeitnow.com/jobs/companies/trusteq-gmbh/data-engineer-working-student-koln-482150
+  lang: en
+
+description: |
+  YOUR TASKS
+
+  - You support the development of databases and data integration processes
+  - You contribute to the design and implementation of data models and data pipelines for modern data lakes, data warehouses, or lakehouses
+  - You assist in documenting and structuring data platforms and related processes
+  - You participate in the development of interactive dashboards and reports, for example in the area of performance metrics and ESG
+  - You support the application of data analytics methods and tools within project contexts
+  - You assist users in the utilization and maintenance of data platforms and analytics solutions
+
+  YOUR PROFIL
+
+  - You are currently enrolled as a student in an IT-related field, such as (Business) Informatics, Software Engineering, Data Science, Data Engineering, or a related discipline
+  - You have solid knowledge of the programming languages Python and SQL
+  - You have experience in data visualization and presentation using Power BI and/or Microsoft Fabric.
+  - Initial experience with Databricks is considered an advantage
+  - You have a basic understanding of data modeling methods and data integration processes (ETL / ELT)
+  - You work independently and in a structured manner and demonstrate strong teamwork and communication skills
+  - You possess excellent German and English language skills (minimum C1 level in both languages)
+  - You are able to work on-site at least 50% of the time in our office in Cologne or Munich
+
+  YOUR BENEFITS
+
+  - Supportive Team Culture: Team cohesion is important to us – we support one another and foster a healthy office culture. Our event team organizes regular after-work events to encourage exchange and connection beyond the workplace.
+  - Early Ownership & Responsibility: From day one, you will take on exciting tasks with real responsibility – whether on your project or by contributing to internal initiatives. You actively help shape our organization.
+  - Clear Career Development Paths: You will find an environment that supports, challenges, and advances your professional growth. We offer clearly defined career paths and transparent requirements for each level.
+  - Creative Work Environment: We give you the freedom and time to develop creative solutions and provide the best and most modern hardware (Apple or Windows) to support your work.
+  - Flexible Working & Vacation Policy: Work remotely and adjust your working hours flexibly to fit around your studies.
+
+  Find more English Speaking Jobs in Germany on Arbeitnow

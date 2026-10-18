@@ -30,8 +30,22 @@ class _TextExtractor(HTMLParser):
         self.parts.append(data)
 
 
+_LEFTOVER_TAG = re.compile(r"</?(p|div|span|br|li|ul|ol|h[1-6]|strong|em|b|i|a)\b[^>]*>", re.I)
+
+
 def html_to_text(html: str) -> str:
-    """Strip tags but keep paragraph/list structure as newlines."""
+    """Strip tags but keep paragraph/list structure as newlines.
+
+    Some sources entity-escape their HTML (`&lt;p&gt;`): one pass only decodes
+    the entities into literal tags, so a second pass is needed.
+    """
+    text = _html_to_text_once(html)
+    if _LEFTOVER_TAG.search(text):
+        text = _html_to_text_once(text)
+    return text
+
+
+def _html_to_text_once(html: str) -> str:
     parser = _TextExtractor()
     parser.feed(html)
     parser.close()

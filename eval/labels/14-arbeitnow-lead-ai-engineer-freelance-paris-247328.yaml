@@ -1,0 +1,180 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ai_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "lead"         # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "full_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "none"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "none"     # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min: 7   # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["LLMs", "RAG", "AI Agents", "Evaluation"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Python", "SQL", "OpenAI", "Anthropic", "Gemini", "Mistral", "LangGraph", "LangChain", "LlamaIndex", "MCP", "Vector Databases", "AWS", "GCP", "Docker", "Kubernetes"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Title says 'Freelance' but body says 'permanent position (CDI)' -> body wins, full_time (CDI is normally full-time; hours not stated). 4 days on-site -> hybrid. 'Our stack and tools' is a team stack, not a stated requirement -> nice_to_have; GUIDELINE GAP: company stack lists. Paris/Bordeaux."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: lead-ai-engineer-freelance-paris-247328
+  stratum: target_en_senior
+  title: Lead AI engineer - Freelance
+  company: mirakllabs
+  location: Paris
+  url: https://www.arbeitnow.fr/jobs/companies/mirakllabs/lead-ai-engineer-freelance-paris-247328
+  lang: en
+
+description: |
+  About Mirakl:
+
+  Founded in 2012, Mirakl has been at the forefront of marketplace innovation, empowering every business to compete in the platform economy.
+
+  Today, Mirakl’s operating system combines an enterprise marketplace solution (Mirakl Platform) that enables retailers and B2B organizations to launch, scale, and operate marketplaces and dropship, AI-powered multichannel selling (Mirakl Connect), retail media (Mirakl Ads) and an agentic commerce infrastructure (Mirakl Nexus).
+
+  With dual headquarters in Boston and Paris, Mirakl helps a global ecosystem of 450+ marketplaces (B2C and B2B) and a network of over 100k third-party marketplace sellers. Brands like Macy’s, Decathlon, Carrefour, Asos, and Airbus Helicopters use Mirakl to grow their businesses in new and remarkable ways.
+
+  For more information: www.mirakl.com.
+
+  Mirakl in Numbers:
+
+  - 🗓️ Founded in 2012 | Member of French Tech Next40
+
+  - 👥 750+ employees in 9 offices worldwide: Paris, Barcelona, Bordeaux, Boston, London, Munich, New York, Sydney, Tokyo
+
+  - 🇫🇷 350+ Mirakl Tech teams members mainly based in France
+
+  - ⚙️ 5 Saas Solutions
+
+  Our Values:
+
+  Working at Mirakl means accelerating your career alongside ambitious, passionate, and supportive colleagues. We're proud of the diversity of backgrounds, perspectives, and experiences that make our teams unique.
+
+  Our 5 values guide how we collaborate:
+
+  - 💡 Work Hard Together: Teamwork and collaboration are the foundation of our success
+
+  - 🏆 Get Things Done:  We prioritize action and efficiency for impactful results
+
+  - 🚀 Go Above & Beyond:  We tackle challenges proactively and always aim for excellence
+
+  - 🎓 Succeed Through Expertise: Knowledge sharing and continuous learning are core to our culture
+
+  - 🤝 Satisfy & Empower Clients: We're committed to our clients' success
+
+  About the job
+
+  Lead the design, development, and adoption of AI systems within a strategic business domain.
+
+  You will combine deep AI engineering expertise with product and business understanding to identify high-impact opportunities, define roadmaps, and deliver measurable outcomes.
+
+  As the AI technical lead for your domain, you will drive architecture decisions, engineering excellence, and AI adoption across teams and stakeholders. Examples of domains include: Sales, GTM and Marketing or Finance & Legal
+
+  This is a permanent position (CDI) based in Paris or Bordeaux, with 4 days on-site per week.
+
+   
+
+  Why Now, Why Mirakl
+
+  Generative AI and AI Agents are fundamentally reshaping commerce software and the way our teams work on a day to day basis.
+
+  At Mirakl, AI is becoming a core part of our product strategy. From Catalog Transformer and content generation to AI Agents and Agentic Commerce, we are building the next generation of commerce software. And we have the same ambition for our teams around AI products and adoption.
+
+  We are looking for a Lead AI Engineer to transform cutting-edge AI technologies into reliable, scalable, and measurable products used by leading enterprises worldwide.
+
+  You won't be joining a company that's thinking about AI. You'll be joining one that's already building it.
+
+  What You’ll Do
+
+  1. Own Tech Strategy for Your Domain
+
+  - Identify high-value opportunities with Business leaders
+
+  - Define the Tech vision and own the agent product roadmap for your domain
+
+  2. Lead AI System Development
+
+  - Design and build production-grade AI systems
+
+  - Drive architecture decisions
+
+  - Ensure scalability, reliability, and maintainability
+
+  3. Drive Adoption & Business Impact
+
+  - Work closely with end users
+
+  - Measure adoption and outcomes
+
+  - Accelerate AI transformation across your domain
+
+  4. Establish Technical Excellence
+
+  - Promote best practices for evaluation, testing, guardrails, and observability
+
+  - Review designs and mentor engineers
+
+  - Raise the quality bar across initiatives
+
+  5. Grow AI Capability
+
+  - Mentor AI Engineers and Agent Builders
+
+  - Share knowledge and reusable components
+
+  - Build AI expertise within your organization
+
+  Success Metrics
+
+  - Business impact delivered by AI initiatives
+
+  - Adoption within the domain
+
+  - Technical quality and reliability
+
+  - Team capability growth
+
+   
+
+  Our stack and tools
+
+  - Languages: Python and SQL
+
+  - AI Stack: OpenAI, Anthropic, Gemini, Mistral and Open-source models
+
+  - Agentic & Retrieval: LangGraph, LangChain, LlamaIndex, MCP and Vector Databases
+
+  - Infrastructure: AWS or GCP, Docker and Kubernetes
+
+   
+
+  You'll Love This Job If you have 
+
+  - 7+ years in Software Engineering, ML Engineering, or Applied AI
+
+  - Strong experience with LLMs, RAG, AI Agents, evaluation, and production systems
+
+  - Ability to influence Product and Business decisions
+
+  - Proven leadership on complex cross-functional initiatives
+
+  Feel free to add a link to your GitHub in your CV so we can understand what you have worked on!
+
+  Want to join us? Here is our process 
+
+  - A 30-40 min phone conversation with one of our Tech recruiters. This will be an opportunity to discuss your background, expectations, and discover what Mirakl can offer you in return.
+
+  - An initial 1 hour technical discussion with a member of the Data Science team and Engineering Team, which will allow you to delve into the more specific aspects of your expertise and discover how your skills can be integrated into our projects.
+
+  - 2 x 45-minute "STAR" interviews with future Mirakl colleagues to discuss our values and company culture.
+
+  We welcome collaborators with their diverse perspectives and experiences to power us forward. These often far exceed conventional job requirements and help us create a culture of continuous learning. If you’re ready to join a global leader powering digital transformation for 450+ of the world’s most innovative retailers and B2B organizations.
+
+  As part of our recruitment process, Mirakl processes your personal data to review and manage your application and, where appropriate, to consider your profile for future opportunities. You can exercise your data protection rights at any time, and as further detailed in our policies. For more information about how we process your personal data and your rights, please consult our Recruitment Privacy Notice, here in English and here in French. 
+
+  We may use Artificial Intelligence (AI) solutions to help streamline our hiring process, including screening applications, analyzing resumes, and assessing responses. While AI helps us work efficiently, all final hiring decisions are made by humans. For more information, visit our AI Guidelines for Candidates and Interviews.
+
+  Find more English Speaking Jobs in France on Arbeitnow

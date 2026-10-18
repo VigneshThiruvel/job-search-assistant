@@ -1,0 +1,81 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ai_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "senior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "contract"  # full_time | part_time | contract | freelance | unknown
+  german_level: "native"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "business"  # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "unknown"      # onsite | hybrid | remote | unknown
+  years_experience_min: 5   # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Generative AI", "RAG", "Prompt Engineering", "Context Management", "LangChain", "LangFuse", "NeMo Guardrails", "Spring AI", "Azure AI Services", "Python", "Java", "APIs", "CI/CD", "OpenTelemetry", "Azure"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Body says 'Senior Data Scientist' but work is GenAI/RAG apps -> ai_engineer. 'Initial duration 12 months' via a consultancy -> contract. 'Fluent German (C2 level)': stated CEFR wins -> native per scale. English B2 -> business. Tools listed under requirements with 'such as' -> required."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: senior-generative-ai-engineer-zurich-70605
+  stratum: target_en_mentions_german
+  title: Senior Generative AI Engineer
+  company: SwissPeak Partners GmbH
+  location: Zurich, Zürich, Switzerland
+  url: https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/senior-generative-ai-engineer-zurich-70605
+  lang: en
+
+description: |
+  Occupancy: 100% / Start date: 01.06.2026/ Initial duration: 12 months
+
+  We are looking for an experienced Senior Data Scientist to help design and deliver enterprise-grade Generative AI solutions with a strong focus on Retrieval-Augmented Generation (RAG). You will work in a collaborative DevOps environment, building scalable AI applications and driving innovation across modern cloud platforms.
+
+  Responsibilities & Tasks
+
+  -
+  Develop and deploy production-ready GenAI and RAG solutions using modern AI engineering practices.
+
+  -
+  Build scalable APIs, data pipelines, and integrations for AI-powered enterprise applications.
+
+  -
+  Collaborate with Data Engineers, Cloud Engineers, DevOps teams, and business stakeholders to deliver operational AI solutions.
+
+  -
+  Monitor, optimize, and fine-tune machine learning and GenAI applications in production environments.
+
+  -
+  Support CI/CD processes, automated deployments, observability, and AI platform reliability.
+
+  Requirements & Qualifications
+
+  -
+  5–8 years of experience in Data Science, AI Engineering, or related roles.
+
+  -
+  Strong expertise in Generative AI, RAG architectures, prompt engineering, and context management.
+
+  -
+  Experience with tools and frameworks such as LangChain, LangFuse, NeMo Guardrails, Spring AI, and Azure AI services.
+
+  -
+  Solid skills in Python and Java, plus experience with APIs, CI/CD, OpenTelemetry, and cloud-native deployments on Azure.
+
+  -
+  Fluent German (C2 level) and strong English communication skills (B2 or higher).
+
+  Benefits & Culture
+
+  -
+  Work on innovative AI and cloud projects using modern technologies and scalable architectures.
+
+  -
+  Join a collaborative, cross-functional engineering environment focused on continuous learning and technical excellence.
+
+  -
+  Long-term project opportunity with strong potential for professional growth and impactful work.
+
+  Find Jobs in Switzerland on Arbeitnow

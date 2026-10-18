@@ -1,0 +1,144 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "data_scientist"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "senior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "none"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "none"     # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "remote"       # onsite | hybrid | remote | unknown
+  years_experience_min: 5   # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Experimentation", "Hypothesis Testing", "Quasi-experimental Methods", "SQL", "Python", "dbt", "Data Visualization", "BI Tools", "Prompt Engineering"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Omni", "Hex"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary: "$159,100 - $179,000"  # as written, or leave empty
+  notes: "Remote, but US salary and US benefits (401k, HSA) suggest US-only; not stated, so no restriction. 'BI tools (e.g., Omni, Hex)': category required, examples after 'e.g.' as nice_to_have. 'Excellent communication' without a language -> english none. Travel 2x/year is a duty, not eligibility."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: remote-senior-data-scientist-304274
+  stratum: target_en_senior
+  title: Senior Data Scientist
+  company: Spring Health
+  location: Remote
+  url: https://www.arbeitnow.com/jobs/companies/spring-health/remote-senior-data-scientist-304274
+  lang: en
+
+description: |
+  Our mission: eliminating every barrier to mental health.
+
+  Spring Health is a global mental health company on a mission to eliminate every barrier to mental health. We're building a world where getting support is simple, personal, and built around the person, so care can continue through every job, move, health plan, and life stage.
+
+  Our AI-native platform helps us deliver personalized support across self-guided tools, coaching, therapy, medication management, and specialty care. With outcomes independently validated by JAMA Network Open and the Validation Institute, Spring Health reaches more than 170 million people worldwide through leading employers, health plans, and partners.
+
+  As an AI-native company, we believe technology should expand the reach, quality, and humanity of care. Every Spring Health team member is expected to use AI tools thoughtfully, apply human judgment to AI outputs, and keep building AI fluency in ways that support their role and our mission.
+
+  We’re hiring a Senior Data Scientist to join our high-performing Advanced Analytics team, embedded within the Care group. Reporting to the Manager, Data Science, this role will lead technical innovation to drive engagement and adoption of Spring Practice - Spring Health’s core care coordination and provider platform - leveraging diverse and novel data sources in close partnership with product, design, and engineering. The ideal candidate will thrive in ambiguity, bring strong analytical expertise, and drive rapid experimentation to surface actionable strategies that improve member and provider experience, care coordination efficiency, and health outcomes. This is a full-time, remote position on our team. Occasional travel may be required for company or team events/meetings. 
+
+  What you’ll do: 
+
+  -
+  Lead analytical strategy for Care: Own the end-to-end analytical strategy to improve engagement and outcomes across Spring Practice. You will develop and apply advanced methods, including AI, predictive modeling, classification, and clustering, to identify opportunities to improve member scheduling, provider matching, and care coordination workflows. Your work will directly influence product strategy, de-risk new initiatives, and drive measurable business outcomes.
+
+  -
+  Drive rapid experimentation and outreach: Design and execute a rapid experimentation roadmap to test, validate, and scale improvements to member and provider workflows within Spring Practice. Some projects will require quasi-experimental approaches to measuring impact. You will consult on test design and, at times, analyze results to provide clear recommendations on which initiatives to pursue, shaping the core of the pod’s data-driven approach.
+
+  -
+  Act as an embedded technical leader: Serve as a dedicated data scientist within the Care pod, partnering closely with product management and design to influence the team's roadmap, define success metrics, and ensure strategic decisions are grounded in rigorous analysis.
+
+  -
+  Leverage diverse and complex data: Work with large, multi-source datasets to perform feature engineering and uncover novel insights. This will involve both formal analysis and "scrappy" data sourcing to quickly answer critical business questions. You will coordinate closely with a partnered Analytic Engineer and Data Analyst embedded with Care.
+
+  What success looks like: 
+
+  -
+  Incremental increase to Spring Practice engagement and utilization
+
+  -
+  Improvement in member and provider workflow efficiency (e.g. scheduling, care coordination)Achieving quarterly experiment velocity goals
+
+  What you’ll bring: 
+
+  -
+  5+ years of professional data science experience
+
+  -
+  Hands-on experience with experimentation, hypothesis testing, and quasi-experimental methods. 
+
+  -
+  Proficiency with SQL and Python
+
+  -
+  Experience with data modeling via dbt or similar tools
+
+  -
+  Experience working with data visualization and BI tools (e.g., Omni, Hex)
+
+  -
+  Experience with product development and the software development lifecycle 
+
+  -
+  Excellent verbal and written communication skills to guide and make recommendations to business partners
+
+  -
+  Proven ability to incorporate AI as a tool to solve complex business problems; including experience with prompt engineering for LLMs, using AI for code optimization and documentation, and establishing best practices for using these tools across teams.
+
+  -
+  Proven ability to proactively manage your own priorities and dependencies in alignment with cross-functional dependencies and business impact in a fast-paced environment
+
+  -
+  Proven success at navigating ambiguous problem areas and learning new approaches
+
+  -
+  Willingness to travel (at least 2 times per year) for collaborative sessions and summits with the team
+
+  The target base salary range for this position is $159,100 - $179,000 and is part of a competitive total rewards package including equity and benefits. Individual pay may vary from the target range and is determined by a number of factors including experience, location, internal pay equity, and other relevant business considerations. We review all employee pay and compensation programs annually using Radford Global Compensation Database at minimum to ensure competitive and fair pay. 
+
+  Benefits provided by Spring Health:
+
+  Note: We have even more benefits than listed here and below, your recruiter will provide more in-depth information as you continue in the interview process. Benefits are subject to individual plan requirements and eligibility criteria.
+
+  -
+  Health, Dental, Vision benefits start on your first day at Spring. You and your dependents also receive access to One Medical accounts HSA and FSA plans are also available, with Spring contributing up to $1K for HSAs, depending on your plan type.
+
+  -
+  Employer sponsored 401(k) match of up to 2% for retirement planning
+
+  -
+  A yearly allotment of no cost visits to the Spring Health network of therapists, coaches, and medication management providers for you and your dependents.
+
+  -
+  We offer competitive paid time off policies including vacation, sick leave and company holidays.
+
+  -
+  At 6 months tenure with Spring, we offer parental leave of 18 weeks for birthing parents and 16 weeks for non-birthing parents.
+
+  -
+  Access to Noom, a weight management program—based in psychology, that’s tailored to your unique needs and goals. 
+
+  -
+  Access to fertility care support through Carrot, in addition to $4,000 reimbursement for related fertility expenses.
+
+  -
+  Access to Wellhub,  which connects employees to the best options for fitness, mindfulness, nutrition, and sleep in one subscription
+
+  -
+  Access to BrightHorizons, which provides sponsored child care, back-up care, and elder care
+
+  -
+  Up to $1,000 Professional Development Reimbursement a year.
+
+  -
+  $200 per year donation matching to support your favorite causes.
+
+  Not sure if you meet every requirement? Research shows that women and people from historically underrepresented communities often hesitate to apply for roles unless they meet every qualification compared to other similarly-qualified candidates. At Spring Health, we are committed to fostering a workplace where everyone feels valued, empowered, and supported to Thrive. If this role excites you, we encourage you to apply.
+
+  Our privacy policy: https://springhealth.com/privacy-policy/
+
+  Spring Health is proud to be an equal opportunity employer. We do not discriminate in hiring or any employment decision based on race, color, religion, national origin, age, sex, marital status, ancestry, disability, genetic information, veteran status, gender identity or expression, sexual orientation, pregnancy, or other applicable legally protected characteristic. We also consider qualified applicants regardless of criminal histories, consistent with applicable legal requirements. Spring Health is also committed to providing reasonable accommodations for qualified individuals with disabilities and disabled veterans. If you have a disability or special need that requires accommodation, please let us know.
+
+  Find more English Speaking Jobs in Germany on Arbeitnow

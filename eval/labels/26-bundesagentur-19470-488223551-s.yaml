@@ -1,0 +1,71 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ml_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "mid"          # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "business"  # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Data Engineering", "Machine Learning", "MLOps"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Event-driven Architecture", "AI Agents", "Explainable AI"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary: "Tarif Metall- und Elektroindustrie Baden-Württemberg"  # as written, or leave empty
+  notes: "Data engineering + ML taken into stable operation, explainable models for production -> ml_engineer. 'Fundierte praktische Erfahrung' -> mid. C1 -> fluent; 'gute Englischkenntnisse' -> business. 'Mobile Arbeit' -> hybrid. 'Von der Entwicklung in den stabilen operativen Betrieb' -> MLOps. Explainable AI only in tasks -> nice_to_have. Salary is a collective-agreement reference, not an amount."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 19470-488223551-S
+  stratum: target_de
+  title: AI Engineer - Smart Factories (w/m/d)
+  company: SEW-EURODRIVE GmbH & Co KG
+  location: Graben-Neudorf
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/19470-488223551-S
+  lang: de
+
+description: |
+  In unserem Bereich Production Management Digital Operations gestalten Sie aktiv die digitale Transformation unserer hochmodernen Werke am Standort Deutschland weiter. Werden Sie ein Teil unseres Familienunternehmens. Wir denken langfristig, agieren nachhaltig und wachsen kontinuierlich. Bewegen Sie zusammen mit uns die Welt.
+
+   
+
+  Ihre Aufgaben
+
+       * Digitale Weiterentwicklung der Produktionsstandorte in Deutschland hin zu AI gestützten Smart Factories 
+       * Etablierung effizienter AI-Umsetzungs- und Betriebsmodelle, von der strukturierten Lösungsentwicklung über den stabilen Betrieb bis zur kontinuierlichen Weiterentwicklung im Tagesgeschäft
+       * Anwendung erklärbarer Analyse- und Modellansätze (Explainable AI), um AI-gestützte Entscheidungen transparent, nachvollziehbar und für Menschen nutzbar zu machen
+       * Kontinuierliche Beobachtung neuer Technologien, Methoden und Trends, deren kritische Einordnung sowie gezielte Überführung geeigneter Ansätze in praxistaugliche, industrielle Lösungen für unsere Produktionsstandorte
+       * Enge Zusammenarbeit mit nationalen und internationalen Teams, Förderung des Wissenstransfers sowie Unterstützung bei der standortübergreifenden Harmonisierung und nachhaltigen Skalierung erfolgreicher Lösungen
+
+   Ihre Qualifikation  
+
+       * Abgeschlossenes Studium der Data Science, Ingenieurwissenschaften, Informatik, Wirtschaftsinformatik oder vergleichbare Qualifikation
+       * Ausgeprägtes Verständnis für industrielle Produktions- und Betriebsprozesse sowie die Fähigkeit, diese in daten- und AI-gestützte Lösungen zur Entscheidungsfindung und Optimierung zu überführen
+       * Fundierte praktische Erfahrung im Bereich Data Engineering und Machine Learning, verbunden mit der Fähigkeit, Daten- und AI-Lösungen von der Entwicklung in den stabilen operativen Betrieb zu überführen und kontinuierlich weiterzuentwickeln
+       * Idealerweise Erfahrung mit ereignisgetriebenen und agentenbasierten AI-Ansätzen sowie die Fähigkeit, deren Nutzen, Grenzen und Reifegrad im industriellen Kontext realistisch zu bewerten
+       * Ausgeprägte Kommunikations- und Übersetzungsfähigkeit, um komplexe Daten-, AI- und Technologiethemen verständlich, wirkungsvoll und adressatengerecht über Fachbereiche, Standorte und kulturelle Grenzen hinweg zu vermitteln
+       * Sehr gute Deutschkenntnisse (C1-Niveau) und gute Englischkenntnisse in Wort und Schrift
+          
+
+  Darum sind Sie bei uns richtig
+
+       * Wir bieten ein attraktives Gehaltspaket.
+         Bundesweit nach Tarif Metall- und Elektroindustrie Baden-Württemberg, tarifliche Sonderzahlungen sowie langjährige attraktive betriebliche Altersvorsorge
+       * Ihre Work-Life-Balance liegt uns am Herzen.
+         Individuelle flexible Arbeitszeitmodelle, mobile Arbeit, Gleitzeitkonto, Mitarbeiterrabatte und Sonderkonditionen, Kooperation mit Fitnessstudios, Freizeitangebote und Kindertagesstätte 
+       * Entwickeln Sie sich bei uns weiter.
+         Unser hauseigenes Schulungszentrum DriveAcademy® und unsere E-Learning Plattform ergänzen sich gegenseitig durch ein vielfältiges Angebot an Seminaren und Schulungen
+       * Fühlen Sie sich bei uns wohl.
+         Hochmoderne Technik, IT-Ausstattung und Software-Tools, Betriebsrestaurant und SEW Parkhaus mit Elektroladestationen
+       * Wir legen Wert auf eine hohe Arbeitsplatzsicherheit.
+         Durch kontinuierliche Investitionen in den Standort Deutschland, sind wir für die Zukunft bestens gerüstet, um als Global Player voran zu gehen
+
+  Haben wir Ihr Interesse geweckt?
+
+  Dann freuen wir uns auf Ihre Bewerbung!         
+  Bei Fragen steht Ihnen Patrick Frank unter 07251 75 - 1925 gerne zur Verfügung.         
+  Auf unserer FAQ-Seite finden Sie einen Überblick über unseren Bewerbungsprozess und weitere Benefits.

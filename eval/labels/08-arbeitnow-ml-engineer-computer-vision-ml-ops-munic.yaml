@@ -1,0 +1,180 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ml_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "unknown"      # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "plus"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "remote"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Python", "PyTorch", "OpenCV", "TensorFlow", "Computer Vision", "Object Detection", "Image Segmentation", "3D Reconstruction", "Multi-View Geometry", "Transfer Learning", "Diffusion Models", "GANs"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Medical Imaging", "Semi-supervised Learning", "Point Clouds", "Multi-modal Learning", "TensorFlow Lite", "ONNX", "Model Quantization", "Grad-CAM", "SHAP", "MLflow", "Weights & Biases", "DVC", "Docker", "Whisper"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "'We welcome candidates at different experience levels' -> seniority unknown. 'Remote-friendly with option to work from Munich office' -> remote. 'PyTorch, OpenCV or TensorFlow' are alternatives; listed all. Degree 'or equivalent practical background' -> bachelor per guideline."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: ml-engineer-computer-vision-ml-ops-munich-359350
+  stratum: target_en_mentions_german
+  title: ML Engineer (Computer Vision & ML Ops)
+  company: StellDirVor GmbH
+  location: Munich
+  url: https://www.arbeitnow.com/jobs/companies/stelldirvor-gmbh/ml-engineer-computer-vision-ml-ops-munich-359350
+  lang: en
+
+description: |
+  StellDirVor is an independent consulting, trade and technology company specializing in immersive technologies for healthcare. We support organizations in implementing digital innovations — Virtual, Augmented and Mixed Reality as well as AI — particularly for learning, training and real-time assistance in clinical and care environments. By combining technology and healthcare, we help optimize processes, improve knowledge transfer and enhance quality of care.
+
+  Supported by a Germany (ZIM) and Taiwanese (GIPIP) partnership grant, we are currently developing ARAIAS — an AR- and AI-based hands-free training and assistance system for chronic wound care. Using AR smart glasses, the system enables 3D capture, AI-supported analysis, and standardized remote expertise and documentation directly at the point of care.
+
+  As our ML Engineer (Computer Vision & ML Ops), you will build the AI capabilities at the core of ARAIAS: evaluating and fine-tuning computer vision models on smart glasses data, running the ML operations behind them, and applying generative AI to create synthetic medical images for education. We're at an early stage — moving from concept to working prototype — so the near-term focus is on validating models and building toward a proof of concept we can test in real education and clinical settings.
+
+  As part of a small team, you will own the full data lifecycle end to end — from sourcing, consent and annotation to preparation — alongside model development and deployment.
+
+  We welcome candidates at different experience levels. What matters most is a solid ML foundation and genuine awareness of the medical imaging domain.
+
+  Tasks
+
+  -
+  Select and benchmark pre-trained models and/or validated architectures for medical image analysis and adapt them to domain-specific data, ensuring robust performance under real-world conditions
+
+  -
+  Identify and adapt suitable generative AI models to create realistic synthetic medical images for education and training
+
+  -
+  Evaluate and fine-tune small language models (SLMs) for voice interaction — speech-to-text, intent understanding and text-to-speech — optimized for low-latency or on-device use with smart glasses
+
+  -
+  Research and assess state-of-the-art ML models and emerging trends, including Explainable AI (XAI), cybersecurity for ML, and deployment and distribution modes (edge vs. cloud, federated learning, model compression)
+
+  -
+  Plan and execute the ML operations pipeline — data gathering, annotation, preparation, training, testing and deployment
+
+  -
+  Propose a data collection strategy — research suitable public and clinical data sources, recommend patient consent and other administrative requirements for ML training (e.g., data protection agreements, ethics approval), and define collection and annotation protocols with clinical experts, including labeling guidelines and quality checks
+
+  -
+  Identify and validate factors that affect model performance — image conditions, dataset bias, patient diversity, data privacy and regulatory requirements
+
+  -
+  Define test strategies and metrics, and validate model outputs against clinician assessments
+
+  -
+  Perform build vs. buy analyses for models, tools and services, including cost comparison
+
+  -
+  Estimate compute and training costs and propose budgets for model training and deployment
+
+  -
+  Choose and set up training environments flexibly — local hardware or cloud — based on cost, data privacy and performance
+
+  -
+  Make pragmatic technical decisions appropriate for the current prototyping stage and document results clearly
+
+  -
+  Maintain clear, traceable documentation of data sources, models, experiments and design decisions to support audits and quality reviews
+
+  -
+  Evaluate and integrate additional sensors where feasible (e.g., depth, LiDAR, thermal, multispectral) and fuse them with RGB input
+
+  Requirements
+
+  Must-Have
+
+  -
+  Degree in Computer Science, Data Science, Biomedical Engineering, Mathematics or a related field — or equivalent practical background
+
+  -
+  Strong Python skills and hands-on use of PyTorch, OpenCV or TensorFlow
+
+  -
+  Solid understanding of computer vision — classification, object detection and image segmentation, 3D Reconstruction and Multi-View Geometry
+
+  -
+  Hands-on knowledge of transfer learning — adapting pre-trained models and fine-tuning them on custom datasets
+
+  -
+  Working knowledge of the full ML lifecycle — data preparation, training, evaluation and deployment
+
+  -
+  Basic knowledge of generative models (diffusion models or GANs) and common open-source libraries
+
+  -
+  Comfortable training models both locally (GPU workstation) and on cloud platforms
+
+  -
+  Able to estimate ML compute costs and compare build vs. buy options to support budget decisions
+
+  -
+  Awareness of medical imaging challenges — limited data, label variability between clinicians and class imbalance
+
+  -
+  Awareness of healthcare data privacy and ethics (e.g., GDPR, patient consent, anonymization) and why explainability and bias matter in clinical AI
+
+  -
+  Able to read research papers and apply them pragmatically
+
+  -
+  Self-directed and pragmatic — able to take initiative and own problems end-to-end in a lean team
+
+  -
+  Fluent in English — German is a bonus
+
+  Strong Plus
+
+  -
+  Projects or coursework in medical imaging or clinical AI
+
+  -
+  Familiarity with semi-supervised learning — leveraging limited or partially labeled data
+
+  -
+  Experience with 3D data processing — depth maps, point clouds or mesh reconstruction
+
+  -
+  Exposure to multi-modal learning — combining RGB and depth or LiDAR data
+
+  -
+  Edge AI or wearable deployment (e.g., TensorFlow Lite, ONNX, model quantization)
+
+  -
+  Knowledge of explainability methods (e.g., Grad-CAM, SHAP) or adversarial robustness
+
+  -
+  Familiarity with MLOps tools (e.g., MLflow, Weights & Biases, DVC, Docker)
+
+  -
+  Awareness of medical device regulation for AI software (e.g., EU MDR, IEC 62304)
+
+  -
+  Familiarity with small language models (SLMs) and speech pipelines (e.g., Whisper, on-device speech recognition and text-to-speech)
+
+  Benefits
+
+  -
+  Meaningful work — You help shape how technology redefines education and training in healthcare, with real impact on clinical outcomes
+
+  -
+  Ownership and creative freedom — You work autonomously, contribute your ideas directly, and have a genuine say in how the system is built
+
+  -
+  A learning culture — We support personal and professional growth through knowledge sharing, access to innovative tools and methods, and a dedicated learning budget
+
+  -
+  Flexible working — Remote-friendly setup with the option to work from our Munich office
+
+  -
+  Flat hierarchies and team spirit — A small, open, and trust-based team where communication is direct and everyone's voice matters
+
+  -
+  International collaboration — Work alongside a Taiwan-based partner covering technology, hardware and research
+
+  We are only able to respond to candidates selected for further consideration. If you have not heard from us within four weeks of applying, please consider your application unsuccessful at this time.
+
+  Find Jobs in Germany on Arbeitnow

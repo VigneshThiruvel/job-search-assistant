@@ -1,0 +1,89 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "unknown"      # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["LLMs", "Scripting", "Git", "APIs"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Borderline: builds agent skills/evals, but the role is a legal engineer requiring a law degree plus sales duties -> not one of the target roles. 'Excellent German, non-negotiable' -> fluent. 'Other EU languages are a plus' has no specific language, so other_languages stays empty. Degree = law degree (Bachelor/Master/Staatsexamen)."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: legal-ai-engineer-berlin-or-leipzig-37610
+  stratum: target_en_mentions_german
+  title: Legal AI Engineer (Berlin or Leipzig)
+  company: Legartis
+  location: Berlin
+  url: https://www.arbeitnow.com/jobs/companies/legartis/legal-ai-engineer-berlin-or-leipzig-37610
+  lang: en
+
+description: |
+  Description
+
+  Legartis is on a mission: to unlock legal work at scale.
+
+  We set the standard for AI-powered contract work by offering a platform that changes how legal teams work, from drafting through negotiation to completion. We are now looking for the person who turns what customers actually need into what our AI actually does.
+
+  Joining Legartis is not taking a job, you take ownership. We are a team of product builders and lawyers, who do not chase hype; we build substance. If you are a lawyer who builds, someone who has stopped waiting for better tools and started making them, this is your moment and your place.
+
+  Send us your CV, a short note on why Legartis, and links to anything you have built or published.
+
+  Your mission
+
+  Most companies split this seat across three teams, and that split is exactly the problem. The person who hears the customer describe their workflow should be the person who writes the requirement, and the person who writes the requirement should be able to build the first version themselves. That is you.
+
+  1. You translate customer reality into engineering requirements — and into revenue. You sit in customer and expert calls alongside Sales, not as a note-taker but as the person who understands the legal work. In trials and hackathons you coach hands-on: the customer drives, you navigate, and they create the first "wow" moment themselves. When they say "that won't work for us" or "we'll build it ourselves", you answer with a concrete path (a workaround, a workflow, the honest maintenance cost of the alternative) and you leave every conversation with a next step: trial licenses, a hackathon, a scoped rollout. Then you pull out the workflow: what actually happens, in what order, where it breaks, what the customer would pay to never do again. And you write the spec, edge cases, and acceptance criteria that Engineering can build against.
+
+  2. You build the skills yourself. You write, test, and ship agent skills and playbooks that solve real customer workflows. You build the evaluation frameworks and test sets that prove they got better rather than just different. When the AI fails on a clause, you diagnose why, at the prompt and context level, and you either fix it or hand Engineering a diagnosis precise enough to act on.
+
+  3. You make it repeatable, and therefore sellable. Anything you build once for one customer, you turn into something Sales and Customer Success can run without you. Standard demo environments. A skill library they can reach for. Onboarding that lands in days rather than months. Where Customer Success needs legal depth you step in, fix it, and turn the fix into something the team can handle alone next time. Your success is measured by how rarely you need to be in the room, and by what happens to adoption and expansion when you are not.
+
+  4. You are the legal authority in the building. Legal and compliance questions land with you: contract reviews, customer security and data protection questions, the occasional in-house matter which makes roughly ten to fifteen percent of your time. You use our own product to do it, and you tell us honestly when it is not good enough.
+
+  Your profile
+
+  The person we picture. There is a name emerging for what we are describing, and it is not "lawyer who is good with computers". It is legal quant: a lawyer who builds their own tooling to practise law, rather than waiting for a vendor to ship it. The distinction that matters to us: plenty of lawyers now use AI. A legal quant builds with it. They look at a workflow and ask how to redesign it from first principles to get the best possible outcome, rather than making the existing process incrementally faster.
+
+  A note on how we are weighting this role. Three capabilities make someone exceptional here: commercial instinct, legal depth, and technical ability to build. The ideal candidate has all three. We know that person is rare, and we are not going to pretend otherwise by writing a wish list and hoping. So for this role we weight the technical evidence most heavily, because it is the hardest of the three to teach on the job.
+
+  If you believe you genuinely combine all three, we want to talk to you regardless of how neatly your CV matches the bullets below. Say so in your note and tell us what you have built and what you have sold.
+
+  1. Technical track record. You have built things and they exist and ideally you have published some of it. You are fluent with LLMs the way a practitioner is fluent, not a spectator: you know how context windows fail you or why a prompt stopped working. When something breaks you go into the system rather than around it. Scripting, Git, and APIs are a strong plus.
+
+  2. Legal foundation. A law degree with a commercial-contracts focus: German-qualified (Bachelor, Master, or Staatsexamen) or an equivalent qualification from another jurisdiction. No bar admission required, no second Staatsexamen required. What we need: you have worked hands-on with German commercial contracts, drafting, reviewing, and negotiating them, and you can hold a conversation with a General Counsel as a peer.
+
+  3. Commercial and entrepreneurial track record. You have carried commercial responsibility for something of your own: a freelance client base, a legal tech product, or a company you started. You know what it takes to win a client from a standing start and why "they did not understand the value" is never the customer's fault. If instead you have supported enterprise sales teams in demos, pilots, and expert calls, tell us what you changed about the outcome.
+
+  You prioritise by impact, you are comfortable deciding without permission, and you would rather ship something imperfect this week than something elegant next quarter.
+
+  4. Language. Excellent German and English. German is non-negotiable: our customers are DACH legal teams and the nuance lives in their language. You can run a room of legal buyers, ask the sharp question, and write a specification precise enough to build from. Other EU languages are a plus.
+
+  Why us?
+
+  - Impact over hype. You define a new discipline at the intersection of law, product, and AI. Your work directly shapes how thousands of legal professionals will operate.
+  - No silos. You sit between Product, Engineering, and the customer, with a direct line to all three. The better argument wins, not the higher title.
+  - We invest in you. The enterprise motion (multi-stakeholder pilots, procurement cycles, security reviews) is teachable, and we teach it: side by side in real customer calls from week one.
+  - Real ownership. Competitive salary and employee stock options (ESOP).
+  - Build in public. We want you to keep publishing what you build, because it makes you better and it makes us visible.
+  - Offices in Berlin, Leipzig, and Zurich with a flexible hybrid setup. Regular apéros, lunches, and hiking trips as we enjoy the journey together.
+
+  Process
+
+  - Expectations. A conversation with the People Manager about the role and who you are.
+  - Depth. A conversation with our General Counsel & Head of Legal AI on Legal Engineering at Legartis and where the legal market is going.
+  - Build session. A live case at the intersection of legal reasoning, prompting, and product work: a real customer scenario, a legal AI workflow, or a playbook that misbehaves.
+  - Meet the team in Leipzig or Berlin.
+  - A mutual decision, before we welcome you to the team.
+
+  Find more English Speaking Jobs in Germany on Arbeitnow

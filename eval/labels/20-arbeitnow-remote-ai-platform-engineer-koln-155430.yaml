@@ -1,0 +1,132 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ai_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "junior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: ["French: plus"]  # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "remote"       # onsite | hybrid | remote | unknown
+  years_experience_min: 2   # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Platform Engineering", "DevOps", "SRE", "LLMs", "Azure", "AWS", "Infrastructure as Code", "Bicep", "Terraform", "CDK", "CloudFormation", "Linux", "Docker", "Git", "CI/CD", "PostgreSQL", "OAuth", "SSO", "Entra ID", "Python"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Multi-tenant Cloud", "LLM Frameworks", "AI Agents", "MCP", "RAG", "Open Source"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "LOW CONFIDENCE on is_target_role: mostly platform/DevOps for an internal AI hub, with AI parts (agent/tool catalog, agent evaluation, LLM experience required) -> ai_engineer; 'other' also defensible. 'Min. 2 Jahre' -> junior (<= 2 years). 'Verhandlungssicher' -> fluent. 95% remote, 1 office day/month -> remote. Recruiter posting for a client."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: remote-ai-platform-engineer-koln-155430
+  stratum: target_de
+  title: AI Platform Engineer (m/w/d)
+  company: ANGEHEUERT GmbH
+  location: Homeoffice
+  url: https://www.arbeitnow.com/jobs/companies/angeheuert-gmbh/remote-ai-platform-engineer-koln-155430
+  lang: de
+
+description: |
+  Du möchtest eine AI Plattform entwickeln, die täglich von 1.500 Mitarbeitenden genutzt wird? 
+  Du verbindest Cloud Engineering mit Softwareentwicklung und hast Lust, neue AI Technologien in zuverlässige Lösungen zu überführen? 
+  Dann könnte diese Position als AI Platform Engineer genau die richtige Herausforderung für dich sein. 
+
+  Unser Kunde ist eine schnell wachsende, börsennotierte Unternehmensgruppe mit aktuell rund 55 Softwareunternehmen im Portfolio. Diese sind auf hochspezialisierte B2B-Softwarelösungen ausgerichtet – vielfach in sicherheitskritischen, öffentlichen oder infrastrukturellen Anwendungsbereichen.
+
+  Deine Benefits
+
+  -
+  Remote First: Bis zu 95 % Remote Arbeit mit mindestens einem Tag pro Monat im Büro in Köln 
+
+  -
+  Flexibles Arbeiten: Hohe Eigenverantwortung bei der Gestaltung deines Arbeitsalltags. 
+
+  -
+  Arbeitskultur: Modern, kurze Entscheidungswege und ein sehr ambitioniertes Team 
+
+  -
+  Direkter Impact: Deine Arbeit beeinflusst eine AI Plattform, die im gesamten Unternehmensportfolio eingesetzt wird & du arbeitest direkt mit dem C-Level zusammen 
+
+  -
+  Attraktive Vergütung mit festem Grundgehalt und erfolgsabhängigem Anteil 
+
+  Deine Aufgaben
+
+  Im Mittelpunkt steht die Weiterentwicklung des internen AI Hub auf Basis von Open WebUI. Die Plattform wird für verschiedene Portfolionternehmen bereitgestellt und laufend um neue Funktionen, Integrationen und technische Möglichkeiten erweitert. 
+
+  -
+  Platform Engineering: Entwicklung neuer Integrationen, Container Images und Deployment Lösungen 
+
+  -
+  AI Integrationen: Pflege und Ausbau des Katalogs aus Tools, Skills, Agents und Integrationen 
+
+  -
+  AI Evaluation: Weiterentwicklung des Evaluationssystems zur Messung und Verbesserung von AI Agents 
+
+  -
+  Infrastructure as Code: Automatisierung und Weiterentwicklung der Cloud Infrastruktur 
+
+  -
+  Release Management: Prüfung neuer Versionen, Bewertung technischer Änderungen und Veröffentlichung stabiler Releases 
+
+  -
+  Cloud Infrastruktur: Betreuung gemeinsamer Komponenten wie Application Gateway, WAF, TLS, Redis, DNS und Netzwerkverbindungen 
+
+  -
+  Security: Umsetzung von Security Patches und Weiterentwicklung sicherer Plattformstrukturen 
+
+  -
+  Monitoring: Überwachung von Verfügbarkeit, Versionen, Deployments und Cloud Kosten über alle Instanzen hinweg 
+
+  -
+  Enablement: Erstellung technischer Dokumentationen, Onboarding und Aufbau von Preflight Checks und Guardrails 
+
+  Dein Profil als AI Platform Engineer
+
+  -
+  Min. 2 Jahre Erfahrung in Platform Engineering, DevOps, SRE oder Cloud Operations mit Verantwortung für Produktivsysteme 
+
+  -
+  AI-native – du verfügst über praktische Erfahrung mit LLMs und bereits umgesetzten AI Lösungen 
+
+  -
+  Praxiserfahrung mit Azure oder AWS 
+
+  -
+  Infrastructure as Code – unter anderem Erfahrung mit Bicep, Terraform, CDK oder CloudFormation 
+
+  -
+  Sicherer Umgang mit Linux, Docker, Git und CI/CD 
+
+  -
+  Erfahrung mit PostgreSQL sowie OAuth, SSO oder Entra ID 
+
+  -
+  Gute Python Kenntnisse über klassische Skripte hinaus 
+
+  -
+  Selbstständig, strukturiert und lösungsorientiert mit Freude an technischen Herausforderungen 
+
+  -
+  Verhandlungssichere Deutsch- & Englischkenntnisse  
+
+  -
+  Nice to have: 
+
+  -
+  Erfahrung mit internen Plattformen sowie in Multi Tenant oder Multi Customer Cloud Umgebungen 
+
+  -
+  Berührungspunkte mit LLM Frameworks, Agents, MCP oder RAG 
+
+  -
+  Erfahrung mit Open Source Projekten 
+
+  -
+  Französischkenntnisse  
+
+  Klingt nach genau der Herausforderung, die du suchst? Dann freuen wir uns auf deine Bewerbung und geben dir in einem ersten 10 minütigen Call gerne weitere Einblicke in Unternehmen, Team und Position. 
+
+  Find Jobs in Germany on Arbeitnow

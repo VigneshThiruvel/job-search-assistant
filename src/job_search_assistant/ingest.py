@@ -1,5 +1,7 @@
 """Run every source adapter and store the results: `python -m job_search_assistant.ingest`."""
 
+import argparse
+import json
 import logging
 import os
 import sqlite3
@@ -8,7 +10,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from job_search_assistant import db
+from job_search_assistant import db, dedup
 from job_search_assistant.config import ROLES
 from job_search_assistant.http import PoliteFetcher, default_client
 from job_search_assistant.mailbox import Mailbox
@@ -60,6 +62,39 @@ def run_source(conn: sqlite3.Connection, source: Source) -> dict[str, int]:
     return stats
 
 
+def reprocess(conn: sqlite3.Connection, sources: list[Source]) -> int:
+    """Re-normalize stored `raw_json` with the current adapter code; no network.
+
+    Use after fixing a `normalize()` bug. Only content fields change:
+    `first_seen`/`last_seen` keep their values.
+    """
+    updated = 0
+    with conn:
+        for source in sources:
+            rows = conn.execute(
+                "SELECT id, raw_json FROM jobs WHERE source = ?", (source.name,)
+            ).fetchall()
+            for job_id, raw_json in rows:
+                job = source.normalize(json.loads(raw_json))
+                conn.execute(
+                    """UPDATE jobs SET title = ?, company = ?, location = ?, country = ?,
+                       remote = ?, description = ?, url = ?, lang = ? WHERE id = ?""",
+                    (
+                        job.title,
+                        job.company,
+                        job.location,
+                        job.country,
+                        job.remote,
+                        job.description,
+                        job.url,
+                        detect_language(f"{job.title}\n{job.description}"),
+                        job_id,
+                    ),
+                )
+                updated += 1
+    return updated
+
+
 def build_sources(raw_dir: Path) -> list[Source]:
     client = default_client()
     sources: list[Source] = [
@@ -87,10 +122,19 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     logging.getLogger("httpx").setLevel(logging.WARNING)  # its INFO lines include API keys
     load_dotenv()
+    parser = argparse.ArgumentParser(prog="python -m job_search_assistant.ingest")
+    parser.add_argument(
+        "--reprocess", action="store_true", help="re-normalize stored raw_json, no fetching"
+    )
+    args = parser.parse_args()
     conn = db.connect(DATA_DIR / "jobs.db")
     try:
-        for source in build_sources(DATA_DIR / "raw"):
-            run_source(conn, source)
+        if args.reprocess:
+            log.info("reprocessed %d jobs", reprocess(conn, build_sources(DATA_DIR / "raw")))
+        else:
+            for source in build_sources(DATA_DIR / "raw"):
+                run_source(conn, source)
+        log.info("cross-source duplicate groups: %d", dedup.rebuild_groups(conn))
     finally:
         conn.close()
 

@@ -1,0 +1,133 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "data_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "working_student"  # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "part_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "none"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "onsite"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: []       # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Python", "JavaScript", "Terraform"]
+  restrictions: ["enrolled student, 3rd year or beyond of a STEM Bachelor's/Master's"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Office is primary, home only 'occasional' -> onsite (not regular hybrid). Languages appear only in tasks as 'such as' -> nice_to_have; GUIDELINE GAP: should tools named only in the task list count?"  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: working-student-data-engineering-amsterdam-169828
+  stratum: target_en_junior
+  title: Working Student – Data Engineering
+  company: Rewire
+  location: Amsterdam, Noord-Holland, Netherlands
+  url: https://www.arbeitnow.nl/jobs/companies/rewire/working-student-data-engineering-amsterdam-169828
+  lang: en
+
+description: |
+  Build AI that works in the real world 
+
+  Who we are
+
+  Founded in 2006, Rewire is an applied AI company helping organizations reinvent how they work with data and AI. We partner with leading organizations across industries to create scalable business impact by solving complex challenges through data, AI, and technology. Our team of 100+ data scientists, engineers, and change agents operates across Europe from offices in the Netherlands and Germany. Strategic in intent and pragmatic in execution, we combine deep Data & AI expertise with close, committed collaboration. 
+
+  Collaboration, knowledge sharing, and continuous learning are at the heart of our culture. Through topic communities, expert colleagues, and our internal academy, GAIN, you'll have plenty of opportunities to develop your skills in areas such as Agentic AI, Data Strategy, AI Product Development, and Technology Platforms, while helping clients achieve measurable results. 
+
+  Join a team that loves learning, solving challenges together, and having fun along the way. Ready to join the ride? 
+
+  Where you’ll make a difference
+
+  -
+  Contribute to impactful data & AI projects – by helping build the infrastructure, platforms, and applications that turn ideas into scalable, real-world solutions
+
+  -
+  Enabling AI-powered solutions at scale – by working on data pipelines, cloud environments, or ML platforms
+
+  -
+  Develop clean and scalable code – programming in languages such as Python, JavaScript, or Terraform
+
+  -
+  Translate tech for business – by communicating technical ideas in a clear and accessible way to ensure shared understanding across teams
+
+  -
+  Collaborate across teams – work hand-in-hand with experienced Engineers and Data Experts to build production-ready solutions
+
+  What makes us the right choice for you
+
+  -
+  Deepen your skills in data & AI – gain exposure to diverse industries, tackle real-world challenges, and grow through hands-on projects and expert mentorship in a future-focused environment
+
+  -
+  Thrive in a culture that values autonomy, curiosity, and bold thinking – where your voice matters, ideas turn into action, and your impact is genuinely recognized and rewarded
+
+  -
+  Step into a role where your studies meet real impact – contribute ideas and help shape how organizations use data & AI to drive change
+
+  -
+  Benefit from personal coaching – receive regular guidance and feedback from experienced professionals who are committed to your growth
+
+  -
+  Join a vibrant, multidisciplinary team that’s ambitious, collaborative, and just the right amount of nerdy – where learning and laughter go hand in hand
+
+  -
+  Enjoy a competitive salary and attractive benefits – because every role deserves fair pay and genuine appreciation
+
+  -
+  Look ahead with strong future prospects – take the opportunity to grow into a full-time role after your studies and kick-start your career in data & AI
+
+  What makes you shine
+
+  You’re a motivated problem solver and a curious learner – with a passion for building the technologies that bring AI-powered solutions to life. You’ll thrive with us if you bring:
+
+  -
+  A strong academic foundation – you’re currently in your 3rd year or beyond of a quantitative or STEM field Bachelor’s or Master’s program (e.g. Computer Science, Artificial Intelligence, Aerospace Engineering, Mechanical Engineering, Econometrics) with excellent results
+
+  -
+  Technical thinking and engineering skills – you enjoy designing infrastructure, developing applications, or building data pipelines
+
+  -
+  A hands-on, growth mindset – you take initiative, embrace challenges, and are eager to learn and develop continuously
+
+  -
+  Effective communication and teamwork skills – you’re comfortable collaborating and explaining your ideas clearly in technical discussions
+
+  -
+  Fluency in English (written and spoken)
+
+  If you're hesitating because you don't meet every requirement, don't let that hold you back. Strong candidates often underestimate how well they fit a role. If this opportunity excites you, we encourage you to apply!  
+
+  Where and how you’ll work
+
+  Most of your work will take place from our Amsterdam office, where you'll collaborate closely with colleagues and contribute to a variety of projects while gaining hands-on experience in a dynamic and international environment. Rewire's Amsterdam office is more than just a workplace, it's a hub for collaboration, innovation, and problem-solving. And because great work happens when people feel connected, we also regularly come together for team events, celebrations, and Friday drinks.
+
+  We're aiming for a minimum of 16 hours per week, ideally around 24 hours spread across three days, allowing you to make a meaningful impact while balancing your studies.
+
+  While the Amsterdam office will be your primary workspace, occasional work from home is possible in alignment with your team, providing flexibility and supporting a healthy balance between work and study.
+  Discover more about its inspiring atmosphere here.
+
+  In their own words
+
+  "Starting my career at Rewire has been an amazing opportunity. From day one, I was given a lot of responsibility on real projects, while also receiving the coaching and support needed to make the most of it. As projects go by, your role naturally grows, and you get the opportunity to take on more responsibility and ownership. 
+
+  What stands out to me most is Rewire's focus on growth and development. Whether it's technical skills, client-facing experience, or leadership, you're given the freedom and support to challenge yourself, discover where your strengths lie, and shape your own career path. Additionaly, I get to work alongside some of the smartest and most driven people in the field. Combined with the great culture and activities it makes Rewire a genuinely enjoyable place to work.” – Duncan van Woerkom - Data Engineer at Rewire
+
+  Sound like your kind of team?
+
+  Perfect! If you’re ready to kick-start your career and want to make real impact with data & AI, we’d love to hear from you.
+
+  Our selection process includes an initial screening, a capacity test, a recruiter conversation, and two interviews. Along the way, we'll learn more about each other and explore whether we're a great match. 
+
+  Apply now! Let’s see where this journey takes us.
+
+  Questions? Feel free to ask them via
+  Who you are matters to us!
+
+  We welcome all applicants – regardless of gender, background, or LGBT+ identity – because diversity and inclusion are core values for us. We are convinced that a diverse and inclusive workplace fosters creativity, innovation, and success. 
+
+  We believe diverse teams build better solutions. We are committed to building a more diverse engineering team and particularly encourage women and other underrepresented groups in technology to apply. 
+
+  Find more English Speaking Jobs in Netherlands on Arbeitnow

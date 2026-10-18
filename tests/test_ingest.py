@@ -5,7 +5,7 @@ from typing import Any
 import pytest
 
 from job_search_assistant import db
-from job_search_assistant.ingest import run_source
+from job_search_assistant.ingest import reprocess, run_source
 from job_search_assistant.models import Job
 
 
@@ -78,3 +78,19 @@ def test_bad_record_and_fetch_failure_are_counted_not_fatal(conn) -> None:
     run = conn.execute("SELECT * FROM runs").fetchone()
     assert (run["fetched"], run["new"], run["errors"]) == (2, 0, 2)
     assert run["finished_at"] is not None
+
+
+def test_reprocess_applies_new_normalize_without_touching_seen_dates(conn) -> None:
+    source = FakeSource([{"id": "1", "title": "Data Analyst"}])
+    run_source(conn, source)
+    before = rows(conn)[0]
+
+    class FixedSource(FakeSource):
+        def normalize(self, raw):
+            job = super().normalize(raw)
+            return Job(**{**job.__dict__, "title": job.title.upper()})
+
+    assert reprocess(conn, [FixedSource([])]) == 1
+    after = rows(conn)[0]
+    assert after["title"] == "DATA ANALYST"
+    assert (after["first_seen"], after["last_seen"]) == (before["first_seen"], before["last_seen"])

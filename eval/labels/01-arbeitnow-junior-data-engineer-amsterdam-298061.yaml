@@ -1,0 +1,130 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: human          # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true         # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: data_engineer   # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: junior            # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: full_time   # full_time | part_time | contract | freelance | unknown
+  german_level: none           # none | plus | basic | business | fluent | native
+  german_implied: false        # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: fluent        # none | plus | basic | business | fluent | native
+  other_languages: ["Dutch: fluent"]      # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: hybrid              # onsite | hybrid | remote | unknown
+  years_experience_min:    # integer, or leave empty if not stated
+  degree: master                 # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: []      # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: []
+  restrictions: []         # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                  # as written, or leave empty
+  notes:                   # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: junior-data-engineer-amsterdam-298061
+  stratum: target_en_junior
+  title: Junior Data Engineer
+  company: Rewire
+  location: Amsterdam, Noord-Holland, Netherlands
+  url: https://www.arbeitnow.nl/jobs/companies/rewire/junior-data-engineer-amsterdam-298061
+  lang: en
+
+description: |
+  Build AI that works in the real world 
+
+  Who we are
+
+  Founded in 2006, Rewire is an applied AI company helping organizations reinvent how they work with data and AI. We partner with leading organizations across industries to create scalable business impact by solving complex challenges through data, AI, and technology. Our team of 100+ data scientists, engineers, and change agents operates across Europe from offices in the Netherlands and Germany. Strategic in intent and pragmatic in execution, we combine deep Data & AI expertise with close, committed collaboration.
+
+  Collaboration, knowledge sharing, and continuous learning are at the heart of our culture. Through topic communities, expert colleagues, and our internal academy, GAIN, you'll have plenty of opportunities to develop your skills in areas such as Agentic AI, Data Strategy, AI Product Development, and Technology Platforms, while helping clients achieve measurable results.
+
+  Join a team that loves learning, solving challenges together, and having fun along the way. Ready to join the ride?
+
+  Where you’ll make a difference
+
+  -
+  Design and build data platforms, pipelines, and systems that enable Data & AI solutions
+
+  -
+  Work with clients to understand technical challenges and translate business needs into practical engineering solutions
+
+  -
+  Develop scalable and maintainable solutions that create long-term value
+
+  -
+  Collaborate with other Engineers, Data Scientists, and client teams to solve complex challenges
+
+  What makes us the right choice for you
+
+  -
+  Shape Data & AI solutions from idea to implementation, contributing to real-world impact for leading organizations
+
+  -
+  Work with modern technologies across a variety of industries and client environments, building relationships based on trust and shared goals
+
+  -
+  Grow through hands-on projects, mentorship from experienced engineers, and meaningful opportunities for professional growth
+
+  -
+  Join a vibrant, multidisciplinary team that’s ambitious, collaborative, and just the right amount of nerdy, where learning and laughter go hand in hand
+
+  -
+  Thrive in a culture that values autonomy, curiosity, and bold thinking, where your voice matters, ideas turn into action, and your impact is genuinely recognized and rewarded
+
+  What makes you shine
+
+  You’re a motivated problem solver and a curious learner – with a passion for turning data & AI into real business impact. You’ll thrive with us if you bring:
+
+  -
+  Master’s degree in a quantitative or STEM field (e.g., Computer Science, Artificial Intelligence, Aerospace Engineering, Mechanical Engineering, Econometrics) paired with dedication, and solid academic results
+
+  -
+  Relevant practical experience through internships, projects, research, or extracurricular activities, demonstrating an interest in building data pipelines, scalable systems, and reliable technical solutions
+
+  -
+  A hands-on, growth mindset – you take ownership of your tasks, embrace challenges, and contribute to solutions that create real value
+
+  -
+  Strong communication and teamwork skills – you enjoy collaborating with others, explaining technical concepts clearly, and contributing to an inclusive and supportive work environment 
+
+  -
+  Analytical thinking and technical problem-solving skills, with an interest in connecting business needs and technology solutions
+
+  -
+  Fluency in Dutch and English (written and spoken), and willingness to travel regularly to client sites
+
+  If you're hesitating because you don't meet every requirement, don't let that hold you back. Strong candidates often underestimate how well they fit a role. If this opportunity excites you, we encourage you to apply! 
+
+  What you can expect from us 
+
+  In addition to meaningful projects, continuous learning opportunities, and a collaborative environment, we offer a competitive package, access to multi-year GAIN education programs, mobility benefits, pension arrangements, hybrid working options, and a vibrant company culture with sports clubs, social events, team activities, wellbeing initiatives, and celebrations that foster connection, fun, and personal growth.
+
+  Where you’ll work
+
+  Most projects involve working onsite at client locations across the Netherlands, with opportunities to collaborate with clients in Germany and elsewhere in Europe, including travel as projects require.
+
+  Work is typically split between client sites and the office, providing a balance between collaboration with clients and time with the internal team.
+
+  When you're not onsite with clients, you're welcome to work from our Amsterdam office or from home. Rewire’s Amsterdam office is more than just a workplace – it's a hub for collaboration, innovation, and problem-solving, where we come together to shape the future.
+
+  Discover more about our inspiring atmosphere here.
+
+  In their own words
+
+  “What I really enjoy about my job at Rewire is us being involved from the beginning to the end of implementing complex and innovative AI solutions. We go from designing, to prototyping, to implementing at scale. As a result, working here exposes me to so many aspects of engineering that I find incredibly interesting. Secondly, working with the people here is simply a great deal of fun.” – Jacco Broere, Senior Data Engineer & AI at Rewire
+
+  Sound like your kind of team?
+
+  Perfect! If you’re ready to kick-start your career and want to make real impact with data & AI, we’d love to hear from you.
+
+  Our selection process includes an initial screening, a capacity test, a recruiter conversation, and two interviews. Along the way, we'll learn more about each other and explore whether we're a great match.
+
+  Apply now! And let’s see where this journey takes us.
+
+  Questions? Feel free to ask them via
+  Who you are matters to us!
+
+  We welcome all applicants – regardless of gender, background, or LGBT+ identity – because diversity and inclusion are core values for us. We are convinced that a diverse and inclusive workplace fosters creativity, innovation, and success.
+
+  We believe diverse teams build better solutions. We are committed to building a more diverse engineering team and particularly encourage women and other underrepresented groups in technology to apply.
+
+  Find Jobs in Netherlands on Arbeitnow

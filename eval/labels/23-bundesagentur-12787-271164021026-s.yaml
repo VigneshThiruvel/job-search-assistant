@@ -1,0 +1,61 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "mid"          # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "full_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "business"  # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["React", "TypeScript", "Automated Testing", "Claude Code", "Agentic Coding Tools", "UX Design", "UI Design"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Python", "LangGraph", "Agent Frameworks"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Frontend (React/TypeScript) for an AI app -> not a target role (guideline example). 'Gute Deutschkenntnisse (mind. C1)': stated CEFR wins -> fluent. 'Gute Englischkenntnisse' -> business. 37.5h week -> full_time. 'Mobiles Arbeiten' -> hybrid. 'Mehrjährige Erfahrung' -> mid."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 12787-271164021026-S
+  stratum: target_de
+  title: AI Frontend Engineer dmGPT (w/m/d)
+  company: dmTECH GmbH
+  location: Karlsruhe, Baden
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/12787-271164021026-S
+  lang: de
+
+description: |
+  Als Team dmGPT bei dmTECH entwickeln wir die zentrale KI-Anwendung von dm und stellen ein breites Angebot an Befähigung und technischer wie fachlicher Beratung bereit. Wir sind ein interdisziplinäres und internationales Team mit Kompetenzen von Softwareentwicklung bis KI-Befähigung.
+  In dieser Rolle entwickelst Du die Oberfläche von dmGPT. Du gestaltest mit, wie Mitarbeitende im Arbeitsalltag mit Modellen und Agenten arbeiten, und bringst neue Fähigkeiten schnell und verständlich in die Anwendung. KI ist bei uns nicht nur das Produkt, sondern auch die Art, wie wir entwickeln. Du probierst neue Modelle und Agenten-Ansätze früh aus und machst sie für tausende Mitarbeitende nutzbar.
+
+  Deine Aufgaben
+
+  • Entwicklung neuer KI-Funktionen in React und TypeScript
+  • Verantwortung für die Oberfläche von dmGPT von der Anforderung bis zur Produktivnahme
+  • Weiterentwicklung unserer agentischen Engineering-Workflows im Team
+  • Verantwortung und Mitarbeit in Projekten, in enger Abstimmung mit Design, Backend und Fachbereichen
+  • Technische Beratung und Austausch mit Tech-Teams zu generativer KI und zur Erweiterung von dmGPT, z. B. durch MCP-Server
+
+  Das bringst Du mit
+
+  • Abgeschlossenes Studium in (Wirtschafts-)Informatik oder eine vergleichbare Qualifikation
+  • Mehrjährige Erfahrung in der Entwicklung und im Betrieb von Anwendungen mit React und TypeScript inklusive automatisierter Tests
+  • Expertise im Umgang mit agentischen Werkzeugen in der Softwareentwicklung, insbesondere Claude Code
+  • Grundkenntnisse in UX- und UI-Design
+  • Von Vorteil: Kenntnisse in Python und Agent-Frameworks wie LangGraph
+  • Begeisterung für KI und Freude daran, Bestehendes infrage zu stellen
+  • Gute Deutschkenntnisse (mind. C1) und gute Englischkenntnisse
+
+  Das bieten wir Dir
+
+  • Dialogische Unternehmenskultur: Individuelle Stärken und Ideen unserer Mitarbeitenden sind das Fundament für die (Weiter-)Entwicklung unserer IT-Produkte. Dabei gehen wir offen mit neuen Technologien um, testen und nutzen dabei aktiv unsere Entscheidungsspielräume für ein optimales Ergebnis.
+  • Gesundheit & Vorsorge: Für Deine Vorsorge bieten wir unterschiedliche Zusatzleistungen für individuelle Bedürfnisse an: von einem Zuschuss zu Deiner betrieblichen Altersvorsorge, einer attraktiven Berufsunfähigkeitsversicherung über Angebote für Deine physische und psychische Gesundheit bis hin zu Kooperationen mit Krankenkassen oder Fitness-Studios und hausinternen Kursen für Dein Wohlbefinden. Ein betriebliches Sozialmanagement rundet das Angebot ab.
+  • Lernen bei dmTECH: Die digitale dm-Lernwelt bietet Dir zeit- und ortsunabhängig über 250 Seminare und Workshops – vom Projektmanagement bis hin zu fachlichen Weiterbildungen. Du hast Zugang zur Lernplattform Udemy mit ihrem breit gefächerten Kursangebot und kannst zusätzlich an externen Events und Weiterbildungen teilnehmen.
+  • Für eine ausgewogene Work-Life-Balance: flexible Arbeitszeiten, mobiles Arbeiten, 37,5-Stunden-Woche und 30 Urlaubstage. Bei einer „Workation“ kannst Du sogar Urlaub und Arbeit verbinden.
+  • Arbeitsatmosphäre: Unsere Räume im „dialogicum" sind hell, großzügig und modern. Die neueste Technik und ergonomisches Mobiliar erleichtern Dir Deine Aufgaben. Im „culinarium" bieten wir Dir täglich frische Mahlzeiten, gesunde Snacks und süße Kleinigkeiten zum fairen Preis.
+  • Zusatzleistungen: Den Erfolg unserer Arbeitsgemeinschaft geben wir gern an Dich zurück – mit Zulagen wie Urlaubs- und Weihnachtsgeld, mit Sonderzahlungen und Warengutscheinen. Du bekommst außerdem 10 % Mitarbeiterrabatt in allen deutschen dm-Märkten und profitierst in vielen Onlineshops von exklusiven Angeboten für dm-Mitarbeitende. Darüber hinaus kannst Du zweimal jährlich aktuelle Smartphones, Tablets oder Laptops für Deinen Privatgebrauch preiswert leasen.
+  • Mobilität: Mit einem Zuschuss für das "Deutschlandticket Job" bist Du günstig unterwegs. Wenn Du lieber Fahrrad fährst, kannst Du auch das JobRad® nutzen. Auf unserem Gelände gibt es genügend Parkplätze, E-Ladestationen und eine Fahrradgarage. Eine S-Bahn-Station und der Anschluss zur Autobahn liegen in direkter Nähe.

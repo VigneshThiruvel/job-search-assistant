@@ -1,0 +1,90 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: human          # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true         # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: analytics_engineer            # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: working_student              # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: part_time        # full_time | part_time | contract | freelance | unknown
+  german_level: basic           # none | plus | basic | business | fluent | native
+  german_implied: false         # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: fluent          # none | plus | basic | business | fluent | native
+  other_languages: []      # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: hybrid              # onsite | hybrid | remote | unknown
+  years_experience_min:    # integer, or leave empty if not stated
+  degree: bachelor                 # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: [SQL, Power BI, AI Assistants]      # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: []
+  restrictions: ["enrolled student"]         # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                  # as written, or leave empty
+  notes:                   # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: working-student-analytics-engineering-berlin-zentrale-381296
+  stratum: target_en_junior
+  title: Working Student Analytics Engineering (f/m/x)
+  company: Thermondo
+  location: Berlin (Zentrale)
+  url: https://www.arbeitnow.com/jobs/companies/thermondo/working-student-analytics-engineering-berlin-zentrale-381296
+  lang: en
+
+description: |
+  We're looking for
+  We are looking for you as a Working Student Analytics Engineering (f/m/x) to join one of our various departments
+  and help us at thermondo make an important contribution to climate neutrality. With your interest
+  in renewable energy and your identification with our values — Our word counts, Better every day,
+  and Stronger together — you can create real added value for all of us
+
+  If you enjoy this
+
+  - Answering Data-related questions from business stakeholders across all departments
+  - Building new dashboards and improving existing dashboards in Looker
+  - Conducting ad hoc analyses and translating data requests into clear results
+  - Monitoring data quality and working closely with our Analytics Engineers
+  - Documenting KPIs and data sources, and contributing to our data dictionary
+  - Writing basic SQL queries for data exploration and analysis
+
+  And recognise yourself here
+
+  - You are enrolled in a data-related or analytical degree programme, such as Data Science, Business Informatics, Statistics, Economics or a comparable field, with at least two semesters remaining.
+  - SQL basics: You understand basic syntax, filtering, JOINs and aggregations.
+  - BI experience: You have worked with a BI or reporting tool such as Looker, Tableau or Power BI and can explain what you built with it.
+  - Data understanding: You can prepare analysis results clearly and explain them to non-technical stakeholders.
+  - AI tools: You use tools such as Gemini or Claude in a practical way to support analysis, research or problem-solving.
+  - Independent work: You have initial practical experience with smaller data-related tasks and can structure your work with limited guidance.
+  - Languages: You speak German at least at B1 level and English at C1 level.
+
+  What we have to offer
+
+  - A meaningful purpose — through your work, you make an important contribution to
+  - making homes climate-neutral
+  -  Professional development opportunities with experienced mentors
+  - Interaction with other working students in an open working environment
+  - A collaborative team with diverse backgrounds
+  - A fantastic culture within the team and beyond
+  - A modern office in the heart of Berlin
+  - The option to bring your dog to work one day per week
+  - Working in a hybrid model
+  - The option to lease a company bike
+  - The option to use a membership at Urban Sports Club
+  - Corporate benefits with more than 100 partners
+
+  About us
+  Every application is welcome at thermondo — regardless of gender, nationality, ethnic or social background, religion, beliefs, disability, age, sexual orientation, or identity. We believe that every person is valuable and deserves a fair chance.
+
+  No home is like another, but for each of us, home is where we belong. It represents what defines
+  us and what matters to us. It has always been the place where we want to feel safe, secure, and undisturbed.
+
+  But we believe that our homes will stand for more in the future — namely, for the generations that come after us. We believe our homes can do more. They can be electrified, intelligent, efficient, independent, and climate-neutral. We believe climate-neutral living should be accessible, affordable, and easy for everyone. With every heat pump installed outside a home, every photovoltaic system installed on a roof, and every wallbox installed in a garage, we contribute to climate-neutral living.
+
+  We do not just believe in climate-neutral living — we make it possible. For millions of homes.Together. Every day. One home at a time
+
+  Your application process
+
+  - Your CV is reviewed by our Talent Acquisition team
+  - An initial introductory conversation with your Talent Acquisition Manager, Alex
+  - If we have a suitable open position, we will contact you again about the next steps
+  - If there is currently no suitable position available, you will become part of the thermondo
+  - talent pool for future opportunities
+
+  Find more English Speaking Jobs in Germany on Arbeitnow

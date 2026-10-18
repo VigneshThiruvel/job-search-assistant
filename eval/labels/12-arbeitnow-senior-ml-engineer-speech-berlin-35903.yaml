@@ -1,0 +1,95 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ml_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "senior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "none"      # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "none"     # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Deep Learning", "Speech Recognition", "ASR", "Speech-to-Text", "Python", "PyTorch", "MLOps", "Testing"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "'Several years' is not a number -> years empty. 'Berlin office or remotely across Germany' + 'good hybrid set-up' -> hybrid (remote within Germany also possible). No language statement in an English posting -> none."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: senior-ml-engineer-speech-berlin-35903
+  stratum: target_en_senior
+  title: Senior ML Engineer - Speech (m/f/d)
+  company: Voize
+  location: Berlin
+  url: https://www.arbeitnow.com/jobs/companies/voize/senior-ml-engineer-speech-berlin-35903
+  lang: en
+
+description: |
+  🎤 Why voize? Because we’re more than just a job!
+
+  At voize, we believe the greatest gift to frontline workers is time - time to care, connect, and be present. Today, that time is lost to busywork and complex systems that pull them away from what matters most: people.
+
+  Our vision is to change that by building AI companions that seamlessly take over digital workflows. We don’t replace humans with technology - we amplify their impact.
+
+  Our mission is backed with a $50M Series A funding led by Balderton Capital, with support from HV Capital, Y Combinator and other leading VCs. Today, 2,000+ facilities trust voize, and over 200,000 users rely on our AI companion to ease their daily workload.
+
+  As a dynamic team, we combine first-in-class technology with meaningful social impact. And now, we’re looking for you to join us on this mission!
+
+  💡 Your Mission
+
+  If you're a Machine Learning Engineer experienced with Speech recognition and are excited to work at the cutting edge of product design, applied ML research, and MLOps, then go ahead and apply! With us, you'll build products with direct user feedback, train AI models with real data, and ship new features to production every day.
+
+  🚀 Your Daily Business - No two days are alike
+
+  -
+  Take ownership for the design, training, evaluation, and deployment of our deep learning models in the space of speech recognition
+
+  -
+  The models you build and refine are at the heart of our applications and directly impact the end-user
+
+  -
+  You'll improve a diverse family of speech models live in the field, across languages and products, and engineer fast inference on mobile devices and in hosted environments.
+
+  🤝 Your Skillset - What you bring to the table
+
+  -
+  Several years hands-on experience in Deep Learning for speech recognition, including developing and optimising ASR-systems (not just academic research)
+
+  -
+  Excellent foundation in STT (Speech-to-Text) system development with a focus on real-world applications
+
+  -
+  Experience with owning the ML process end-to-end: from concept and exploration, to model productionization, maintenance, monitoring and optimization
+
+  -
+  Shipped ML models to production with Python and PyTorch
+
+  -
+  Strong software engineering: clean code, tests, guardrails
+
+  🌱 Growing together - what you can expect at voize
+
+  -
+  We are a fast-growing startup, that means you will tackle challenges, grow quickly, and make a real impact, giving frontline workers more time for people
+
+  -
+  We foster an open, collaborative culture with regular team events, whether you work from our Berlin office or remotely across Germany
+
+  -
+  Become a co-creator of our success with stock options
+
+  -
+  Generous perks: 30 vacation days plus your birthday off, Germany Transport Ticket, Urban Sports Club, regular company off-sites, and access to learning platforms such as Blinkist and Audible, plus free language courses
+
+  -
+  You decide when you work best, that means flexible working hours and a good hybrid set-up.
+
+  ✨ Ready to talk? Apply now! 🚀
+
+  We look forward to your application and can’t wait to meet you - no matter who you are or what background you have!
+
+  Find Jobs in Germany on Arbeitnow

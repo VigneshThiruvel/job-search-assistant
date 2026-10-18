@@ -1,0 +1,80 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "ai_engineer"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "junior"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "contract"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "business"  # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "unknown"      # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["RAG", "MCP", "AI Security", "LLM Evaluation", "Vector Databases", "Qdrant", "Chroma", "AI Coding Agents", "Claude Code", "OpenCode", "Python"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Docker", "Kubernetes", "Container Networking", "Git", "CI/CD", "Logging", "Monitoring"]
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "'Grundlegende Erfahrung' / 'Grundkenntnisse' -> junior. Placed at Airbus via a temp agency (Personalüberlassung) -> contract. 'Verhandlungssicheres Deutsch' -> fluent; 'versierte Englischkenntnisse' -> business (proficient, no level). Docker/Kubernetes only in tasks -> nice_to_have; Git/CI/CD 'von (sehr) großem Vorteil' -> nice_to_have. 'On-Premise' is about hosting, not workplace."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 14751-417A23245-S
+  stratum: target_de
+  title: Generative AI Engineer (m/w/d) für AIRBUS
+  company: Orizon GmbH, Unit Aviation
+  location: Ulm, Donau
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/14751-417A23245-S
+  lang: de
+
+description: |
+  Unser Angebot:
+
+  - Spannende Jobs bei interessanten Unternehmen wie Airbus Operations, Airbus Defence &amp; Space sowie der luftfahrt- und raumfahrttechnischen Zuliefererindustrie
+  - Attraktive und leistungsgerechte Gehaltskonditionen
+  - Umfangreiches Mitarbeiter-Benefit-Programm Orizon PlusPunkte
+  - Passende Fortbildungsmaßnahmen im Rahmen Ihrer Tätigkeiten
+  - Bis zu 30 Tage Jahresurlaub
+  - Persönliche Betreuung und qualifizierte Beratung an den Unit Aviation Standorten wie z.B. Hamburg-Finkenwerder, Stade, Augsburg, München oder Bremen
+
+
+  Ihre zukünftige Arbeitsstelle:
+  Für unseren renommierten Kunden Airbus Defence and Space am Standort Ulm sind Sie als Generative AI/Agentic AI Engineer (m/w/d) tätig.
+
+  Ihre Aufgaben:
+
+  - Entwicklung &amp; Implementierung: Design, Coding, Orchestrierung und Testing von skalierbaren GenAI-Services, Chatbots und autonomen Agenten unter Verwendung moderner Frameworks  
+  - On-Premise Betrieb &amp; Hosting: Deployment und Wartung von LLM-Infrastrukturen in unserer sicheren On-Premise-Umgebung (Docker/Kubernetes), einschließlich Performance-Optimierung und Ressourcenmanagement  
+  - Sicherheit &amp; Compliance: Sicherstellung, dass alle Entwicklungen den strengen Sicherheitsrichtlinien von Airbus Defence and Space entsprechen  
+  - RAG &amp; MCP: Entwicklung und Optimierung von RAG-Pipelines zur Anbindung interner Wissensdatenbanken sowie Implementierung von MCP-Tools für standardisierte, sichere Schnittstellen zwischen KI-Modellen und internen Tools/Datenquellen  
+  - Technischer Support &amp; Enablement: Support für interne Nutzer, Fehleranalyse (Troubleshooting) sowie Erstellung technischer Dokumentationen und Best Practices für das Entwicklungsteam  
+  - Aktive Mitarbeit an der technischen Roadmap durch Proof-of-Concepts (PoCs) für neue KIUse-Cases   
+
+
+  Ihr Profil:
+
+  - Abgeschlossenes Studium im Bereich Informatik, Data Science oder eine vergleichbare Qualifikation
+  - Grundlegende Erfahrung mit RAG-Architekturen und MCP  
+  - Grundkenntnisse in Cybersecurity für KI-Systeme  
+  - Erfahrung in LLM-Evaluation-Frameworks  
+  - Erfahrung mit Vector-DBs (Qdrant, Chroma, …)  
+  - Up-to-date mit allen Entwicklungen im AI Umfeld (Skills, Sandboxing, …)  
+  - Kenntnisse in der Nutzung von AI Agenten (Claude Code, OpenCode, …)  
+  - Versierter Umgang in Python
+  - Verständnis für Netzwerkkonzepte in Container-Umgebungen wünschenswert  
+  - Sichere Anwendung von Git (Branching Strategies, Code Reviews) von großem Vorteil  
+  - Kenntnisse in CI/CD-Pipelines von sehr großem Vorteil   
+  - Erfahrung mit Logging &amp; Monitoring Stack im Server-Bereich von Vorteil  
+  - Verhandlungssichere Deutsch- und versierte Englischkenntnisse in Wort und Schrift
+  - Bereitschaft zu gelegentlichen Dienstreisen
+
+
+  Ihr Partner:
+  Die Orizon Unit Aviation ist auf die Personalüberlassung und -vermittlung in den Bereichen Luft- und Raumfahrt sowie Defence spezialisiert. Mit fundierter Branchenerfahrung bieten wir Fachkräften attraktive berufliche Perspektiven in diesen Bereichen. Wenn Sie passende Qualifikationen oder erste Erfahrungen im Aviation Umfeld mitbringen, sind Sie bei uns genau richtig – kommen Sie zu uns an Bord!    Orizon ist mit über 50 Standorten einer der führenden Personaldienstleister in Deutschland und Teil der internationalen BREXA Holdings Inc. Wir bieten passgenaue Personallösungen von der klassischen Arbeitnehmerüberlassung bis hin zu spezialisierten Recruiting- und Outsourcing-Dienstleistungen. Unsere Tochtergesellschaften OTTO Work Force Deutschland GmbH und jobs in time medical GmbH ergänzen das Portfolio mit EU Recruiting und medizinischem Fachpersonal.
+
+  Bewerbung und Rückfragen:
+  Wir freuen uns auf Bewerbungen (unter Angabe von Verfügbarkeit und Gehaltsvorstellung) gerne per E-Mail an bewerbung.aviation@orizon.de oder über unser Bewerbungsmodul auf dieser Seite.Für Fragen steht Herr Besler gerne unter der Telefonnummer +49 821 3456026 zur Verfügung.
+  Beim hier angegebenen Gehalt sind unter Umständen nicht alle Bestandteile (bspw. Branchenzuschläge, Weihnachtsgeld, Schicht-Boni o.ä.) berücksichtigt. Das verbindliche Gehalt ist im persönlichen Gespräch zu klären.
+  Weitere Informationen finden Sie unter orizon.de
+  Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst: www.orizon.de/de/datenschutzvereinbarungen

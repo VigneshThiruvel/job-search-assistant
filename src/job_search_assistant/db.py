@@ -29,6 +29,29 @@ CREATE TABLE IF NOT EXISTS jobs (
 );
 CREATE INDEX IF NOT EXISTS idx_jobs_content_hash ON jobs (content_hash);
 
+-- Derived: cross-source duplicate groups, rebuilt after every ingest (see dedup.py).
+CREATE TABLE IF NOT EXISTS job_groups (
+    job_id   INTEGER PRIMARY KEY REFERENCES jobs (id),
+    group_id INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_job_groups_group ON job_groups (group_id);
+
+-- Phase 2: one row per (job, model, prompt version); never overwritten.
+CREATE TABLE IF NOT EXISTS extractions (
+    id                INTEGER PRIMARY KEY,
+    job_id            INTEGER NOT NULL REFERENCES jobs (id),
+    model             TEXT NOT NULL,        -- requested model (cache key)
+    served_model      TEXT,                 -- differs if a refusal fallback answered
+    prompt_version    TEXT NOT NULL,
+    effort            TEXT,
+    extracted_at      TEXT NOT NULL,
+    output_json       TEXT NOT NULL,
+    input_tokens      INTEGER,
+    cache_read_tokens INTEGER,
+    output_tokens     INTEGER,
+    UNIQUE (job_id, model, prompt_version)
+);
+
 CREATE TABLE IF NOT EXISTS runs (
     id          INTEGER PRIMARY KEY,
     source      TEXT NOT NULL,

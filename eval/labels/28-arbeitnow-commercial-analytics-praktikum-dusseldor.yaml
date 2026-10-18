@@ -1,0 +1,94 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "data_analyst"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "intern"       # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "part_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "unknown"      # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Google Sheets", "Excel", "Dashboards"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: ["Python", "SQL", "Tableau"]
+  restrictions: ["enrolled student"]  # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary: "2.410 €/Monat (freiwilliges Praktikum), 1.000 €/Monat (Pflichtpraktikum)"  # as written, or leave empty
+  notes: "Sampled as not_target (title regex missed 'Commercial Analytics'), but the work is SQL/Python/Excel analysis and Tableau dashboards -> target, data_analyst. 16-20h/week -> part_time. 'Fließende Deutsch- und Englischkenntnisse' -> fluent both. SQL/Tableau only in tasks; Python 'idealerweise' -> nice_to_have. Ideally final Bachelor's phase or Master's."  # anything ambiguous; why you chose a label
+
+job:
+  source: arbeitnow
+  source_job_id: commercial-analytics-praktikum-dusseldorf-north-rhine-westphalia-299808
+  stratum: not_target
+  title: Commercial Analytics Praktikum (m/w/d)
+  company: Teampicnic
+  location: Düsseldorf, North Rhine-Westphalia
+  url: https://www.arbeitnow.com/jobs/companies/teampicnic/commercial-analytics-praktikum-dusseldorf-north-rhine-westphalia-299808
+  lang: de
+
+description: |
+  Kurz und knapp
+
+  Bei Picnic basiert unser gesamtes Geschäftsmodell auf Daten. Für unser Team suchen wir analytische und neugierige Köpfe als Commercial Analytics Praktikum.
+
+  Du wirst Teil der Teams, die unseren digitalen Supermarkt am Laufen halten. Du tauchst tief in Datensätze ein, um unsere Preise zu optimieren, unser Sortiment zu verbessern, Kampagnen zu analysieren und genau die Insights zu finden, die unser Wachstum vorantreiben.
+
+  Das erwartet dich
+
+  Je nach deinem genauen Fokusbereich können folgende Aufgaben zu deinem Tag gehören:
+
+  - Data Deep-Dives: Nutze SQL, Python oder Excel, um Kundentrends zu entschlüsseln, unsere Marktpositionierung zu analysieren und neue Wachstumschancen aufzudecken.
+
+  - Kommerzielle Strategie: Analysiere die Produkt-Performance und das Nutzerverhalten in der App. Daraus leitest du konkrete Empfehlungen ab, die bestimmen, was wir verkaufen und wie wir es verkaufen.
+
+  - Kampagnen- & Partnerschafts-Analytics: Verwandle Kampagnen- und Kundendaten in echtes Wissen. Du bewertest den Erfolg von Marketingaktionen, damit unsere internen Teams und Markenpartner genau verstehen, was die Conversion antreibt.
+
+  - Dashboard-Building: Erstelle und pflege automatisierte Reporting-Tools in Tableau oder Google Sheets, um dem Team einen Einblick auf unsere wichtigsten KPIs zu geben.
+
+  - Optimierungsprojekte: Unterstütze bei der Umsetzung und Auswertung von Preisanpassungen, Sortiments-Updates und Promo-Aktionen, um den Mehrwert für unsere Kunden zu maximieren. 
+
+  - Abteilungsübergreifende Zusammenarbeit: Arbeite eng mit verschiedenen Teams zusammen, um sicherzustellen, dass unsere Daten-Insights auch zu echten, nachhaltigen Verbesserungen führen.
+
+  Das bringst du mit
+
+  - Du bist idealerweise in der Endphase deines Bachelorstudiums oder machst bereits deinen Master in Wirtschaftswissenschaften, BWL, E-Commerce, Analytics, Retail, Wirtschaftsingenieurwesen oder einem ähnlichen Bereich.
+
+  - Ein starkes analytisches Mindset – du liebst die Arbeit mit Daten und übersetzt Zahlen gerne in konkrete Businessempfehlungen.
+
+  - Ein scharfes Auge fürs Detail, damit keine falschen Infos in der App sind. 
+
+  - Sicherer Umgang mit Google Sheets / Excel und Dashboards, idealerweise erste Erfahrung mit Python oder Ähnlichem.
+
+  - Interesse an Retail, FMCG, Digital Grocery, Pricing oder kommerzieller Strategie.
+
+  - Organisationsgeschick und eine proaktive Mentalität – du übernimmst gerne Verantwortung für deine Projekte von Anfang bis Ende.
+
+  - Du hast Spaß daran, Ideen zu brainstormen, kritische Fragen zu stellen und Energie ins Team zu bringen.
+
+  - Du bist 16–20 Stunden pro Woche verfügbar.
+
+  - Fließende Deutsch- und Englischkenntnisse.
+
+  Darauf kannst du dich freuen
+
+  - Starte mit uns durch: Werde Teil unseres internationalen Teams in einem Umfeld, das echtes Wachstum und eine „Act like an Owner“-Mentalität fördert. Bei uns hast du die Chance, Projekte eigenverantwortlich voranzutreiben, neue Ideen zu testen und direkt miterleben zu können, wie deine Arbeit in unserem schnell wachsenden Unternehmen Wirkung zeigt.
+
+  - Verpflegung: Genieße jeden Tag ein frisches, kostenloses Frühstück und Mittagessen in unserem Büro, dazu gibt es reichlich Snacks und Obst für den Energiekick zwischendurch.
+
+  - Unvergessliche Momente: Von unserem legendären jährlichen Ski-Trip über Weihnachtsfeiern bis hin zu Auftritten unserer eigenen Picnic-Band: Wir feiern unsere Erfolge gemeinsam.
+
+  - Ein moderner Workspace: Unser neu renoviertes Büro ist auf Zusammenarbeit ausgelegt und bietet dir flexible Arbeitszeiten sowie 15 Urlaubstage (bei einer 6 Monate Internship).
+
+  - Wohlbefinden & Gleichgewicht: Wir bieten dir professionelle Unterstützung für deine mentale Gesundheit mit OpenUp. Und dank unseres hundefreundlichen Büros ist dein vierbeiniger Begleiter nach Absprache willkommen.
+
+  - Die Basics: Wir stellen dir alles für deinen Erfolg bereit - inklusive Laptop sowie Zugang zu exklusiven Rabatten (Corporate Benefits) für Reisen, Technik und vieles mehr.
+
+  - Nachhaltigkeit als Kern: Werde Teil der Revolution. Du trägst zu einer grüneren Zukunft bei – durch unsere 100 % elektrische Flotte und unsere Lieferkette, die Lebensmittelverschwendung reduziert.
+
+  - Attraktive Vergütung: Wir wertschätzen deinen Einsatz mit 2.410,00 €/Monat für ein freiwilliges Praktikum bzw. 1.000,00 €/Monat für ein Pflichtpraktikum.
+
+  Schick uns deine Bewerbung gern auf Englisch, wenn du schon eine englische Version parat hast.
+
+  Find Jobs in Germany on Arbeitnow

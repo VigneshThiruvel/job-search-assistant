@@ -1,0 +1,100 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: true      # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "data_analyst"  # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "mid"          # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "full_time"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: false     # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "fluent"   # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "hybrid"       # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "bachelor"        # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Master Data Management", "Data Quality Management", "SAP MDG", "SAP S/4HANA", "Data Migration", "Power BI", "Excel", "SQL", "Data Modeling"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary: "70.000–88.000 € Jahresbrutto"  # as written, or leave empty
+  notes: "Borderline target: SAP master-data quality role, but core work is KPI analysis, Power BI dashboards and reporting -> data_analyst (bi_analyst defensible). 'Mehrjährige Erfahrung' -> mid, no number. 'Sehr gute Deutsch- und Englischkenntnisse' -> fluent both. 'Hybride Arbeitszeitmodelle' -> hybrid. Liebherr via recruiter."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 15240-k50661.4158-S
+  stratum: target_de
+  title: SAP MDG / Master Data Quality Analyst (m/w/d)
+  company: recruitIT Consulting
+  location: null
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/15240-k50661.4158-S
+  lang: de
+
+description: |
+  SAP MDG / Master Data Quality Analyst (m/w/d)
+
+  Stunden pro Woche
+
+  •
+
+  unbefristet
+
+  •
+
+  Frühester Beginn ab sofort
+
+  Sorge für verlässliche Stammdaten und gestalte Data Quality in einem internationalen Industrieumfeld.
+
+  ## Datenqualität mit messbarer Wirkung.
+
+  Du möchtest die Qualität geschäftskritischer Stammdaten nicht nur prüfen, sondern nachhaltig verbessern? Bei Liebherr entwickelst du Data-Quality-Monitoring, machst Datenrisiken transparent und arbeitest mit Fachbereichen, Data Ownern und IT an belastbaren Lösungen.
+
+  Für diese Position ist ein marktübliches Jahresbruttogehalt von 70.000–88.000 € vorgesehen – abhängig von Erfahrung und Qualifikation.
+
+  ## Deine Aufgaben
+
+  - Du entwickelst und pflegst das MDM-Data-Quality-Monitoring mit Regelwerken, Kennzahlen und Performance-Metriken.
+  - Du erstellst Reporting- und Analytics-Lösungen, Power-BI-Dashboards sowie Management-Reports.
+  - Du analysierst Datenqualitäts-KPIs, Validierungsergebnisse und Trends und leitest konkrete Maßnahmen ab.
+  - Du verfolgst Data Readiness, Data Cleansing und Datenvalidierungen über verschiedene Datenbereiche hinweg.
+  - Du identifizierst Datenqualitätsrisiken und Engpässe und koordinierst Verbesserungsmaßnahmen.
+  - Du unterstützt globale Datenmigrationen sowie Root-Cause-Analysen in Stammdatenprozessen.
+
+  ## Das bringst du mit
+
+  - Abgeschlossenes Studium in Wirtschaftsinformatik, Informatik, Data Management oder eine vergleichbare Qualifikation.
+  - Mehrjährige Erfahrung in Master Data Management und Data Quality Management.
+  - Fundierte Kenntnisse in SAP MDG, SAP S/4HANA, Datenmigration und Stammdatenprozessen.
+  - Sehr gute Kenntnisse in Reporting und Analytics, insbesondere Power BI, Advanced Excel, SQL und Datenmodellierung.
+  - Analytische, strukturierte und lösungsorientierte Arbeitsweise.
+  - Sehr gute Deutsch- und Englischkenntnisse sowie Bereitschaft zu gelegentlichen Dienstreisen.
+
+  ## Fachlich tief, aber nicht isoliert.
+
+  Die Rolle verbindet Analyse, Monitoring und operative Verbesserung. Du arbeitest nicht nur mit Daten und Tools, sondern stimmst dich eng mit globalen Fachbereichen, Data Ownern und der IT ab.
+
+  ## International zusammenarbeiten
+
+  Liebherr verbindet langfristige Perspektiven eines Familienunternehmens mit globalen Teams und modernen digitalen Themen. Eigenverantwortung, klare Zusammenarbeit und kontinuierliche Verbesserung prägen das Umfeld.
+
+  ## Darauf kannst du dich freuen
+
+  - Unbefristete Vollzeitposition mit hybriden Arbeitszeitmodellen, Gleitzeit und 30 Tagen Urlaub.
+  - Weiterbildungsangebote und internationale Zusammenarbeit.
+  - Jobticket oder Fahrtkostenzuschuss, Betriebsrestaurant und Bike-Leasing.
+  - Betriebliche Altersvorsorge sowie Angebote für Sport und Freizeit.
+  - Jahresbruttogehalt von 70.000–88.000 €, abhängig von Erfahrung und Qualifikation.
+
+  ## So geht es weiter
+
+  1. Du bewirbst dich mit deinem Lebenslauf und relevanten Zeugnissen.
+  2. Wir prüfen deine Unterlagen und sprechen vertraulich über die Position.
+  3. Bei beiderseitigem Interesse begleiten wir dich durch die weiteren Gespräche.
+
+  ## Vertraulich und transparent
+
+  Deine Bewerbung wird vertraulich behandelt. Für den ersten Schritt genügt dein Lebenslauf mit relevanten Nachweisen; ein Anschreiben ist nicht erforderlich.
+
+  ## Dein Einstieg
+
+  Du lernst die MDM-Landschaft, relevante Datenprozesse und wichtige Schnittstellen kennen. Anschließend übernimmst du schrittweise Verantwortung für Monitoring, Analysen und Verbesserungsinitiativen.
+
+  Du möchtest Data Quality im internationalen Umfeld sichtbar voranbringen? Dann bewirb dich jetzt.

@@ -1,0 +1,58 @@
+reviewed: true             # true only after a human checked every field below
+labelled_by: claude-draft   # human | claude-draft (who wrote the labels before review)
+labels:
+  is_target_role: false     # true/false: one of the roles in CLAUDE.md "Search scope"
+  role_family: "other"      # data_analyst | data_engineer | data_scientist | ai_engineer | ml_engineer | analytics_engineer | bi_analyst | other
+  seniority: "unknown"      # intern | working_student | junior | mid | senior | lead | unknown
+  employment_type: "unknown"  # full_time | part_time | contract | freelance | unknown
+  german_level: "fluent"    # none | plus | basic | business | fluent | native
+  german_implied: true      # true/false: level inferred (e.g. German-only posting), not stated
+  english_level: "none"     # none | plus | basic | business | fluent | native
+  other_languages: []       # non-German/English, e.g. ["Dutch: fluent"] (same scale)
+  workplace: "unknown"      # onsite | hybrid | remote | unknown
+  years_experience_min:     # integer, or leave empty if not stated
+  degree: "unknown"         # none | vocational | bachelor | master | phd | unknown (minimum required)
+  required_skills: ["Business Analysis", "Solution Design", "Requirements Analysis", "Process Documentation", "Solution Architecture", "Integration Concepts", "Data Concepts"]  # as written, e.g. [SQL, Python, Power BI]
+  nice_to_have_skills: [] 
+  restrictions: []          # eligibility as written, e.g. ["enrolled student", "EU citizens only"]
+  salary:                   # as written, or leave empty
+  notes: "Titled Data Scientist, but the work is business analysis/solution design for AI automation projects; no modelling, statistics or code -> not a target role. German-only posting, no language statement -> fluent, implied. Insurance/finance background is preferred (domain, not a skill). Workshop/stakeholder skills omitted as soft skills."  # anything ambiguous; why you chose a label
+
+job:
+  source: bundesagentur
+  source_job_id: 13319-897506/1_626028LS-S
+  stratum: target_de
+  title: Data Scientist (m/w/d)
+  company: Hays Professional Solutions GmbH Standort Frankfurt
+  location: null
+  url: https://www.arbeitsagentur.de/jobsuche/jobdetail/13319-897506/1_626028LS-S
+  lang: de
+
+description: |
+  ### Ihre Vorteile:
+
+  - Mitarbeit an innovativen KI- und Automatisierungsvorhaben mit unterschiedlichen Use Cases
+  - Abwechslungsreiche Einsätze an der Schnittstelle zwischen Fachbereich, IT und Technologie
+  - Möglichkeit, Lösungsansätze von der Anforderungsanalyse bis zur Umsetzung aktiv mitzugestalten
+
+  ### Ihre Aufgaben:
+
+  - Analyse und Strukturierung fachlicher Anforderungen und Geschäftsprozesse im Kontext von KI- und Automatisierungsprojekten
+  - Identifikation, Bewertung und Priorisierung geeigneter KI- und Automatisierungs-Use-Cases
+  - Planung und Moderation von Workshops mit Fachbereichen, IT und weiteren Stakeholdern
+  - Überführung fachlicher Anforderungen in tragfähige Lösungs- und Umsetzungskonzepte
+  - Entwicklung von Zielbildern sowie Integrations-, Daten- und Lösungskonzepten unter Berücksichtigung bestehender Systeme
+  - Bewertung von Lösungsoptionen hinsichtlich Nutzen, Machbarkeit, Risiken, Datenschutz und Informationssicherheit sowie Begleitung der Umsetzung
+
+  ### Ihre Qualifikationen:
+
+  - Fundierte Erfahrung in der Business Analyse und/oder im Solution Design
+  - Projekterfahrung im Umfeld von KI, Automatisierung oder Prozessdigitalisierung
+  - Erfahrung in der Aufnahme, Analyse und Dokumentation fachlicher Anforderungen und Prozesse
+  - Kenntnisse in der Konzeption von Lösungsarchitekturen, Integrationen und Datenkonzepten
+  - Erfahrung in der Moderation von Workshops und im Stakeholdermanagement zwischen Fachbereich und IT
+  - Idealerweise Projekterfahrung im Versicherungs- oder Finanzdienstleistungsumfeld
+
+  ### Über Hays:
+
+  Der Bereich IT ist unsere Kernkompetenz, auf deren Grundlage sich Hays entwickelt hat. Wir sind das größte privatwirtschaftlich organisierte IT-Personaldienstleistungsunternehmen in Deutschland und haben für jede Karrierestufe das passende Angebot - egal ob Sie an Vakanzen in agilen KMUs oder starken DAX-Konzernen interessiert sind. Wir beherrschen die komplette IT-Klaviatur von Support bis zur Softwarearchitektur oder Digitalisierung - dank unseres umfangreichen Portfolios ist für jeden etwas dabei. So konnten wir in den vergangenen Jahrzehnten im Rahmen einer Life-Long-Partnerschaft unzählige Fach- und Führungskräfte aus der IT dabei unterstützen, die Weichen für eine erfolgreiche Karriere zu stellen. Unser Beratungsteam ist spezialisiert und somit in der Lage, auf Ihre Wünsche und Vorstellungen einzugehen und Sie auf Bewerbungsgespräche und Vertragsverhandlungen bestens vorzubereiten. Probieren Sie es aus und erfahren Sie, was der Markt Ihnen zu bieten hat - völlig kostenfrei, diskret und unverbindlich! Wir freuen uns auf Sie.
