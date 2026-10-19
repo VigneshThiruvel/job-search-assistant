@@ -11,6 +11,8 @@ dependencies = [
     "pydantic>=2.14.1",
     "python-dotenv>=1.2.4",
     "pyyaml>=6.0.3",
+    "sentence-transformers>=6.1.0",
+    "sqlite-vec>=0.1.9",
 ]
 
 [build-system]

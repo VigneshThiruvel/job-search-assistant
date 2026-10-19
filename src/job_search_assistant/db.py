@@ -5,6 +5,8 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
+import sqlite_vec
+
 from job_search_assistant.models import Job
 
 SCHEMA = """
@@ -52,6 +54,16 @@ CREATE TABLE IF NOT EXISTS extractions (
     UNIQUE (job_id, model, prompt_version)
 );
 
+-- Phase 3: one vector per (job, embedding model); re-embedded when the text changes.
+CREATE TABLE IF NOT EXISTS embeddings (
+    job_id      INTEGER NOT NULL REFERENCES jobs (id),
+    model       TEXT NOT NULL,
+    text_hash   TEXT NOT NULL,           -- hash of the embedded text (cache key)
+    embedded_at TEXT NOT NULL,
+    vector      BLOB NOT NULL,           -- float32, L2-normalized (sqlite-vec format)
+    PRIMARY KEY (job_id, model)
+);
+
 CREATE TABLE IF NOT EXISTS runs (
     id          INTEGER PRIMARY KEY,
     source      TEXT NOT NULL,
@@ -94,6 +106,10 @@ def connect(path: Path | str) -> sqlite3.Connection:
         Path(path).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(path)
     conn.row_factory = sqlite3.Row
+    # sqlite-vec adds vector functions (vec_distance_cosine, ...) to this connection.
+    conn.enable_load_extension(True)
+    sqlite_vec.load(conn)
+    conn.enable_load_extension(False)
     conn.executescript(SCHEMA)
     return conn
 

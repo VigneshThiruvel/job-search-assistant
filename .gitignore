@@ -12,3 +12,6 @@ data/*.db
 
 # Secrets
 .env
+
+# Personal profile (résumé with contact details)
+profile/
