@@ -22,29 +22,36 @@ GERMAN_LEVELS = evalset.ENUMS["german_level"]  # ordered: none < plus < basic < 
 
 @dataclass(frozen=True)
 class Filters:
-    """Constraints checked against a posting's extraction. Unextracted postings fail them."""
+    """Constraints on a posting. All but `in_scope_location` read the posting's extraction,
+    and unextracted postings fail them."""
 
     target_only: bool = False
     seniority: tuple[str, ...] | None = None
     max_german: str | None = None  # highest acceptable german_level requirement
+    max_years: int | None = None  # highest acceptable years_experience_min; unstated = kept
     other_languages_optional: bool = False  # Dutch, French, ... at most "plus"
+    in_scope_location: bool = False  # drop UK/US/etc. (evalset.OUT_OF_SCOPE); empty = kept
 
-    def active(self) -> bool:
+    def needs_extraction(self) -> bool:
         return (
             self.target_only
             or self.seniority is not None
             or self.max_german is not None
+            or self.max_years is not None
             or self.other_languages_optional
         )
 
 
 # My search scope (CLAUDE.md): target roles, entry level (mid as a stretch), basic German at
-# most, no other language required (I speak English, basic German, Tamil).
+# most, no other language required (I speak English, basic German, Tamil). `mid` alone let
+# 3-7-year roles through (9 of the first 10 match_me results), so years are capped too.
 MY_FILTERS = Filters(
     target_only=True,
     seniority=("junior", "mid", "unknown"),
     max_german="basic",
+    max_years=2,
     other_languages_optional=True,
+    in_scope_location=True,
 )
 
 
@@ -71,7 +78,12 @@ def search(
     filters = filters or Filters()
     params: dict = {"q": embed.to_blob(query_vector), "model": model, "k": k}
     join, where = "", []
-    if filters.active():
+    if filters.in_scope_location:
+        conn.create_function(
+            "out_of_scope", 1, lambda s: bool(evalset.OUT_OF_SCOPE.search(s)), deterministic=True
+        )
+        where.append("NOT out_of_scope(coalesce(j.location, '') || ' ' || j.title)")
+    if filters.needs_extraction():
         if extraction is None:
             raise ValueError("filters need an extraction (model, prompt_version)")
         join = """JOIN extractions x ON x.job_id = j.id
@@ -88,6 +100,11 @@ def search(
             names = [f":ger{i}" for i in range(len(allowed))]
             where.append(f"json_extract(x.output_json, '$.german_level') IN ({', '.join(names)})")
             params.update(zip((n[1:] for n in names), allowed, strict=True))
+        if filters.max_years is not None:
+            where.append(
+                "coalesce(json_extract(x.output_json, '$.years_experience_min') <= :max_years, 1)"
+            )
+            params["max_years"] = filters.max_years
         if filters.other_languages_optional:
             where.append(
                 """NOT EXISTS (SELECT 1 FROM json_each(x.output_json, '$.other_languages') o

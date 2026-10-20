@@ -51,7 +51,9 @@ def load_encoder(model: str = DEFAULT_MODEL) -> Encoder:
     st.max_seq_length = MAX_TOKENS
 
     def encode(texts: Sequence[str]) -> np.ndarray:
-        return st.encode(list(texts), batch_size=BATCH_SIZE, normalize_embeddings=True)
+        return st.encode(
+            list(texts), batch_size=BATCH_SIZE, normalize_embeddings=True, show_progress_bar=False
+        )
 
     return encode
 

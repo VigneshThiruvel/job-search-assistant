@@ -95,12 +95,22 @@ def test_search_ranks_by_similarity_one_hit_per_duplicate_group(conn) -> None:
     assert hits == sorted(hits, key=lambda h: -h.similarity)
 
 
+def test_location_filter_drops_out_of_scope_places(conn) -> None:
+    embed.embed_jobs(conn, fake_encode, "fake")
+    conn.execute("UPDATE jobs SET location = 'Sydney, Australia' WHERE id = 3")
+    conn.execute("UPDATE jobs SET location = NULL WHERE id = 4")  # unknown is kept
+    hits = search(conn, fake_encode(["sales"])[0], model="fake",
+                  filters=Filters(in_scope_location=True))  # fmt: skip
+    assert {h.job_id for h in hits} == {1, 4}
+
+
 def test_filters_use_extractions(conn) -> None:
     embed.embed_jobs(conn, fake_encode, "fake")
     analyst = extract.Extraction.model_validate({**LABELS, "german_level": "plus"})
     engineer = extract.Extraction.model_validate(
-        {**LABELS, "seniority": "senior", "german_level": "none", "other_languages": []}
-    )
+        {**LABELS, "seniority": "senior", "german_level": "none", "other_languages": [],
+         "years_experience_min": 5}
+    )  # fmt: skip
     extract.store_extraction(conn, 3, analyst, model="x", version="v")
     extract.store_extraction(conn, 4, engineer, model="x", version="v")
     query = fake_encode(["llm agents"])[0]
@@ -117,6 +127,15 @@ def test_filters_use_extractions(conn) -> None:
     optional = search(conn, query, model="fake", filters=Filters(other_languages_optional=True),
                       extraction=("x", "v"))  # fmt: skip
     assert [h.job_id for h in optional] == [4]
+
+    # LABELS asks for 1 year; unstated years are kept.
+    few_years = search(conn, query, model="fake", filters=Filters(max_years=2),
+                       extraction=("x", "v"))  # fmt: skip
+    assert [h.job_id for h in few_years] == [3]
+    conn.execute("""UPDATE extractions SET output_json =
+                    json_set(output_json, '$.years_experience_min', NULL) WHERE job_id = 4""")
+    assert {h.job_id for h in search(conn, query, model="fake", filters=Filters(max_years=2),
+                                     extraction=("x", "v"))} == {3, 4}  # fmt: skip
 
     with pytest.raises(ValueError):
         search(conn, query, model="fake", filters=Filters(target_only=True))

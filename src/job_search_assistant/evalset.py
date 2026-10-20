@@ -75,7 +75,8 @@ TARGET_TITLE = re.compile(
 # Search scope is Germany, neighbours or remote; the pool also has UK/US postings.
 OUT_OF_SCOPE = re.compile(
     r"london|united kingdom|\buk\b|england|westminster|manchester|edinburgh|dublin|ireland"
-    r"|usa|united states|new york|san francisco|milan|madrid|barcelona|lisbon|abu dhabi|dubai",
+    r"|usa|united states|new york|san francisco|milan|madrid|barcelona|lisbon|abu dhabi|dubai"
+    r"|cambridge|bristol|australia|sydney|melbourne|canada|toronto|singapore",
     re.I,
 )
 SENIOR_TITLE = re.compile(r"\b(senior|sr\.?|lead|principal|head|staff)\b", re.I)

@@ -1,11 +1,12 @@
 from datetime import UTC, datetime
 
+import numpy as np
 import pytest
 import yaml
 from mcp import Client
 from test_extract import LABELS
 
-from job_search_assistant import db, extract
+from job_search_assistant import db, embed, extract
 from job_search_assistant.mcp_server import build_server
 from job_search_assistant.models import Job
 
@@ -48,7 +49,20 @@ def server(tmp_path):
         "job": {"source": "arbeitnow", "source_job_id": "job-1"},
     }
     (labels / "01-arbeitnow-job-1.yaml").write_text(yaml.safe_dump(doc))
-    return build_server(lambda: db.connect(path), "RULES", labels), path
+    resume = tmp_path / "resume.md"
+    resume.write_text("SQL and Python, junior data analyst")
+    return build_server(
+        lambda: db.connect(path), "RULES", labels, resume=resume, load_encoder=lambda: fake_encode
+    ), path
+
+
+def fake_encode(texts):
+    """'1' and '2' in a text point it at job 1 or 2; everything else sits in between."""
+    out = []
+    for text in texts:
+        v = np.array([1.0 + 5 * text.count("1"), 1.0 + 5 * text.count("2")], dtype=np.float32)
+        out.append(v / np.linalg.norm(v))
+    return np.array(out)
 
 
 def version() -> str:
@@ -68,6 +82,9 @@ async def test_lists_tools_with_extraction_schema(server) -> None:
         "list_jobs_to_extract",
         "get_job",
         "save_extraction",
+        "get_profile",
+        "match_resume",
+        "search_jobs",
     }
     # The client sees the Pydantic schema, enums included, and is held to it.
     schema = tools["save_extraction"].input_schema
@@ -153,3 +170,32 @@ async def test_prompt_warns_against_reading_labels(server) -> None:
         prompt = await client.get_prompt("extract_postings", {"scope": "target", "max_jobs": "5"})
     text = prompt.messages[0].content.text
     assert "eval/labels/" in text and "up to 5" in text
+
+
+async def test_rag_tools_retrieve_with_extraction_summary(server) -> None:
+    mcp_server, path = server
+    conn = db.connect(path)
+    embed.embed_jobs(conn, fake_encode, embed.DEFAULT_MODEL)
+    extraction = extract.Extraction.model_validate({**LABELS, "other_languages": []})
+    extract.store_extraction(conn, 1, extraction, model="claude-code/claude-opus-5-5",
+                             version=version())  # fmt: skip
+    conn.close()
+
+    async with Client(mcp_server) as client:
+        _, profile = await call(client, "get_profile")
+        assert "junior data analyst" in profile
+
+        result = await client.call_tool("search_jobs", {"query": "2", "my_filters": False})
+        hits = result.structured_content["result"]
+        assert [h["job_id"] for h in hits] == [2, 1]
+        assert "seniority" not in hits[0]  # job 2 has no extraction
+
+        # My filters keep only job 1: extracted, junior, German "plus", no other language.
+        result = await client.call_tool("match_resume", {"k": 5})
+        hits = result.structured_content["result"]
+        assert [h["job_id"] for h in hits] == [1]
+        assert hits[0]["seniority"] == "junior"
+        assert hits[0]["required_skills"] == ["SQL", "Python"]
+
+        prompt = await client.get_prompt("match_me", {"k": "3"})
+        assert "never claim experience" in prompt.messages[0].content.text
