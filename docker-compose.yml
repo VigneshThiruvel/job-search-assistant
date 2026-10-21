@@ -1,0 +1,17 @@
+# Phase 4 knowledge graph: Neo4j Community, local only.
+#   docker compose up -d      # browser: http://localhost:7474 (user neo4j, password from .env)
+#   docker compose down       # stop (data stays in data/neo4j/)
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    ports:
+      - "127.0.0.1:7474:7474"   # browser
+      - "127.0.0.1:7687:7687"   # bolt (Python driver)
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:?set NEO4J_PASSWORD in .env}
+      # Small graph (~10k nodes): keep memory low so the laptop stays cool.
+      NEO4J_server_memory_heap_initial__size: 256m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
+    volumes:
+      - ./data/neo4j:/data

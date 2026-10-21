@@ -25,7 +25,7 @@ from typing import Any, Literal
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from job_search_assistant import db, embed, evalset, extract, search
+from job_search_assistant import db, embed, evalset, extract, search, skills
 
 ROOT = Path(__file__).resolve().parents[2]  # the client may start us from any directory
 MODEL_PREFIX = "claude-code/"  # keeps client-made results apart from API results
@@ -36,7 +36,9 @@ Job-search database (postings from Arbeitnow, Bundesagentur, Adzuna, LinkedIn/XI
 For extraction: call get_extraction_guidelines once, then list_jobs_to_extract, then
 get_job + save_extraction per posting. Judge each posting only from get_job's text.
 For job matching: get_profile (my résumé), match_resume or search_jobs, then get_job for
-the full text of promising results."""
+the full text of promising results.
+For skill normalization: get_skill_guidelines once, then per batch list_canonical_skills,
+list_unmapped_skills, save_skill_mappings."""
 
 
 def build_server(
@@ -45,6 +47,7 @@ def build_server(
     labels_dir: Path = evalset.LABELS_DIR,
     resume: Path = search.RESUME,
     load_encoder: Callable[[], embed.Encoder] = embed.load_encoder,
+    skill_spec: str = "",
 ) -> MCPServer:
     """`connect` opens a fresh connection per call (tools may run in worker threads).
 
@@ -199,6 +202,60 @@ def build_server(
         """
         return retrieve(query, k, my_filters)
 
+    def raw_skill_table(conn: sqlite3.Connection) -> dict[str, dict[str, Any]]:
+        text = resume.read_text() if resume.exists() else ""
+        return skills.raw_skills(conn, (search.EXTRACTION_MODEL, version), text)
+
+    @server.tool()
+    def get_skill_guidelines() -> str:
+        """The skill normalization rules. Read them before mapping; apply them exactly."""
+        return f"Categories: {', '.join(skills.CATEGORIES)}\n\n{skill_spec}"
+
+    @server.tool()
+    def list_canonical_skills() -> dict[str, dict[str, str | None]]:
+        """Every canonical skill so far: name -> {category, parent}. Reuse these names."""
+        with closing(connect()) as conn:
+            return skills.canonical_skills(conn)
+
+    @server.tool()
+    def list_unmapped_skills(limit: int = 200) -> dict[str, Any]:
+        """Raw skills not mapped yet, alphabetical (variants sit together), with counts.
+
+        raw: the key to pass back to save_skill_mappings. display: the most common written
+        form. mentions: how many postings list it. in_resume: it is one of my skills.
+        """
+        limit = max(1, min(limit, 500))
+        with closing(connect()) as conn:
+            raw = raw_skill_table(conn)
+            left = skills.unmapped(conn, raw)
+        return {
+            "remaining": len(left),
+            "batch": [{"raw": k, **raw[k]} for k in left[:limit]],
+        }
+
+    @server.tool()
+    def save_skill_mappings(mappings: list[skills.SkillMapping]) -> str:
+        """Store a batch of raw -> canonical mappings. All or nothing: any error rejects the
+        batch and lists every problem, so fix them and resend the whole batch."""
+        with closing(connect()) as conn:
+            errors = skills.save_mappings(conn, mappings, set(raw_skill_table(conn)))
+        if errors:
+            raise ToolError(f"{len(errors)} problem(s), nothing saved:\n" + "\n".join(errors))
+        return f"saved {len(mappings)} mappings"
+
+    @server.prompt()
+    def normalize_skills(batches: str = "3", batch_size: str = "200") -> str:
+        """Map raw skills to canonical ones, a few batches per session."""
+        return (
+            f"Normalize skills with the job-search-assistant tools, up to {batches} batches of "
+            f"{batch_size}. First call get_skill_guidelines. For each batch: call "
+            "list_canonical_skills (reuse existing names; never create a synonym of one), then "
+            f"list_unmapped_skills with limit={batch_size}, map every raw skill in the batch "
+            "per the guidelines, and save_skill_mappings. If it reports problems, fix them and "
+            "resend the whole batch. Stop when list_unmapped_skills returns an empty batch. "
+            "Report how many you mapped and any mappings you were unsure about."
+        )
+
     @server.prompt()
     def match_me(k: str = "10") -> str:
         """Find my best-matching jobs and explain the fit (RAG: retrieve, then generate)."""
@@ -236,6 +293,7 @@ def main() -> None:
         guidelines,
         ROOT / evalset.LABELS_DIR,
         resume=ROOT / search.RESUME,
+        skill_spec=(ROOT / skills.SPEC).read_text(),
     )
     server.run()
 

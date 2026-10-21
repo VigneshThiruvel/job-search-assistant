@@ -6,9 +6,10 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-# Data (cached raw responses + database)
+# Data (cached raw responses + database + graph)
 data/raw/
 data/*.db
+data/neo4j/
 
 # Secrets
 .env

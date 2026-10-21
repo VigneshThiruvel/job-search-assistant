@@ -64,6 +64,18 @@ CREATE TABLE IF NOT EXISTS embeddings (
     PRIMARY KEY (job_id, model)
 );
 
+-- Phase 4: canonical skills and the raw (as-written) forms mapped to them.
+CREATE TABLE IF NOT EXISTS skills (
+    name     TEXT PRIMARY KEY,
+    category TEXT NOT NULL,
+    parent   TEXT REFERENCES skills (name)   -- broader skill (AWS Glue -> AWS), or NULL
+);
+CREATE TABLE IF NOT EXISTS skill_map (
+    raw       TEXT PRIMARY KEY,               -- lowercased, whitespace-collapsed
+    skill     TEXT REFERENCES skills (name),  -- NULL = dropped (vague / not a skill)
+    mapped_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS runs (
     id          INTEGER PRIMARY KEY,
     source      TEXT NOT NULL,

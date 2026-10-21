@@ -85,6 +85,10 @@ async def test_lists_tools_with_extraction_schema(server) -> None:
         "get_profile",
         "match_resume",
         "search_jobs",
+        "get_skill_guidelines",
+        "list_canonical_skills",
+        "list_unmapped_skills",
+        "save_skill_mappings",
     }
     # The client sees the Pydantic schema, enums included, and is held to it.
     schema = tools["save_extraction"].input_schema
@@ -199,3 +203,37 @@ async def test_rag_tools_retrieve_with_extraction_summary(server) -> None:
 
         prompt = await client.get_prompt("match_me", {"k": "3"})
         assert "never claim experience" in prompt.messages[0].content.text
+
+
+async def test_skill_mapping_round_trip(server) -> None:
+    mcp_server, path = server
+    conn = db.connect(path)
+    extraction = extract.Extraction.model_validate(
+        {**LABELS, "required_skills": ["SQL", "PySpark"], "nice_to_have_skills": ["dbt"]}
+    )
+    extract.store_extraction(conn, 1, extraction, model="claude-code/claude-opus-5-5",
+                             version=version())  # fmt: skip
+    conn.close()
+
+    async with Client(mcp_server) as client:
+        result = await client.call_tool("list_unmapped_skills", {})
+        batch = result.structured_content["batch"]
+        # Résumé ("SQL and Python, junior data analyst") has no skills section -> postings only.
+        assert [b["raw"] for b in batch] == ["dbt", "pyspark", "sql"]
+
+        bad = [{"raw": "pyspark", "skill": "PySpark"}]  # new skill without a category
+        result, text = await call(client, "save_skill_mappings", mappings=bad)
+        assert result.is_error and "needs a category" in text
+
+        good = [
+            {"raw": "pyspark", "skill": "PySpark", "category": "data_engineering",
+             "parent": "Apache Spark"},
+            {"raw": "sql", "skill": "SQL", "category": "programming"},
+        ]  # fmt: skip
+        result, text = await call(client, "save_skill_mappings", mappings=good)
+        assert not result.is_error, text
+
+        result = await client.call_tool("list_canonical_skills", {})
+        assert result.structured_content["Apache Spark"]["category"] == "data_engineering"
+        result = await client.call_tool("list_unmapped_skills", {})
+        assert result.structured_content["remaining"] == 1
