@@ -75,7 +75,7 @@ skills:
     - yaml-basierte ci/cd-pipelines
   Azure:
     category: cloud
-    parent: null
+    parent: Cloud Computing
     mentions: 92
     aliases:
     - azure
@@ -140,7 +140,7 @@ skills:
     - small language models
   AWS:
     category: cloud
-    parent: null
+    parent: Cloud Computing
     mentions: 87
     aliases:
     - aws
@@ -253,7 +253,7 @@ skills:
     - etl-tools
   Google Cloud:
     category: cloud
-    parent: null
+    parent: Cloud Computing
     mentions: 64
     aliases:
     - gcp
@@ -1084,7 +1084,7 @@ skills:
     - github
   LLM Fine-tuning:
     category: ml_ai
-    parent: null
+    parent: Large Language Models
     mentions: 18
     aliases:
     - feintuning

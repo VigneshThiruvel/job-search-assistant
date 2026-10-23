@@ -3,7 +3,7 @@
 #   docker compose down       # stop (data stays in data/neo4j/)
 services:
   neo4j:
-    image: neo4j:5.26-community
+    image: neo4j:2026.10.0-community
     ports:
       - "127.0.0.1:7474:7474"   # browser
       - "127.0.0.1:7687:7687"   # bolt (Python driver)

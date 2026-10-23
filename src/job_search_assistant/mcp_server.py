@@ -25,7 +25,7 @@ from typing import Any, Literal
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from job_search_assistant import db, embed, evalset, extract, search, skills
+from job_search_assistant import db, embed, evalset, extract, graph, search, skills
 
 ROOT = Path(__file__).resolve().parents[2]  # the client may start us from any directory
 MODEL_PREFIX = "claude-code/"  # keeps client-made results apart from API results
@@ -38,7 +38,9 @@ get_job + save_extraction per posting. Judge each posting only from get_job's te
 For job matching: get_profile (my résumé), match_resume or search_jobs, then get_job for
 the full text of promising results.
 For skill normalization: get_skill_guidelines once, then per batch list_canonical_skills,
-list_unmapped_skills, save_skill_mappings."""
+list_unmapped_skills, save_skill_mappings.
+For career planning: skill_gaps (knowledge graph in Neo4j) — which skills I lack, which
+single skill unlocks jobs, how well I cover each job, what each role asks for."""
 
 
 def build_server(
@@ -48,6 +50,7 @@ def build_server(
     resume: Path = search.RESUME,
     load_encoder: Callable[[], embed.Encoder] = embed.load_encoder,
     skill_spec: str = "",
+    graph_query: Callable[..., list[dict]] | None = None,
 ) -> MCPServer:
     """`connect` opens a fresh connection per call (tools may run in worker threads).
 
@@ -243,6 +246,28 @@ def build_server(
             raise ToolError(f"{len(errors)} problem(s), nothing saved:\n" + "\n".join(errors))
         return f"saved {len(mappings)} mappings"
 
+    @server.tool()
+    def skill_gaps(
+        kind: Literal["gaps", "unlock", "coverage", "roles", "together"] = "gaps",
+        scope: Literal["eligible", "target"] = "eligible",
+        k: int = 15,
+        skill: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """Knowledge-graph queries over normalized skills (jobs → skills ← me).
+
+        kind: "gaps" = skills I lack, weighted by how many jobs need them (required 1.0,
+        nice-to-have 0.5; halved when I have a broader skill). "unlock" = skills that are
+        the *only* missing required skill of a job. "coverage" = share of each job's
+        required skills I have. "roles" = top required skills per role family.
+        "together" = skills listed alongside `skill` (canonical name).
+        scope: "eligible" = jobs I can apply to now (my filters); "target" = all target-role
+        jobs in the market, including senior ones (where to grow).
+        """
+        if kind == "together" and not skill:
+            raise ToolError("kind='together' needs a canonical skill name")
+        run = graph_query or default_graph_query()
+        return run(kind, scope, max(1, min(k, MAX_LIMIT)), **({"skill": skill} if skill else {}))
+
     @server.prompt()
     def normalize_skills(batches: str = "3", batch_size: str = "200") -> str:
         """Map raw skills to canonical ones, a few batches per session."""
@@ -283,6 +308,20 @@ def build_server(
         )
 
     return server
+
+
+def default_graph_query() -> Callable[..., list[dict]]:
+    """Neo4j-backed queries; connects once, on first use (Neo4j must be running)."""
+    if not _driver:
+        try:
+            _driver.append(graph.connect_neo4j())
+        except Exception as exc:  # no Docker, wrong password, ...
+            reason = type(exc).__name__
+            raise ToolError(f"Neo4j not reachable ({reason}); run docker compose up -d") from None
+    return lambda *args, **kw: graph.query(_driver[0], *args, **kw)
+
+
+_driver: list = []
 
 
 def main() -> None:

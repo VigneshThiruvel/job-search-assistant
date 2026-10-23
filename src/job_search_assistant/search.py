@@ -65,18 +65,16 @@ class Hit:
     similarity: float
 
 
-def search(
+def filter_sql(
     conn: sqlite3.Connection,
-    query_vector,
-    *,
-    model: str = embed.DEFAULT_MODEL,
-    k: int = 20,
-    filters: Filters | None = None,
-    extraction: tuple[str, str] | None = None,  # (model, prompt_version) the filters read
-) -> list[Hit]:
-    """Top-k postings by cosine similarity, best posting per duplicate group."""
-    filters = filters or Filters()
-    params: dict = {"q": embed.to_blob(query_vector), "model": model, "k": k}
+    filters: Filters,
+    extraction: tuple[str, str] | None,
+    params: dict,
+) -> tuple[str, str]:
+    """(JOIN clause, " AND ..." conditions) on `jobs j` for these filters; fills `params`.
+
+    Shared by vector search and the knowledge graph, so "eligible" means the same in both.
+    """
     join, where = "", []
     if filters.in_scope_location:
         conn.create_function(
@@ -110,7 +108,29 @@ def search(
                 """NOT EXISTS (SELECT 1 FROM json_each(x.output_json, '$.other_languages') o
                                WHERE json_extract(o.value, '$.level') != 'plus')"""
             )
+    return join, "".join(f" AND {w}" for w in where)
 
+
+def eligible_job_ids(
+    conn: sqlite3.Connection, filters: Filters, extraction: tuple[str, str] | None
+) -> set[int]:
+    params: dict = {}
+    join, where = filter_sql(conn, filters, extraction, params)
+    return {r[0] for r in conn.execute(f"SELECT j.id FROM jobs j {join} WHERE 1 {where}", params)}
+
+
+def search(
+    conn: sqlite3.Connection,
+    query_vector,
+    *,
+    model: str = embed.DEFAULT_MODEL,
+    k: int = 20,
+    filters: Filters | None = None,
+    extraction: tuple[str, str] | None = None,  # (model, prompt_version) the filters read
+) -> list[Hit]:
+    """Top-k postings by cosine similarity, best posting per duplicate group."""
+    params: dict = {"q": embed.to_blob(query_vector), "model": model, "k": k}
+    join, where = filter_sql(conn, filters or Filters(), extraction, params)
     rows = conn.execute(
         f"""WITH hits AS (
                 SELECT j.id, j.title, j.company, j.location, j.url,
@@ -120,7 +140,7 @@ def search(
                 JOIN jobs j ON j.id = e.job_id
                 LEFT JOIN job_groups g ON g.job_id = j.id
                 {join}
-                WHERE e.model = :model {"".join(f" AND {w}" for w in where)}
+                WHERE e.model = :model {where}
             ), best AS (
                 SELECT *, ROW_NUMBER() OVER (PARTITION BY grp ORDER BY distance) AS rn FROM hits
             )

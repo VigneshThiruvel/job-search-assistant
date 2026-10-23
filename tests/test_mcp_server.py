@@ -89,6 +89,7 @@ async def test_lists_tools_with_extraction_schema(server) -> None:
         "list_canonical_skills",
         "list_unmapped_skills",
         "save_skill_mappings",
+        "skill_gaps",
     }
     # The client sees the Pydantic schema, enums included, and is held to it.
     schema = tools["save_extraction"].input_schema
@@ -237,3 +238,22 @@ async def test_skill_mapping_round_trip(server) -> None:
         assert result.structured_content["Apache Spark"]["category"] == "data_engineering"
         result = await client.call_tool("list_unmapped_skills", {})
         assert result.structured_content["remaining"] == 1
+
+
+async def test_skill_gaps_passes_arguments_to_the_graph(tmp_path) -> None:
+    calls = []
+
+    def fake_graph(kind, scope, k, **params):
+        calls.append((kind, scope, k, params))
+        return [{"skill": "Airflow", "score": 2.0}]
+
+    path = tmp_path / "jobs.db"
+    db.connect(path).close()
+    server = build_server(lambda: db.connect(path), "RULES", tmp_path, graph_query=fake_graph)
+    async with Client(server) as client:
+        result = await client.call_tool("skill_gaps", {"kind": "unlock", "scope": "target"})
+        assert result.structured_content["result"] == [{"skill": "Airflow", "score": 2.0}]
+        result, text = await call(client, "skill_gaps", kind="together")
+        assert result.is_error and "needs a canonical skill" in text
+        await client.call_tool("skill_gaps", {"kind": "together", "skill": "SQL", "k": 999})
+    assert calls == [("unlock", "target", 15, {}), ("together", "eligible", 50, {"skill": "SQL"})]
