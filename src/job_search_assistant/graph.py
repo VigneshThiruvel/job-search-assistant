@@ -3,6 +3,7 @@
     python -m job_search_assistant.graph build                 # rebuild from SQLite
     python -m job_search_assistant.graph gaps [--scope target]  # skills I'm missing
     python -m job_search_assistant.graph unlock|coverage|roles  # other gap queries
+    python -m job_search_assistant.graph fit --job 4187         # one job vs my skills
 
     (Job)-[:REQUIRES {required}]->(Skill)-[:BROADER]->(Skill)
     (Job)-[:POSTED_BY]->(Company)   (Job)-[:IS_ROLE]->(Role)
@@ -75,6 +76,19 @@ QUERIES: dict[str, str] = {
         MATCH (:Skill {name: $skill})<-[:REQUIRES]-(j:Job)-[:REQUIRES]->(b:Skill)
         WHERE j[$scope]
         RETURN b.name AS skill, count(j) AS jobs ORDER BY jobs DESC, skill LIMIT $k""",
+    # One job ($job_id) skill by skill: my credit (as in CREDIT) and which of my skills gives it.
+    "fit": """
+        MATCH (me:Me), (:Job {id: $job_id})-[r:REQUIRES]->(s:Skill)
+        OPTIONAL MATCH (me)-[:HAS_SKILL]->(n:Skill)-[:BROADER*0..4]->(s)
+        WITH me, r, s, collect(DISTINCT n.name) AS same_or_narrower
+        OPTIONAL MATCH (me)-[:HAS_SKILL]->(b:Skill)<-[:BROADER*1..4]-(s)
+        WITH r, s, same_or_narrower, collect(DISTINCT b.name) AS broader
+        RETURN s.name AS skill, s.category AS category, r.required AS required,
+               CASE WHEN size(same_or_narrower) > 0 THEN 1.0
+                    WHEN size(broader) > 0 THEN 0.5 ELSE 0.0 END AS my_credit,
+               CASE WHEN size(same_or_narrower) > 0 THEN same_or_narrower
+                    ELSE broader END AS via
+        ORDER BY required DESC, my_credit, skill""",
 }
 
 # Subgraphs worth looking at in the Neo4j Browser (http://localhost:7474). Paste one into
@@ -229,7 +243,10 @@ def main() -> None:
     parser.add_argument("--scope", choices=list(SCOPES), default="eligible")
     parser.add_argument("-k", type=int, default=15)
     parser.add_argument("--skill", help="for `together`")
+    parser.add_argument("--job", type=int, help="job id, for `fit`")
     args = parser.parse_args()
+    if (args.command == "fit") != (args.job is not None):
+        parser.error("--job goes with `fit` (and only with it)")
 
     with connect_neo4j() as driver:
         if args.command == "build":
@@ -241,6 +258,8 @@ def main() -> None:
             )
             return
         extra = {"skill": args.skill} if args.command == "together" else {}
+        if args.command == "fit":
+            extra = {"job_id": args.job}
         for row in query(driver, args.command, args.scope, args.k, **extra):
             print(row)
 

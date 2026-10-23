@@ -90,10 +90,30 @@ async def test_lists_tools_with_extraction_schema(server) -> None:
         "list_unmapped_skills",
         "save_skill_mappings",
         "skill_gaps",
+        "list_new_jobs",
+        "get_job_details",
+        "job_fit",
     }
     # The client sees the Pydantic schema, enums included, and is held to it.
     schema = tools["save_extraction"].input_schema
     assert "extraction" in schema["required"]
+    # ... and the shape of typed results.
+    assert "JobSummary" in tools["match_resume"].output_schema["$defs"]
+    assert tools["skill_gaps"].annotations.read_only_hint is True
+    save = tools["save_extraction"].annotations
+    assert save.read_only_hint is False and save.destructive_hint is False
+
+
+async def test_documents_are_resources_too(server) -> None:
+    async with Client(server[0]) as client:
+        uris = {str(r.uri) for r in (await client.list_resources()).resources}
+        templates = (await client.list_resource_templates()).resource_templates
+        profile = await client.read_resource("profile://resume")
+        job = await client.read_resource("job://2")
+    assert uris == {"profile://resume", "guidelines://extraction", "guidelines://skills"}
+    assert [t.uri_template for t in templates] == ["job://{job_id}"]
+    assert "junior data analyst" in profile.contents[0].text
+    assert "<title>Junior Data Analyst 2</title>" in job.contents[0].text
 
 
 async def test_eval_workflow_round_trip(server) -> None:
@@ -193,7 +213,7 @@ async def test_rag_tools_retrieve_with_extraction_summary(server) -> None:
         result = await client.call_tool("search_jobs", {"query": "2", "my_filters": False})
         hits = result.structured_content["result"]
         assert [h["job_id"] for h in hits] == [2, 1]
-        assert "seniority" not in hits[0]  # job 2 has no extraction
+        assert hits[0]["seniority"] is None  # job 2 has no extraction
 
         # My filters keep only job 1: extracted, junior, German "plus", no other language.
         result = await client.call_tool("match_resume", {"k": 5})
@@ -257,3 +277,91 @@ async def test_skill_gaps_passes_arguments_to_the_graph(tmp_path) -> None:
         assert result.is_error and "needs a canonical skill" in text
         await client.call_tool("skill_gaps", {"kind": "together", "skill": "SQL", "k": 999})
     assert calls == [("unlock", "target", 15, {}), ("together", "eligible", 50, {"skill": "SQL"})]
+
+
+def store(path, job_id, **fields) -> None:
+    conn = db.connect(path)
+    x = extract.Extraction.model_validate({**LABELS, "other_languages": [], **fields})
+    extract.store_extraction(conn, job_id, x, model="claude-code/claude-opus-5-5",
+                             version=version())  # fmt: skip
+    conn.close()
+
+
+async def test_new_jobs_count_groups_and_pending_extractions(server) -> None:
+    mcp_server, path = server
+    store(path, 1)
+    conn = db.connect(path)
+    with conn:
+        conn.execute("UPDATE jobs SET description = ? WHERE id = 2", ("x" * 500,))
+        conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 2)")
+    async with Client(mcp_server) as client:
+        result = await client.call_tool("list_new_jobs", {"since": "2026-01-01"})
+        new = result.structured_content
+        assert new["new_postings"] == 2
+        assert new["pending_extraction"] == 1  # job 2: target title, long text, no extraction
+        assert [j["job_id"] for j in new["jobs"]] == [1]  # job 2 fails my filters (unextracted)
+        assert new["jobs"][0]["first_seen"].startswith("20")
+
+        result = await client.call_tool(
+            "list_new_jobs", {"since": "2026-01-01", "my_filters": False}
+        )
+        assert [j["job_id"] for j in result.structured_content["jobs"]] == [2, 1]
+
+        result, text = await call(client, "list_new_jobs", since="yesterday")
+        assert result.is_error and "ISO date" in text
+
+    # A job seen before under another source is not new, even if this copy is.
+    with conn:
+        conn.execute("UPDATE jobs SET first_seen = '2025-01-01T00:00:00+00:00' WHERE id = 1")
+        conn.execute("UPDATE job_groups SET group_id = 1 WHERE job_id = 2")
+    conn.close()
+    async with Client(mcp_server) as client:
+        result = await client.call_tool(
+            "list_new_jobs", {"since": "2026-01-01", "my_filters": False}
+        )
+    assert result.structured_content["new_postings"] == 0
+
+
+async def test_job_details_bring_extraction_eligibility_and_duplicates(server) -> None:
+    mcp_server, path = server
+    store(path, 1)
+    conn = db.connect(path)
+    with conn:
+        conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 1)")
+    conn.close()
+    async with Client(mcp_server) as client:
+        details = (await client.call_tool("get_job_details", {"job_id": 1})).structured_content
+        other = (await client.call_tool("get_job_details", {"job_id": 2})).structured_content
+        result, text = await call(client, "get_job_details", job_id=999)
+    assert details["eligible"] is True
+    assert details["extraction"]["seniority"] == "junior"
+    assert details["duplicates"] == [{"job_id": 2, "source": "arbeitnow",
+                                      "url": "https://example.com/2"}]  # fmt: skip
+    assert other["extraction"] is None and other["eligible"] is False
+    assert result.is_error and "no job" in text
+
+
+async def test_job_fit_adds_coverage_to_graph_rows(server, tmp_path) -> None:
+    _, path = server
+    store(path, 1)
+    calls = []
+
+    def fake_graph(kind, scope, k, **params):
+        calls.append((kind, params))
+        return [
+            {"skill": "SQL", "category": "programming", "required": True, "my_credit": 1.0,
+             "via": ["SQL"]},
+            {"skill": "pandas", "category": "programming", "required": True, "my_credit": 0.5,
+             "via": ["Python"]},
+            {"skill": "dbt", "category": "data_engineering", "required": False, "my_credit": 0.0,
+             "via": []},
+        ]  # fmt: skip
+
+    mcp_server = build_server(lambda: db.connect(path), "RULES", tmp_path, graph_query=fake_graph)
+    async with Client(mcp_server) as client:
+        fit = (await client.call_tool("job_fit", {"job_id": 1})).structured_content
+        result, text = await call(client, "job_fit", job_id=2)
+    assert calls == [("fit", {"job_id": 1})]  # job 2 is refused before the graph is asked
+    assert fit["coverage"] == 0.75 and fit["title"] == "Junior Data Analyst 1"
+    assert [s["skill"] for s in fit["skills"]] == ["SQL", "pandas", "dbt"]
+    assert result.is_error and "no extraction" in text

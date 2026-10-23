@@ -91,5 +91,12 @@ def test_cypher_queries_on_neo4j(conn) -> None:
         together = graph.query(driver, "together", "target", skill="Airflow")
         assert {t["skill"] for t in together} == {"Apache Spark", "SQL", "pandas"}
 
+        fit = {f["skill"]: f for f in graph.query(driver, "fit", job_id=1)}
+        assert fit["Apache Spark"]["my_credit"] == 1.0
+        assert fit["Apache Spark"]["via"] == ["PySpark"]
+        assert fit["pandas"]["my_credit"] == 0.5 and fit["pandas"]["via"] == ["Python"]
+        assert fit["pandas"]["required"] is False
+        assert fit["SQL"]["my_credit"] == 0.0 and fit["SQL"]["via"] == []
+
         roles = graph.query(driver, "roles", "target", k=1)
         assert roles[0]["top_skills"] in (["Airflow (2)"], ["Apache Spark (2)"], ["SQL (2)"])
