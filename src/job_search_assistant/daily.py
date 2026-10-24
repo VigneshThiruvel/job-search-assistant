@@ -1,6 +1,7 @@
 """Phase 6, part 1: the daily pipeline. Deterministic steps only, no LLM.
 
-    uv run python -m job_search_assistant.daily     # ingest + dedup, embed new postings
+    uv run python -m job_search_assistant.daily     # ingest, import pasted texts, embed
+    uv run python -m job_search_assistant.daily --skip-ingest   # after pasting into data/inbox/
     /mcp__job-search__daily_run                     # part 2, in Claude Code: the agent
 
 Fetching, deduplicating and embedding never need judgement, so they are plain
@@ -17,7 +18,7 @@ from datetime import UTC, datetime
 
 from dotenv import load_dotenv
 
-from job_search_assistant import db, embed, extract, ingest, search
+from job_search_assistant import db, embed, extract, inbox, ingest, search
 
 log = logging.getLogger(__name__)
 
@@ -55,6 +56,9 @@ def main() -> None:
     try:
         if not args.skip_ingest:
             ingest.run_all(conn)
+        imported, problems = inbox.import_inbox(conn)
+        for p in problems:
+            log.warning("inbox: %s", p)
         if conn.execute(
             """SELECT 1 FROM jobs j WHERE description != '' AND NOT EXISTS
                    (SELECT 1 FROM embeddings e WHERE e.job_id = j.id AND e.model = ?)""",
@@ -64,8 +68,18 @@ def main() -> None:
             encoder = embed.load_encoder(embed.DEFAULT_MODEL)
             embed.embed_jobs(conn, encoder, embed.DEFAULT_MODEL, duty_cycle=duty)
         s = status(conn, datetime.now(UTC).date().isoformat())
+        templates = inbox.write_templates(conn)
+        waiting = sorted(p.name for p in inbox.INBOX.glob("*.txt"))
     finally:
         conn.close()
+
+    if imported:
+        print(f"\nImported {len(imported)} pasted description(s) from {inbox.INBOX}/.")
+    if waiting:
+        print(f"\n{len(waiting)} LinkedIn/XING job(s) need a description ({len(templates)} new). "
+              f"Open each file in {inbox.INBOX}/, follow its link, paste below the line, "
+              "save, then run `daily --skip-ingest`:")  # fmt: skip
+        print("\n".join(f"  {name}" for name in waiting))
 
     print(
         f"\n{s['new_today']} new jobs today, {s['pending_extraction']} waiting for extraction.\n"

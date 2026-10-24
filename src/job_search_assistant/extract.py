@@ -177,8 +177,8 @@ def pending_target(
     }
     return [
         c["id"]
-        for c in evalset.candidates(conn)
-        if c["target"] and c["id"] not in done and (since is None or c["first_seen"] >= since)
+        for c in evalset.target_jobs(conn)
+        if c["id"] not in done and (since is None or c["first_seen"] >= since)
     ]
 
 

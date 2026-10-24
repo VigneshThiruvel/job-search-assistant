@@ -30,7 +30,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-from job_search_assistant import tailor
+from job_search_assistant import inbox, tailor
 
 GUIDE = Path("profile/cover_letter.md")  # gitignored, like the résumé
 DRAFTS = Path("data/drafts")
@@ -245,6 +245,7 @@ def items(conn: sqlite3.Connection, status: str | None = None) -> list[dict]:
     latest = "SELECT {col} FROM {table} t WHERE t.job_id = a.job_id ORDER BY t.id DESC LIMIT 1"
     rows = conn.execute(
         f"""SELECT a.*, j.title, j.company, j.location, j.url,
+                   {inbox.channel_sql("a.job_id")} AS channel,
                    ({latest.format(col="letter", table="cover_letters")}) AS letter,
                    ({latest.format(col="claims_json", table="cover_letters")}) AS claims_json,
                    ({latest.format(col="resume_json", table="tailored_resumes")}) AS resume_json
@@ -332,12 +333,18 @@ def main() -> None:
 
     try:
         if args.command == "list":
-            for i in items(conn, args.status):
-                todo = " ".join(w for w, n in (("résumé", i["needs_resume"]),
-                                               ("letter", i["needs_letter"])) if n)  # fmt: skip
-                print(f"[{i['job_id']}] {i['status']:<8} {i['recommendation']:<5} "
-                      f"{i['title']} — {i['company']}, {i['location'] or '?'}"
-                      + (f"  (waiting: {todo})" if todo else ""))  # fmt: skip
+            rows = items(conn, args.status)
+            for channel, title in (("alerts", "LinkedIn / XING"), ("other", "Other sites")):
+                print(f"\n== {title} ==")
+                for i in (r for r in rows if r["channel"] == channel):
+                    todo = " ".join(
+                        w
+                        for w, n in (("résumé", i["needs_resume"]), ("letter", i["needs_letter"]))
+                        if n
+                    )
+                    print(f"[{i['job_id']}] {i['status']:<8} {i['recommendation']:<5} "
+                          f"{i['title']} — {i['company']}, {i['location'] or '?'}"
+                          + (f"  (waiting: {todo})" if todo else ""))  # fmt: skip
         elif args.command == "show":
             i = item(conn, args.job_id)
             print(f"{i['title']} — {i['company']}, {i['location'] or '?'}\n{i['url']}")

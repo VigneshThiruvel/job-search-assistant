@@ -45,6 +45,7 @@ from job_search_assistant import (
     evalset,
     extract,
     graph,
+    inbox,
     search,
     skills,
     tailor,
@@ -140,6 +141,11 @@ class Candidate(JobSummary):
         "required skill mapped (ranked as 0)"
     )
     missing_required: list[str]
+    channel: Literal["alerts", "other"] = Field(
+        description="alerts = also in a LinkedIn/XING alert (where I apply); other = only "
+        "Arbeitnow, BA or Adzuna"
+    )
+    apply_url: str = Field(description="the alert's link for alerts jobs, else the posting's")
 
 
 class Ranking(BaseModel):
@@ -159,6 +165,7 @@ class QueueItem(BaseModel):
     note: str | None = Field(description="mine: what to stress, or why I skipped")
     has_resume: bool = Field(description="a tailored résumé exists (maybe from an older request)")
     has_letter: bool
+    channel: Literal["alerts", "other"]
     needs_resume: bool = Field(description="open request: tailor my résumé for this job")
     needs_letter: bool = Field(description="open request: write a cover letter")
 
@@ -301,7 +308,7 @@ def build_server(
             if scope == "eval":
                 jobs = [job for _, _, job in extract.eval_jobs(conn, labels_dir)]
             elif scope == "target":
-                jobs = [job for job in evalset.candidates(conn) if job["target"]]
+                jobs = evalset.target_jobs(conn)
             else:
                 jobs = [dict(r) for r in conn.execute(
                     "SELECT id, title FROM jobs WHERE description != '' ORDER BY id"
@@ -567,12 +574,20 @@ def build_server(
         return graph.build(neo4j_driver(), rows)
 
     @server.tool(annotations=READ_ONLY)
-    def rank_candidates(k: int = 10, days: int = 14) -> Ranking:
+    def rank_candidates(
+        channel: Literal["alerts", "other"] = "alerts",
+        k: int = 10,
+        min_coverage: float = 0.0,
+        days: int = 14,
+    ) -> Ranking:
         """Jobs worth a look today, best first: pass my filters, seen in the last `days` days,
         one per duplicate group, not in the review queue yet (so re-runs propose new jobs).
 
-        Order: coverage of required skills (from the graph, rounded to 0.1), then similarity
-        to my résumé. Coverage reads the graph: call rebuild_graph after extracting.
+        channel: "alerts" = jobs that also came in a LinkedIn/XING alert (my main channel);
+        "other" = only on Arbeitnow, BA or Adzuna (I apply there only for strong matches, so
+        use min_coverage). Order: coverage of required skills (from the graph, rounded to
+        0.1), then similarity to my résumé. Coverage reads the graph: call rebuild_graph
+        after extracting.
         """
         k = max(1, min(k, MAX_LIMIT))
         cutoff = (datetime.now(UTC) - timedelta(days=max(1, days))).isoformat()
@@ -594,10 +609,23 @@ def build_server(
             ):
                 if r["id"] in eligible and r["grp"] not in queued:
                     picked.setdefault(r["grp"], dict(r))
-            jobs = list(picked.values())
+            of = inbox.channels(conn, [j["id"] for j in picked.values()])
+            jobs = [j for j in picked.values() if of[j["id"]] == channel]
             if not jobs:
                 return Ranking(total=0, candidates=[])
             ids = [j["id"] for j in jobs]
+            alert_url = {
+                r[0]: r[1]
+                for r in conn.execute(
+                    f"""SELECT ga.job_id, o.url FROM job_groups ga
+                        JOIN job_groups gb ON gb.group_id = ga.group_id
+                        JOIN jobs o ON o.id = gb.job_id
+                        WHERE ga.job_id IN ({",".join("?" * len(ids))})
+                          AND o.source IN ('linkedin', 'xing')
+                        ORDER BY o.source = 'linkedin', o.id DESC""",  # LinkedIn wins
+                    ids,
+                )
+            }
             similarity = dict(
                 conn.execute(
                     f"""SELECT job_id, 1 - vec_distance_cosine(vector, ?) FROM embeddings
@@ -615,9 +643,12 @@ def build_server(
                 **s.model_dump(),
                 coverage=coverage.get(s.job_id, {}).get("coverage"),
                 missing_required=coverage.get(s.job_id, {}).get("missing", []),
+                channel=channel,
+                apply_url=alert_url.get(s.job_id, s.url),
             )
             for s in summaries
         ]
+        candidates = [c for c in candidates if (c.coverage or 0.0) >= min_coverage]
         candidates.sort(key=lambda c: (-round(c.coverage or 0.0, 1), -(c.similarity or 0.0)))
         return Ranking(total=len(candidates), candidates=candidates[:k])
 
@@ -812,7 +843,9 @@ def build_server(
             "save_skill_mappings (fix and resend the whole batch if rejected); repeat until "
             "the batch is empty.\n"
             "3. Call rebuild_graph.\n"
-            f"4. Call get_profile once, then rank_candidates with k={k}.\n"
+            f'4. Call get_profile once, then rank_candidates twice: channel="alerts", k={k} '
+            '(LinkedIn/XING, where I mainly apply), and channel="other", k=5, '
+            "min_coverage=0.7 (other sites: only strong matches).\n"
             "5. For each candidate: get_job_details and job_fit. Write a fit summary of at "
             "most 120 words: why it fits (job_fit skills I have, concrete résumé items), gaps "
             "(missing required skills or experience), red flags (language, seniority, years, "
@@ -820,8 +853,9 @@ def build_server(
             "queue_application; queue skips too, so they are not proposed again. Never claim "
             "experience my résumé does not show.\n"
             "6. Report: postings extracted; new skill mappings, listed (I review them with "
-            "`skills export` and git diff); a table of the queued jobs (job id, title, "
-            "company, recommendation, one-line reason), best first. Do not tailor résumés or "
+            '`skills export` and git diff); two tables of the queued jobs, "LinkedIn / XING" '
+            'and "Other sites" (job id, title, company, recommendation, one-line reason, '
+            "apply_url), best first. Do not tailor résumés or "
             "write cover letters: I choose which jobs get them."
         )
 

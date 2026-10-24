@@ -10,7 +10,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from job_search_assistant import db, dedup
+from job_search_assistant import db, dedup, inbox
 from job_search_assistant.config import ROLES
 from job_search_assistant.http import PoliteFetcher, default_client
 from job_search_assistant.mailbox import Mailbox
@@ -124,6 +124,7 @@ def run_all(conn: sqlite3.Connection, raw_dir: Path = DATA_DIR / "raw") -> int:
         run_source(conn, source)
     groups = dedup.rebuild_groups(conn)
     log.info("cross-source duplicate groups: %d", groups)
+    inbox.apply_pasted(conn)  # the alert emails just reset pasted descriptions to ''
     return groups
 
 
@@ -141,6 +142,7 @@ def main() -> None:
         if args.reprocess:
             log.info("reprocessed %d jobs", reprocess(conn, build_sources(DATA_DIR / "raw")))
             log.info("cross-source duplicate groups: %d", dedup.rebuild_groups(conn))
+            inbox.apply_pasted(conn)
         else:
             run_all(conn)
     finally:

@@ -417,10 +417,18 @@ async def test_daily_run_ranks_queues_and_drafts_only_requested_letters(server, 
     )  # fmt: skip
     async with Client(mcp_server) as client:
         assert (await client.call_tool("rebuild_graph", {})).structured_content == {"Job": 2}
-        ranking = (await client.call_tool("rank_candidates", {"k": 5})).structured_content
+        rank = {"channel": "other", "k": 5}
+        ranking = (await client.call_tool("rank_candidates", rank)).structured_content
         # Coverage first: job 2 covers everything, even though both are equally similar.
         assert [c["job_id"] for c in ranking["candidates"]] == [2, 1]
         assert ranking["candidates"][1]["missing_required"] == ["dbt"]
+        assert ranking["candidates"][0]["apply_url"] == "https://example.com/2"
+        strong = {**rank, "min_coverage": 0.7}
+        ranking = (await client.call_tool("rank_candidates", strong)).structured_content
+        assert [c["job_id"] for c in ranking["candidates"]] == [2]
+        # Both jobs are Arbeitnow-only, so the LinkedIn/XING list is empty.
+        alerts = (await client.call_tool("rank_candidates", {})).structured_content
+        assert alerts == {"total": 0, "candidates": []}
 
         for job_id, rec in ((2, "apply"), (1, "skip")):
             result, text = await call(
@@ -431,7 +439,7 @@ async def test_daily_run_ranks_queues_and_drafts_only_requested_letters(server, 
         result, text = await call(client, "queue_application", job_id=2, recommendation="apply",
                                   fit_summary="again")  # fmt: skip
         assert result.is_error and "already" in text
-        ranking = (await client.call_tool("rank_candidates", {})).structured_content
+        ranking = (await client.call_tool("rank_candidates", rank)).structured_content
         assert ranking == {"total": 0, "candidates": []}  # queued jobs are not proposed again
 
         claims = [{"claim": "I know SQL", "evidence": "SQL and Python"}]
@@ -481,7 +489,7 @@ async def test_daily_run_ranks_queues_and_drafts_only_requested_letters(server, 
         assert "Do not tailor résumés or write cover letters" in prompt.messages[0].content.text
         prompt = await client.get_prompt("prepare_applications", {})
         assert "change the wording, not the sources" in prompt.messages[0].content.text
-    assert built == [True] and asked == [[1, 2]]
+    assert built == [True] and asked == [[1, 2], [1, 2]]  # empty lists never ask the graph
     conn = db.connect(path)
     assert applications.status_of(conn, 2) == "ready"
     assert applications.status_of(conn, 1) == "queued"

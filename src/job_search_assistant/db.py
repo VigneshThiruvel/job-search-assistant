@@ -76,6 +76,15 @@ CREATE TABLE IF NOT EXISTS skill_map (
     mapped_at TEXT NOT NULL
 );
 
+-- Phase 6: descriptions of LinkedIn/XING alert jobs, pasted by me (inbox.py); copied into
+-- jobs.description after every ingest, because re-reading the alert emails resets it.
+CREATE TABLE IF NOT EXISTS pasted_descriptions (
+    job_id    INTEGER PRIMARY KEY REFERENCES jobs (id),
+    text      TEXT NOT NULL,
+    lang      TEXT,
+    pasted_at TEXT NOT NULL
+);
+
 -- Phase 6: the review queue (see applications.py for who may change what).
 CREATE TABLE IF NOT EXISTS applications (
     job_id              INTEGER PRIMARY KEY REFERENCES jobs (id),

@@ -23,6 +23,8 @@ LABELS_DIR = Path("eval/labels")
 SEED = 42  # fixed, so the sample is reproducible
 # Sources with full descriptions (Adzuna has 500-char snippets, email alerts none).
 SOURCES = ("arbeitnow", "bundesagentur")
+# Extraction target scope (Phase 6): also alert jobs once I paste their description (inbox.py).
+TARGET_SOURCES = (*SOURCES, "linkedin", "xing")
 
 ENUMS: dict[str, tuple[str, ...]] = {
     "role_family": (
@@ -98,15 +100,27 @@ STRATA = [
 ]
 
 
-def candidates(conn: sqlite3.Connection) -> list[dict[str, Any]]:
-    """One posting per duplicate group, with a real description."""
+def candidates(
+    conn: sqlite3.Connection, sources: tuple[str, ...] = SOURCES, any_member: bool = False
+) -> list[dict[str, Any]]:
+    """One posting per duplicate group, with a real description.
+
+    Default: the group's representative (smallest id) only — what the eval set was sampled
+    from. any_member: the representative if it qualifies, else the group's longest
+    qualifying description (a LinkedIn alert without text may have an Arbeitnow twin).
+    """
     rows = conn.execute(
-        f"""SELECT j.* FROM jobs j JOIN job_groups g ON g.job_id = j.id
-            WHERE j.source IN ({",".join("?" * len(SOURCES))})
-              AND length(j.description) >= 400
-              AND j.id = g.group_id
-            ORDER BY j.id""",
-        SOURCES,
+        f"""WITH ok AS (
+                SELECT j.*, ROW_NUMBER() OVER (
+                    PARTITION BY g.group_id
+                    ORDER BY j.id = g.group_id DESC, length(j.description) DESC, j.id) AS rn
+                FROM jobs j JOIN job_groups g ON g.job_id = j.id
+                WHERE j.source IN ({",".join("?" * len(sources))})
+                  AND length(j.description) >= 400
+                  AND (? OR j.id = g.group_id)
+            )
+            SELECT * FROM ok WHERE rn = 1 ORDER BY id""",
+        (*sources, any_member),
     ).fetchall()
     jobs = []
     for r in rows:
@@ -119,6 +133,11 @@ def candidates(conn: sqlite3.Connection) -> list[dict[str, Any]]:
         job["german"] = bool(MENTIONS_GERMAN.search(r["description"]))
         jobs.append(job)
     return jobs
+
+
+def target_jobs(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    """The extraction target scope: target-role titles, any source with real text."""
+    return [j for j in candidates(conn, TARGET_SOURCES, any_member=True) if j["target"]]
 
 
 def sample(jobs: list[dict[str, Any]], rng: random.Random) -> list[tuple[str, dict[str, Any]]]:
