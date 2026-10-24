@@ -85,6 +85,10 @@ def test_cypher_queries_on_neo4j(conn) -> None:
         unlock = graph.query(driver, "unlock", "eligible")
         assert {u["skill"]: u["unlocks"] for u in unlock} == {"SQL": 1, "Airflow": 1}
 
+        some = {c["job_id"]: c for c in graph.query(driver, "coverage_of", job_ids=[1, 3])}
+        assert some[1]["coverage"] == 0.5 and some[1]["missing"] == ["SQL"]
+        assert set(some) == {1, 3}
+
         coverage = graph.query(driver, "coverage", "eligible")
         assert [c["coverage"] for c in coverage] == [0.5, 0.5]
 

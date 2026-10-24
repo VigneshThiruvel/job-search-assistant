@@ -118,6 +118,15 @@ def build_sources(raw_dir: Path) -> list[Source]:
     return sources
 
 
+def run_all(conn: sqlite3.Connection, raw_dir: Path = DATA_DIR / "raw") -> int:
+    """Every source, then the duplicate groups; returns the number of groups."""
+    for source in build_sources(raw_dir):
+        run_source(conn, source)
+    groups = dedup.rebuild_groups(conn)
+    log.info("cross-source duplicate groups: %d", groups)
+    return groups
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     logging.getLogger("httpx").setLevel(logging.WARNING)  # its INFO lines include API keys
@@ -131,10 +140,9 @@ def main() -> None:
     try:
         if args.reprocess:
             log.info("reprocessed %d jobs", reprocess(conn, build_sources(DATA_DIR / "raw")))
+            log.info("cross-source duplicate groups: %d", dedup.rebuild_groups(conn))
         else:
-            for source in build_sources(DATA_DIR / "raw"):
-                run_source(conn, source)
-        log.info("cross-source duplicate groups: %d", dedup.rebuild_groups(conn))
+            run_all(conn)
     finally:
         conn.close()
 

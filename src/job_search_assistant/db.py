@@ -76,6 +76,34 @@ CREATE TABLE IF NOT EXISTS skill_map (
     mapped_at TEXT NOT NULL
 );
 
+-- Phase 6: the review queue (see applications.py for who may change what).
+CREATE TABLE IF NOT EXISTS applications (
+    job_id              INTEGER PRIMARY KEY REFERENCES jobs (id),
+    status              TEXT NOT NULL,
+    recommendation      TEXT NOT NULL,  -- the agent's: apply / maybe / skip
+    fit_summary         TEXT NOT NULL,  -- the agent's: fit, gaps, red flags
+    note                TEXT,           -- mine: what to stress, or why I skipped
+    resume_requested_at TEXT,           -- set when I select the job
+    letter_requested_at TEXT,           -- set only when I ask for a letter
+    queued_at           TEXT NOT NULL,
+    updated_at          TEXT NOT NULL
+);
+-- Drafts keep their history; the newest per job is the current one, and it answers a
+-- request only if written after it.
+CREATE TABLE IF NOT EXISTS tailored_resumes (
+    id          INTEGER PRIMARY KEY,
+    job_id      INTEGER NOT NULL REFERENCES applications (job_id),
+    resume_json TEXT NOT NULL,         -- tailor.TailoredResume
+    written_at  TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS cover_letters (
+    id          INTEGER PRIMARY KEY,
+    job_id      INTEGER NOT NULL REFERENCES applications (job_id),
+    letter      TEXT NOT NULL,
+    claims_json TEXT NOT NULL,         -- [{claim, evidence}], evidence quoted from my facts
+    written_at  TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS runs (
     id          INTEGER PRIMARY KEY,
     source      TEXT NOT NULL,

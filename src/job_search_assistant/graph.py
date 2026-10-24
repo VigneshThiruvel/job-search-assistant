@@ -63,6 +63,12 @@ QUERIES: dict[str, str] = {
         RETURN j.id AS job_id, j.title AS title, c.name AS company, required,
                round(covered / required, 2) AS coverage, missing
         ORDER BY coverage DESC, required DESC LIMIT $k""",
+    # Coverage of specific jobs ($job_ids), for ranking the daily candidates.
+    "coverage_of": f"""
+        MATCH (me:Me), (j:Job)-[:REQUIRES {{required: true}}]->(s:Skill) WHERE j.id IN $job_ids
+        WITH j, count(s) AS required, sum({CREDIT}) AS covered,
+             collect(CASE WHEN {CREDIT} < 1.0 THEN s.name END) AS missing
+        RETURN j.id AS job_id, required, round(covered / required, 2) AS coverage, missing""",
     # Most-required skills per role family across the market.
     "roles": """
         MATCH (role:Role)<-[:IS_ROLE]-(j:Job)-[:REQUIRES {required: true}]->(s:Skill)

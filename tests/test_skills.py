@@ -116,3 +116,16 @@ def test_yaml_round_trip_and_review_edits(conn, tmp_path) -> None:
 
     path.write_text(doc.replace("category: database", "category: nonsense"))
     assert skills.import_yaml(conn, path) != []
+
+
+def test_import_refuses_to_drop_mappings_made_after_export(conn, tmp_path) -> None:
+    raw = skills.raw_skills(conn, ("m", "v"), RESUME)
+    skills.save_mappings(conn, [m("communication", None)], set(raw))
+    path = tmp_path / "skills.yaml"
+    skills.export_yaml(conn, raw, path)
+    skills.save_mappings(conn, [m("datenmodellierung", "Data Modeling", "data_engineering")],
+                         set(raw))  # fmt: skip  # e.g. the daily agent
+    errors = skills.import_yaml(conn, path)
+    assert len(errors) == 1 and "datenmodellierung" in errors[0]
+    assert skills.import_yaml(conn, path, force=True) == []
+    assert dict(conn.execute("SELECT raw, skill FROM skill_map")) == {"communication": None}

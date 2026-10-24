@@ -703,7 +703,7 @@ skills:
     - workflow-orchestrierungstools
   Apache Kafka:
     category: data_engineering
-    parent: null
+    parent: Stream Processing
     mentions: 33
     aliases:
     - apache kafka
@@ -2251,7 +2251,7 @@ skills:
     - bedrock
   Apache Flink:
     category: data_engineering
-    parent: null
+    parent: Stream Processing
     mentions: 6
     aliases:
     - apache flink

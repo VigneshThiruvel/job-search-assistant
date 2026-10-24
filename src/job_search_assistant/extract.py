@@ -165,6 +165,23 @@ def eval_jobs(
     return found
 
 
+def pending_target(
+    conn: sqlite3.Connection, extraction: tuple[str, str], since: str | None = None
+) -> list[int]:
+    """Target-scope postings (as in the MCP `target` scope) with no extraction yet."""
+    done = {
+        r[0]
+        for r in conn.execute(
+            "SELECT job_id FROM extractions WHERE model = ? AND prompt_version = ?", extraction
+        )
+    }
+    return [
+        c["id"]
+        for c in evalset.candidates(conn)
+        if c["target"] and c["id"] not in done and (since is None or c["first_seen"] >= since)
+    ]
+
+
 def score_stored(
     conn: sqlite3.Connection, model: str, version: str, labels_dir: Path = evalset.LABELS_DIR
 ) -> dict[str, Any]:

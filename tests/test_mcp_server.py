@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -93,6 +94,15 @@ async def test_lists_tools_with_extraction_schema(server) -> None:
         "list_new_jobs",
         "get_job_details",
         "job_fit",
+        "rebuild_graph",
+        "rank_candidates",
+        "queue_application",
+        "list_queue",
+        "get_cover_letter_guide",
+        "save_cover_letter",
+        "get_resume_sections",
+        "get_tailoring_guide",
+        "save_tailored_resume",
     }
     # The client sees the Pydantic schema, enums included, and is held to it.
     schema = tools["save_extraction"].input_schema
@@ -110,7 +120,13 @@ async def test_documents_are_resources_too(server) -> None:
         templates = (await client.list_resource_templates()).resource_templates
         profile = await client.read_resource("profile://resume")
         job = await client.read_resource("job://2")
-    assert uris == {"profile://resume", "guidelines://extraction", "guidelines://skills"}
+    assert uris == {
+        "profile://resume",
+        "guidelines://extraction",
+        "guidelines://skills",
+        "guidelines://cover-letter",
+        "guidelines://resume-tailoring",
+    }
     assert [t.uri_template for t in templates] == ["job://{job_id}"]
     assert "junior data analyst" in profile.contents[0].text
     assert "<title>Junior Data Analyst 2</title>" in job.contents[0].text
@@ -365,3 +381,117 @@ async def test_job_fit_adds_coverage_to_graph_rows(server, tmp_path) -> None:
     assert fit["coverage"] == 0.75 and fit["title"] == "Junior Data Analyst 1"
     assert [s["skill"] for s in fit["skills"]] == ["SQL", "pandas", "dbt"]
     assert result.is_error and "no extraction" in text
+
+
+async def test_daily_run_ranks_queues_and_drafts_only_requested_letters(server, tmp_path) -> None:
+    from job_search_assistant import applications
+
+    _, path = server
+    conn = db.connect(path)
+    embed.embed_jobs(conn, fake_encode, embed.DEFAULT_MODEL)
+    conn.close()
+    store(path, 1)
+    store(path, 2)
+    conn = db.connect(path)
+    with conn:  # rebuild_graph refuses while skills are unmapped
+        conn.executemany("INSERT INTO skills VALUES (?, 'programming', NULL)",
+                         [("SQL",), ("Python",)])  # fmt: skip
+        conn.executemany("INSERT INTO skill_map VALUES (?, ?, 'now')",
+                         [("sql", "SQL"), ("python", "Python"), ("dbt", None)])  # fmt: skip
+    conn.close()
+    resume = tmp_path / "resume.md"  # the fixture's résumé
+    guide = tmp_path / "guide.md"
+    guide.write_text("Keep it short.")
+    built, asked = [], []
+
+    def fake_graph(kind, scope, k, **params):
+        asked.append(params["job_ids"])
+        return [{"job_id": 1, "required": 2, "coverage": 0.5, "missing": ["dbt"]},
+                {"job_id": 2, "required": 2, "coverage": 1.0, "missing": []}]  # fmt: skip
+
+    mcp_server = build_server(
+        lambda: db.connect(path), "RULES", tmp_path, resume=resume,
+        load_encoder=lambda: fake_encode, graph_query=fake_graph,
+        graph_build=lambda conn: built.append(True) or {"Job": 2}, letter_guide=guide,
+        resume_tex=Path(__file__).parent / "fixtures/tailor/resume.tex",
+    )  # fmt: skip
+    async with Client(mcp_server) as client:
+        assert (await client.call_tool("rebuild_graph", {})).structured_content == {"Job": 2}
+        ranking = (await client.call_tool("rank_candidates", {"k": 5})).structured_content
+        # Coverage first: job 2 covers everything, even though both are equally similar.
+        assert [c["job_id"] for c in ranking["candidates"]] == [2, 1]
+        assert ranking["candidates"][1]["missing_required"] == ["dbt"]
+
+        for job_id, rec in ((2, "apply"), (1, "skip")):
+            result, text = await call(
+                client, "queue_application", job_id=job_id, recommendation=rec,
+                fit_summary="SQL and Python fit.",
+            )  # fmt: skip
+            assert not result.is_error, text
+        result, text = await call(client, "queue_application", job_id=2, recommendation="apply",
+                                  fit_summary="again")  # fmt: skip
+        assert result.is_error and "already" in text
+        ranking = (await client.call_tool("rank_candidates", {})).structured_content
+        assert ranking == {"total": 0, "candidates": []}  # queued jobs are not proposed again
+
+        claims = [{"claim": "I know SQL", "evidence": "SQL and Python"}]
+        result, text = await call(client, "save_cover_letter", job_id=2, letter="Dear Hiring Team",
+                                  claims=claims)  # fmt: skip
+        assert result.is_error and "no letter was requested" in text  # I haven't selected it
+
+        conn = db.connect(path)
+        applications.select(conn, 2, note="stress SQL")  # résumé only, no letter
+        conn.close()
+        queue = await client.call_tool("list_queue", {"status": "selected"})
+        item = queue.structured_content["result"][0]
+        assert (item["job_id"], item["note"], item["needs_resume"], item["needs_letter"]) == (
+            2, "stress SQL", True, False,
+        )  # fmt: skip
+        result, text = await call(client, "save_cover_letter", job_id=2, letter="Dear Hiring Team",
+                                  claims=claims)  # fmt: skip
+        assert result.is_error and "no letter was requested" in text
+
+        sections = (await client.call_tool("get_resume_sections", {})).structured_content
+        assert sections["entries"][0]["bullets"][0]["id"] == "E1.1"
+        tailored = {
+            "summary": sections["summary"],
+            "skills": sections["skills"],
+            "entries": [{"id": e["id"], "bullets": [{"text": b["text"], "sources": [b["id"]]}
+                                                    for b in e["bullets"]]}
+                        for e in sections["entries"] if e["id"] != "P2"],
+        }  # fmt: skip
+        tailored["entries"][0]["bullets"][0]["text"] = "Cut queue latency by 35% with Kafka."
+        result, text = await call(client, "save_tailored_resume", job_id=2, tailored=tailored)
+        assert result.is_error and "numbers ['35']" in text
+        tailored["entries"][0]["bullets"][0]["text"] = "Cut queue latency by 20% with Kafka."
+        result, text = await call(client, "save_tailored_resume", job_id=2, tailored=tailored)
+        assert not result.is_error and "[P2] Thesis" in text, text
+
+        conn = db.connect(path)
+        applications.request_letter(conn, 2)
+        conn.close()
+        result, text = await call(client, "save_cover_letter", job_id=2, letter="Dear Hiring Team",
+                                  claims=claims)  # fmt: skip
+        assert not result.is_error, text
+
+        _, guide_text = await call(client, "get_cover_letter_guide")
+        assert guide_text == "Keep it short."
+        prompt = await client.get_prompt("daily_run", {"k": "5"})
+        assert "untrusted" in prompt.messages[0].content.text
+        assert "Do not tailor résumés or write cover letters" in prompt.messages[0].content.text
+        prompt = await client.get_prompt("prepare_applications", {})
+        assert "change the wording, not the sources" in prompt.messages[0].content.text
+    assert built == [True] and asked == [[1, 2]]
+    conn = db.connect(path)
+    assert applications.status_of(conn, 2) == "ready"
+    assert applications.status_of(conn, 1) == "queued"
+
+
+async def test_rebuild_graph_refuses_with_unmapped_skills(server, tmp_path) -> None:
+    _, path = server
+    store(path, 1)  # its skills (SQL, Python) are not mapped
+    mcp_server = build_server(lambda: db.connect(path), "RULES", tmp_path,
+                              graph_build=lambda conn: {"Job": 1})  # fmt: skip
+    async with Client(mcp_server) as client:
+        result, text = await call(client, "rebuild_graph")
+    assert result.is_error and "unmapped" in text

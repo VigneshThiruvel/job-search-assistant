@@ -196,8 +196,12 @@ def export_yaml(conn: sqlite3.Connection, raw: dict[str, dict[str, Any]], path: 
     return len(skills)
 
 
-def import_yaml(conn: sqlite3.Connection, path: Path) -> list[str]:
-    """Replace skills and skill_map with the YAML content; returns errors (nothing written)."""
+def import_yaml(conn: sqlite3.Connection, path: Path, force: bool = False) -> list[str]:
+    """Replace skills and skill_map with the YAML content; returns errors (nothing written).
+
+    Refuses if the DB holds mappings the YAML lacks (made since the last export, e.g. by
+    the daily agent): importing would silently delete them. `force` imports anyway.
+    """
     doc = yaml.safe_load(path.read_text())
     skills, errors, owner = doc.get("skills") or {}, [], {}
     for name, info in skills.items():
@@ -213,6 +217,12 @@ def import_yaml(conn: sqlite3.Connection, path: Path) -> list[str]:
         if raw_key(alias) in owner:
             errors.append(f"alias {alias!r} is both dropped and under {owner[raw_key(alias)]!r}")
         owner[raw_key(alias)] = None
+    newer = sorted({r[0] for r in conn.execute("SELECT raw FROM skill_map")} - set(owner))
+    if newer and not force:
+        errors.append(
+            f"{len(newer)} mapping(s) in the DB are not in {path.name} (e.g. {newer[:5]}); "
+            "run `skills export` first, or import with --force to drop them"
+        )
     if errors:
         return errors
 
@@ -236,13 +246,14 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(prog="python -m job_search_assistant.skills")
     parser.add_argument("command", choices=["status", "export", "import"])
+    parser.add_argument("--force", action="store_true", help="import: drop DB-only mappings")
     args = parser.parse_args()
     conn = db.connect("data/jobs.db")
     resume = search.RESUME.read_text() if search.RESUME.exists() else ""
     raw = raw_skills(conn, search.current_extraction(), resume)
 
     if args.command == "import":
-        if errors := import_yaml(conn, TAXONOMY):
+        if errors := import_yaml(conn, TAXONOMY, force=args.force):
             raise SystemExit("\n".join(errors))
         print(f"imported {TAXONOMY}")
     elif args.command == "export":

@@ -16,3 +16,6 @@ data/neo4j/
 
 # Personal profile (résumé with contact details)
 profile/
+
+# Cover letter drafts (personal)
+data/drafts/
