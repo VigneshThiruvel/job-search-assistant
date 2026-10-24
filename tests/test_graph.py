@@ -60,7 +60,10 @@ def conn():
 
 def test_rows_merge_companies_dedupe_skills_and_mark_eligible(conn) -> None:
     rows = graph.graph_rows(conn, EXTRACTION, RESUME)
-    assert rows["my_skills"] == ["PySpark", "Python"]
+    assert rows["my_skills"] == [
+        {"name": "PySpark", "source": "resume"},
+        {"name": "Python", "source": "resume"},
+    ]
     assert len(rows["companies"]) == 2  # "ACME GmbH" and "ACME" are one company
     eligible = {j["id"]: j["props"]["eligible"] for j in rows["jobs"]}
     assert eligible == {1: True, 2: True, 3: False}  # 3 is senior
@@ -68,6 +71,15 @@ def test_rows_merge_companies_dedupe_skills_and_mark_eligible(conn) -> None:
     assert edges[(3, "SQL")] is True  # listed as required and nice: required wins
     assert edges[(1, "pandas")] is False
     assert len(edges) == 8
+
+
+def test_extra_skills_join_me_with_provenance(conn) -> None:
+    rows = graph.graph_rows(conn, EXTRACTION, RESUME, extra=["SQL", "python"])
+    assert rows["my_skills"] == [
+        {"name": "PySpark", "source": "resume"},
+        {"name": "Python", "source": "resume"},  # on the résumé list too: résumé wins
+        {"name": "SQL", "source": "extra"},
+    ]
 
 
 @pytest.mark.skipif(os.environ.get("NEO4J_TEST") != "1", reason="needs Neo4j (NEO4J_TEST=1)")

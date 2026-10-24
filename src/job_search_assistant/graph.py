@@ -22,6 +22,7 @@ import json
 import os
 import sqlite3
 from collections import Counter, defaultdict
+from collections.abc import Sequence
 from typing import Any
 
 from job_search_assistant import dedup, search, skills
@@ -85,10 +86,10 @@ QUERIES: dict[str, str] = {
     # One job ($job_id) skill by skill: my credit (as in CREDIT) and which of my skills gives it.
     "fit": """
         MATCH (me:Me), (:Job {id: $job_id})-[r:REQUIRES]->(s:Skill)
-        OPTIONAL MATCH (me)-[:HAS_SKILL]->(n:Skill)-[:BROADER*0..4]->(s)
-        WITH me, r, s, collect(DISTINCT n.name) AS same_or_narrower
-        OPTIONAL MATCH (me)-[:HAS_SKILL]->(b:Skill)<-[:BROADER*1..4]-(s)
-        WITH r, s, same_or_narrower, collect(DISTINCT b.name) AS broader
+        OPTIONAL MATCH (me)-[h:HAS_SKILL]->(n:Skill)-[:BROADER*0..4]->(s)
+        WITH me, r, s, collect(DISTINCT n.name + $tag[h.source]) AS same_or_narrower
+        OPTIONAL MATCH (me)-[h:HAS_SKILL]->(b:Skill)<-[:BROADER*1..4]-(s)
+        WITH r, s, same_or_narrower, collect(DISTINCT b.name + $tag[h.source]) AS broader
         RETURN s.name AS skill, s.category AS category, r.required AS required,
                CASE WHEN size(same_or_narrower) > 0 THEN 1.0
                     WHEN size(broader) > 0 THEN 0.5 ELSE 0.0 END AS my_credit,
@@ -124,7 +125,10 @@ VIEWS: dict[str, str] = {
 
 
 def graph_rows(
-    conn: sqlite3.Connection, extraction: tuple[str, str], resume_text: str
+    conn: sqlite3.Connection,
+    extraction: tuple[str, str],
+    resume_text: str,
+    extra: Sequence[str] = (),
 ) -> dict[str, Any]:
     """Everything the graph needs, read from SQLite (pure function, no Neo4j)."""
     skill_of = dict(conn.execute("SELECT raw, skill FROM skill_map"))
@@ -167,7 +171,12 @@ def graph_rows(
                     key = (r["id"], skill)
                     requires[key] = requires.get(key, False) or required
 
-    my_skills = {skill_of.get(skills.raw_key(s)) for s in skills.resume_skills(resume_text)}
+    # Provenance on HAS_SKILL: "resume" (the skills list) or "extra" (graph-only, see
+    # skills.extra_skills); a skill in both counts as résumé.
+    my_skills = {skill_of.get(skills.raw_key(s)): "extra" for s in extra}
+    my_skills |= {
+        skill_of.get(skills.raw_key(s)): "resume" for s in skills.resume_skills(resume_text)
+    }
     return {
         "categories": sorted({info["category"] for info in taxonomy.values()}),
         "skills": [{"name": n, **info} for n, info in taxonomy.items()],
@@ -176,7 +185,7 @@ def graph_rows(
         "requires": [
             {"job_id": j, "skill": s, "required": req} for (j, s), req in sorted(requires.items())
         ],
-        "my_skills": sorted(s for s in my_skills if s),
+        "my_skills": [{"name": n, "source": my_skills[n]} for n in sorted(filter(None, my_skills))],
     }
 
 
@@ -200,8 +209,8 @@ BUILD = [
        MATCH (j:Job {id: e.job_id}), (s:Skill {name: e.skill})
        CREATE (j)-[:REQUIRES {required: e.required}]->(s)""",
     """CREATE (me:Me {name: 'me'}) WITH me
-       UNWIND $my_skills AS name MATCH (s:Skill {name: name})
-       CREATE (me)-[:HAS_SKILL]->(s)""",
+       UNWIND $my_skills AS m MATCH (s:Skill {name: m.name})
+       CREATE (me)-[:HAS_SKILL {source: m.source}]->(s)""",
 ]
 KEYS = (("Job", "id"), ("Skill", "name"), ("Company", "key"), ("Role", "name"),
         ("Category", "name"))  # fmt: skip
@@ -236,8 +245,12 @@ def build(driver, rows: dict[str, Any]) -> dict[str, int]:
     return {r["label"]: r["n"] for r in records}
 
 
+# How `fit` marks the source of a credit in `via`: graph-only skills get " (extra)".
+TAG = {"resume": "", "extra": " (extra)"}
+
+
 def query(driver, name: str, scope: str = "eligible", k: int = 15, **params) -> list[dict]:
-    records, _, _ = driver.execute_query(QUERIES[name], scope=SCOPES[scope], k=k, **params)
+    records, _, _ = driver.execute_query(QUERIES[name], scope=SCOPES[scope], k=k, tag=TAG, **params)
     return [r.data() for r in records]
 
 
@@ -257,7 +270,12 @@ def main() -> None:
     with connect_neo4j() as driver:
         if args.command == "build":
             conn = db.connect("data/jobs.db")
-            rows = graph_rows(conn, search.current_extraction(), search.RESUME.read_text())
+            rows = graph_rows(
+                conn,
+                search.current_extraction(),
+                search.RESUME.read_text(),
+                skills.load_extra_skills(),
+            )
             print(build(driver, rows))
             print(
                 f"{len(rows['requires'])} REQUIRES edges, {len(rows['my_skills'])} skills of mine"

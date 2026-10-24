@@ -80,9 +80,18 @@ CREATE TABLE IF NOT EXISTS skill_map (
 -- jobs.description after every ingest, because re-reading the alert emails resets it.
 CREATE TABLE IF NOT EXISTS pasted_descriptions (
     job_id    INTEGER PRIMARY KEY REFERENCES jobs (id),
-    text      TEXT NOT NULL,
+    text      TEXT NOT NULL,                  -- '' when I only marked it expired
     lang      TEXT,
+    note      TEXT,                           -- mine, shown to the agent
+    expired   INTEGER NOT NULL DEFAULT 0,     -- 1 = no longer open: never ranked
     pasted_at TEXT NOT NULL
+);
+
+-- Phase 6: start of every full daily run (with fetching); inbox files cover the alert
+-- emails received since the previous one.
+CREATE TABLE IF NOT EXISTS daily_runs (
+    id         INTEGER PRIMARY KEY,
+    started_at TEXT NOT NULL
 );
 
 -- Phase 6: the review queue (see applications.py for who may change what).

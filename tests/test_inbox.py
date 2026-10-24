@@ -5,6 +5,7 @@ import pytest
 from job_search_assistant import db, evalset, inbox
 from job_search_assistant.models import Job
 
+SINCE = "2000-01-01"
 DESCRIPTION = "We are looking for a junior data engineer to build pipelines in Python and SQL. " * 8
 
 
@@ -28,11 +29,16 @@ def setup():
         "arbeitnow_twin": add(conn, "arbeitnow", "a2", "Data Analyst", DESCRIPTION, "Beta"),
         "senior": add(conn, "linkedin", "3", "Senior Data Engineer", company="Gamma"),
         "other": add(conn, "arbeitnow", "a4", "Data Scientist", DESCRIPTION, "Delta"),
+        "student": add(conn, "xing", "x5", "Werkstudent Data Analytics", company="Eps"),
+        "old_mail": add(conn, "linkedin", "6", "Junior Data Analyst", company="Zeta"),
     }
+    conn.execute("UPDATE jobs SET posted_at = '2026-01-01T08:00:00+00:00' WHERE id = ?",
+                 (ids["old_mail"],))  # fmt: skip
     groups = [(ids["li"], ids["li"]), (ids["xing_twin"], ids["li"]),
               (ids["li_with_text"], ids["li_with_text"]),
               (ids["arbeitnow_twin"], ids["li_with_text"]),
-              (ids["senior"], ids["senior"]), (ids["other"], ids["other"])]  # fmt: skip
+              (ids["senior"], ids["senior"]), (ids["other"], ids["other"]),
+              (ids["student"], ids["student"]), (ids["old_mail"], ids["old_mail"])]  # fmt: skip
     conn.executemany("INSERT INTO job_groups (job_id, group_id) VALUES (?, ?)", groups)
     conn.commit()
     yield conn, ids
@@ -41,17 +47,23 @@ def setup():
 
 def test_templates_only_for_alert_jobs_without_any_text(setup, tmp_path) -> None:
     conn, ids = setup
-    written = inbox.write_templates(conn, tmp_path)
-    # The xing twin shares the group; the Beta job has an Arbeitnow twin with text; senior out.
+    written = inbox.write_templates(conn, SINCE, tmp_path)
+    # The xing twin shares the group; the Beta job has an Arbeitnow twin with text; senior
+    # and working-student titles are out of scope; the old email is before the window.
+    assert [p.name for p in inbox.write_templates(conn, "2026-06-01", tmp_path / "w")] == [
+        f"{ids['li']}-acme.txt"
+    ]
+    # The January email is also outside the 2-day ranking window: no file either way.
     assert [p.name for p in written] == [f"{ids['li']}-acme.txt"]
     assert inbox.MARKER in written[0].read_text()
     assert "https://example.com/linkedin/1" in written[0].read_text()
-    assert inbox.write_templates(conn, tmp_path) == []  # existing files are left alone
+    assert inbox.write_templates(conn, SINCE, tmp_path) == []  # existing files are left alone
+    assert inbox.is_untouched(written[0])
 
 
 def test_pasted_text_survives_reingest_and_enters_target_scope(setup, tmp_path) -> None:
     conn, ids = setup
-    [template] = inbox.write_templates(conn, tmp_path)
+    template = inbox.write_templates(conn, SINCE, tmp_path)[0]
     template.write_text(template.read_text() + DESCRIPTION)
     (tmp_path / "untouched-template.txt").write_text(f"# x\n{inbox.MARKER}\n")
     (tmp_path / f"{ids['other']}-delta.txt").write_text(DESCRIPTION)
@@ -70,7 +82,7 @@ def test_pasted_text_survives_reingest_and_enters_target_scope(setup, tmp_path) 
     description = "SELECT description FROM jobs WHERE id = ?"
     assert conn.execute(description, (ids["li"],)).fetchone()[0] == ""
     assert inbox.apply_pasted(conn) == 1
-    assert inbox.needs_description(conn) == []  # the senior one never needed it
+    assert [r["id"] for r in inbox.needs_description(conn, SINCE)] == [ids["old_mail"]]
 
     target = {j["id"] for j in evalset.target_jobs(conn)}
     # Pasted alert job, the Arbeitnow twin standing in for its LinkedIn alert, and Delta.
@@ -86,3 +98,42 @@ def test_channels_follow_the_duplicate_group(setup) -> None:
         ids["other"]: "other",
         ids["li"]: "alerts",
     }
+
+
+def test_mail_window_starts_at_the_previous_full_run(setup) -> None:
+    conn, _ = setup
+    today = inbox.mail_window_start(conn)  # no runs recorded yet: since local midnight
+    assert today <= datetime.now(UTC).isoformat()
+    conn.execute("INSERT INTO daily_runs (started_at) VALUES ('2026-10-24T11:00:00+00:00')")
+    assert inbox.mail_window_start(conn) == today  # only the current run: still today
+    conn.execute("INSERT INTO daily_runs (started_at) VALUES ('2026-10-26T07:00:00+00:00')")
+    # Skipped a day: everything since the previous run, so Sunday's mails are not lost.
+    assert inbox.mail_window_start(conn) == "2026-10-24T11:00:00+00:00"
+
+
+def test_notes_and_expired_lines(setup, tmp_path) -> None:
+    conn, ids = setup
+    note = "Author note: closed, keep for the dataset"
+    old_style = f"# header\n{note}\n{inbox.MARKER}\n{DESCRIPTION}"
+    assert inbox.parse(old_style) == (DESCRIPTION.strip(), note, False)
+    new_style = f"Expired: yes\nNotes:\nposting gone\n{inbox.MARKER}\n\n"
+    assert inbox.parse(new_style) == ("", "posting gone", True)
+
+    # Expired with no description: imported (closes the job), nothing pasted into `jobs`.
+    (tmp_path / f"{ids['li']}-acme.txt").write_text(new_style)
+    assert inbox.import_inbox(conn, tmp_path) == ([ids["li"]], [])
+    assert (
+        conn.execute("SELECT description FROM jobs WHERE id = ?", (ids["li"],)).fetchone()[0] == ""
+    )
+    # Every copy counts as expired (the XING alert for the same job too).
+    assert inbox.expired_job_ids(conn) == {ids["li"], ids["xing_twin"]}
+    assert inbox.my_note(conn, ids["xing_twin"]) == ("posting gone", True)
+    assert inbox.my_note(conn, ids["other"]) == (None, False)
+
+
+def test_alert_jobs_are_fresh_by_email_date(setup) -> None:
+    conn, ids = setup
+    fresh = inbox.fresh_job_ids(conn)
+    assert ids["li"] in fresh and ids["other"] in fresh
+    # First seen today (the email was first read today), but the email is from January.
+    assert ids["old_mail"] not in fresh

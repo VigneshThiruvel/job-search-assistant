@@ -35,7 +35,10 @@ def status(conn: sqlite3.Connection, today: str) -> dict[str, int]:
     queue = Counter(dict(conn.execute("SELECT status, count(*) FROM applications GROUP BY status")))
     return {
         "new_today": new_today,
-        "pending_extraction": len(extract.pending_target(conn, search.current_extraction())),
+        "pending_extraction": len(
+            set(extract.pending_target(conn, search.current_extraction()))
+            & inbox.fresh_job_ids(conn)
+        ),
         "queued": queue["queued"],
         "selected": queue["selected"],
         "ready": queue["ready"],
@@ -55,6 +58,9 @@ def main() -> None:
     conn = db.connect(ingest.DATA_DIR / "jobs.db")
     try:
         if not args.skip_ingest:
+            with conn:
+                conn.execute("INSERT INTO daily_runs (started_at) VALUES (?)",
+                             (datetime.now(UTC).isoformat(),))  # fmt: skip
             ingest.run_all(conn)
         imported, problems = inbox.import_inbox(conn)
         for p in problems:
@@ -68,7 +74,7 @@ def main() -> None:
             encoder = embed.load_encoder(embed.DEFAULT_MODEL)
             embed.embed_jobs(conn, encoder, embed.DEFAULT_MODEL, duty_cycle=duty)
         s = status(conn, datetime.now(UTC).date().isoformat())
-        templates = inbox.write_templates(conn)
+        templates = inbox.write_templates(conn, inbox.mail_window_start(conn))
         waiting = sorted(p.name for p in inbox.INBOX.glob("*.txt"))
     finally:
         conn.close()
@@ -82,7 +88,8 @@ def main() -> None:
         print("\n".join(f"  {name}" for name in waiting))
 
     print(
-        f"\n{s['new_today']} new jobs today, {s['pending_extraction']} waiting for extraction.\n"
+        f"\n{s['new_today']} new jobs today, {s['pending_extraction']} from the last "
+        f"{inbox.FRESH_DAYS} days waiting for extraction.\n"
         f"Queue: {s['queued']} to review, {s['selected']} selected (drafts pending), "
         f"{s['ready']} ready.\n"
         "Next, in Claude Code: /mcp__job-search__daily_run"

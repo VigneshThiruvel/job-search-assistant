@@ -129,3 +129,31 @@ def test_import_refuses_to_drop_mappings_made_after_export(conn, tmp_path) -> No
     assert len(errors) == 1 and "datenmodellierung" in errors[0]
     assert skills.import_yaml(conn, path, force=True) == []
     assert dict(conn.execute("SELECT raw, skill FROM skill_map")) == {"communication": None}
+
+
+def test_extra_skills_need_existing_bullets() -> None:
+    text = """
+- skill: Backend Development
+  evidence: [E1.1, E2.2]
+- skill: AI Evaluation
+  evidence: P2.2
+"""
+    assert skills.extra_skills(text, {"E1.1", "E2.2", "P2.2"}) == [
+        "Backend Development",
+        "AI Evaluation",
+    ]
+    with pytest.raises(ValueError, match="no résumé bullet P2.2"):
+        skills.extra_skills(text, {"E1.1", "E2.2"})  # bullet removed from the résumé
+    with pytest.raises(ValueError, match="listed twice"):
+        skills.extra_skills(
+            text + "- skill: ai evaluation\n  evidence: P2.2\n", {"E1.1", "E2.2", "P2.2"}
+        )
+    with pytest.raises(ValueError, match="needs `skill` and `evidence`"):
+        skills.extra_skills("- skill: APIs\n", {"E1.1"})
+
+
+def test_extra_skills_count_as_mine(conn) -> None:
+    raw = skills.raw_skills(conn, ("m", "v"), RESUME, extra=["Backend Development"])
+    assert raw["backend development"] == {
+        "display": "Backend Development", "mentions": 0, "in_resume": True
+    }  # fmt: skip

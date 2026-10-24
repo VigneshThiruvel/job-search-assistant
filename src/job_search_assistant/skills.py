@@ -15,6 +15,7 @@ import argparse
 import re
 import sqlite3
 from collections import Counter, defaultdict
+from collections.abc import Sequence
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
@@ -24,6 +25,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 SPEC = Path("eval/SKILLS.md")
 TAXONOMY = Path("taxonomy/skills.yaml")
+EXTRA = Path("profile/extra_skills.yaml")  # graph-only skills, see extra_skills()
 CATEGORIES = (
     "programming", "cloud", "data_engineering", "database", "ml_ai", "analytics_bi",
     "devops", "software_engineering", "methods", "business_domain",
@@ -58,10 +60,51 @@ def resume_skills(resume_text: str) -> list[str]:
     return found
 
 
+def extra_skills(yaml_text: str, bullet_ids: set[str]) -> list[str]:
+    """Graph-only skills of mine: shown by résumé bullets but kept off the skills list.
+
+    Each entry is {skill, evidence: [bullet ids]}; an unknown id means the résumé changed
+    and the claim needs re-checking, so it raises instead of silently keeping the skill.
+    """
+    entries = yaml.safe_load(yaml_text) or []
+    errors, found = [], []
+    for e in entries:
+        skill, evidence = e.get("skill"), e.get("evidence")
+        evidence = [evidence] if isinstance(evidence, str) else evidence or []
+        if not skill or not evidence:
+            errors.append(f"{e!r}: needs `skill` and `evidence`")
+        elif raw_key(skill) in map(raw_key, found):
+            errors.append(f"{skill!r}: listed twice")
+        elif unknown := [b for b in evidence if b not in bullet_ids]:
+            errors.append(f"{skill!r}: no résumé bullet {', '.join(unknown)}")
+        else:
+            found.append(skill)
+    if errors:
+        raise ValueError("extra skills: " + "; ".join(errors))
+    return found
+
+
+def load_extra_skills(path: Path = EXTRA, tex: Path | None = None) -> list[str]:
+    """extra_skills() from `path`, checked against the bullets of the LaTeX résumé."""
+    from job_search_assistant import tailor  # tailor imports this module
+
+    if not path.exists():
+        return []
+    resume = tailor.parse((tex or tailor.TEX).read_text())
+    ids = {f"{e.id}.{i}" for e in resume.entries for i in range(1, len(e.bullets) + 1)}
+    return extra_skills(path.read_text(), ids)
+
+
 def raw_skills(
-    conn: sqlite3.Connection, extraction: tuple[str, str], resume_text: str = ""
+    conn: sqlite3.Connection,
+    extraction: tuple[str, str],
+    resume_text: str = "",
+    extra: Sequence[str] = (),
 ) -> dict[str, dict[str, Any]]:
-    """raw key -> {display (most common written form), mentions (in postings), in_resume}."""
+    """raw key -> {display (most common written form), mentions (in postings), in_resume}.
+
+    in_resume: one of my skills (résumé list or `extra`).
+    """
     forms: dict[str, Counter] = defaultdict(Counter)
     for field in SKILL_FIELDS:
         rows = conn.execute(
@@ -71,7 +114,7 @@ def raw_skills(
         )
         for (value,) in rows:
             forms[raw_key(value)][value] += 1
-    resume = {raw_key(s): s for s in resume_skills(resume_text)}
+    resume = {raw_key(s): s for s in [*resume_skills(resume_text), *extra]}
     keys = set(forms) | set(resume)
     return {
         k: {
@@ -250,7 +293,7 @@ def main() -> None:
     args = parser.parse_args()
     conn = db.connect("data/jobs.db")
     resume = search.RESUME.read_text() if search.RESUME.exists() else ""
-    raw = raw_skills(conn, search.current_extraction(), resume)
+    raw = raw_skills(conn, search.current_extraction(), resume, load_extra_skills())
 
     if args.command == "import":
         if errors := import_yaml(conn, TAXONOMY, force=args.force):
