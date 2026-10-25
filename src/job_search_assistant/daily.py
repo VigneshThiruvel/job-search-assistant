@@ -92,6 +92,7 @@ def main() -> None:
         f"{inbox.FRESH_DAYS} days waiting for extraction.\n"
         f"Queue: {s['queued']} to review, {s['selected']} selected (drafts pending), "
         f"{s['ready']} ready.\n"
+        "Once you have pasted all descriptions, run `uv run python -m job_search_assistant.daily --skip-ingest` to embed them.\n"
         "Next, in Claude Code: /mcp__job-search__daily_run"
         + (" (then /mcp__job-search__prepare_applications)" if s["selected"] else "")
     )
