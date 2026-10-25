@@ -240,27 +240,81 @@ def import_inbox(conn: sqlite3.Connection, inbox: Path = INBOX) -> tuple[list[in
             if text:
                 problems.append(f"{path.name}: description too short ({len(text)} chars), skipped")
             continue  # not filled in yet
-        job_id = int(m.group(1))
-        job = conn.execute("SELECT title, source FROM jobs WHERE id = ?", (job_id,)).fetchone()
-        if job is None:
-            problems.append(f"{path.name}: no job with id {job_id}")
+        try:
+            save_paste(conn, int(m.group(1)), text, note, expired)
+        except ValueError as exc:
+            problems.append(f"{path.name}: {exc}")
             continue
-        if job["source"] not in ALERT_SOURCES:
-            problems.append(f"{path.name}: job {job_id} is from {job['source']}, not an alert")
-            continue
-        with conn:
-            conn.execute(
-                """INSERT INTO pasted_descriptions (job_id, text, lang, note, expired, pasted_at)
-                   VALUES (?, ?, ?, ?, ?, ?)
-                   ON CONFLICT (job_id) DO UPDATE SET text = excluded.text,
-                       lang = excluded.lang, note = excluded.note, expired = excluded.expired,
-                       pasted_at = excluded.pasted_at""",
-                (job_id, text, detect_language(f"{job['title']}\n{text}") if text else None,
-                 note, expired, datetime.now(UTC).isoformat()),
-            )  # fmt: skip
         done = inbox / "done" / path.name
         done.parent.mkdir(exist_ok=True)
         path.replace(done)
-        imported.append(job_id)
+        imported.append(int(m.group(1)))
     apply_pasted(conn)
     return imported, problems
+
+
+def save_paste(
+    conn: sqlite3.Connection, job_id: int, text: str, note: str | None, expired: bool
+) -> None:
+    """Store what I pasted for one alert job (from a file or the UI) and apply it."""
+    text = text.strip()
+    if len(text) < MIN_CHARS and not expired:
+        raise ValueError(f"description too short ({len(text)} chars); paste the full text "
+                         "or mark it expired")  # fmt: skip
+    job = conn.execute("SELECT title, source FROM jobs WHERE id = ?", (job_id,)).fetchone()
+    if job is None:
+        raise ValueError(f"no job with id {job_id}")
+    if job["source"] not in ALERT_SOURCES:
+        raise ValueError(f"job {job_id} is from {job['source']}, not an alert")
+    with conn:
+        conn.execute(
+            """INSERT INTO pasted_descriptions (job_id, text, lang, note, expired, pasted_at)
+               VALUES (?, ?, ?, ?, ?, ?)
+               ON CONFLICT (job_id) DO UPDATE SET text = excluded.text,
+                   lang = excluded.lang, note = excluded.note, expired = excluded.expired,
+                   pasted_at = excluded.pasted_at""",
+            (job_id, text, detect_language(f"{job['title']}\n{text}") if text else None,
+             (note or "").strip() or None, expired, datetime.now(UTC).isoformat()),
+        )  # fmt: skip
+    apply_pasted(conn)
+
+
+def open_items(conn: sqlite3.Connection, inbox: Path = INBOX) -> list[dict]:
+    """Jobs with an unfilled inbox file (what daily.py asked me to paste), oldest first."""
+    ids = {}
+    for path in inbox.glob("*.txt"):
+        m = re.match(r"(\d+)", path.name)
+        if m and is_untouched(path):
+            ids[int(m.group(1))] = path
+    if not ids:
+        return []
+    rows = conn.execute(
+        f"SELECT id, title, company, location, source, url, posted_at FROM jobs "
+        f"WHERE id IN ({','.join('?' * len(ids))}) ORDER BY id",
+        list(ids),
+    )
+    return [dict(r) for r in rows]
+
+
+def close_file(job_id: int, inbox: Path = INBOX) -> None:
+    """After a UI paste: move the job's inbox file to done/, so it isn't asked again."""
+    for path in inbox.glob(f"{job_id}-*.txt"):
+        done = inbox / "done" / path.name
+        done.parent.mkdir(exist_ok=True)
+        path.replace(done)
+
+
+def alert_urls(conn: sqlite3.Connection, job_ids: list[int]) -> dict[int, str]:
+    """For jobs in the alerts channel: the alert's link (LinkedIn preferred over XING)."""
+    if not job_ids:
+        return {}
+    rows = conn.execute(
+        f"""SELECT ga.job_id, o.url FROM job_groups ga
+            JOIN job_groups gb ON gb.group_id = ga.group_id
+            JOIN jobs o ON o.id = gb.job_id
+            WHERE ga.job_id IN ({",".join("?" * len(job_ids))})
+              AND o.source IN ({", ".join(repr(s) for s in ALERT_SOURCES)})
+            ORDER BY o.source = 'linkedin', o.id DESC""",  # later rows win: LinkedIn last
+        job_ids,
+    )
+    return dict(rows.fetchall())

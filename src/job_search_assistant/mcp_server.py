@@ -638,18 +638,7 @@ def build_server(
             if not jobs:
                 return Ranking(total=0, candidates=[])
             ids = [j["id"] for j in jobs]
-            alert_url = {
-                r[0]: r[1]
-                for r in conn.execute(
-                    f"""SELECT ga.job_id, o.url FROM job_groups ga
-                        JOIN job_groups gb ON gb.group_id = ga.group_id
-                        JOIN jobs o ON o.id = gb.job_id
-                        WHERE ga.job_id IN ({",".join("?" * len(ids))})
-                          AND o.source IN ('linkedin', 'xing')
-                        ORDER BY o.source = 'linkedin', o.id DESC""",  # LinkedIn wins
-                    ids,
-                )
-            }
+            alert_url = inbox.alert_urls(conn, ids)
             similarity = dict(
                 conn.execute(
                     f"""SELECT job_id, 1 - vec_distance_cosine(vector, ?) FROM embeddings
