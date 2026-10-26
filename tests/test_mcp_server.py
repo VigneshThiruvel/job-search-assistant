@@ -34,7 +34,7 @@ def server(tmp_path):
             country=None,
             remote=None,
             description="We need SQL and Python. German is a plus.",
-            posted_at=datetime(2026, 10, 1, tzinfo=UTC),
+            posted_at=datetime.now(UTC),  # fresh: ranking only sees ads from the last 2 days
             raw={},
         )
         db.upsert_job(conn, job, lang="en", content_hash=f"h{i}", seen_at=datetime.now(UTC))
@@ -503,3 +503,23 @@ async def test_rebuild_graph_refuses_with_unmapped_skills(server, tmp_path) -> N
     async with Client(mcp_server) as client:
         result, text = await call(client, "rebuild_graph")
     assert result.is_error and "unmapped" in text
+
+
+async def test_daily_extraction_lists_alert_jobs_first(server) -> None:
+    mcp_server, path = server
+    conn = db.connect(path)
+    with conn:
+        conn.execute("UPDATE jobs SET description = ?", ("x" * 500,))
+    linkedin = Job(source="linkedin", source_job_id="li-1", url="https://example.com/li",
+                   title="Junior Data Analyst 1", company="ACME", location="Berlin", country=None,
+                   remote=None, description="", posted_at=datetime.now(UTC), raw={})  # fmt: skip
+    db.upsert_job(conn, linkedin, lang="en", content_hash="li", seen_at=datetime.now(UTC))
+    with conn:  # job 1 also came in a LinkedIn alert (job 3): it belongs to the alerts list
+        conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 2), (3, 1)")
+    conn.close()
+    async with Client(mcp_server) as client:
+        result = await client.call_tool(
+            "list_jobs_to_extract", {"model": "m", "scope": "target", "fresh_days": 2}
+        )
+    # Newest first would put job 2 first; the alert job wins despite its lower id.
+    assert [j["job_id"] for j in result.structured_content["result"]] == [1, 2]

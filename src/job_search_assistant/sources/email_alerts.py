@@ -64,6 +64,8 @@ def parse_xing(text: str) -> list[Card]:
         after = [line for line in lines[link + 1 :] if line]
         if len(after) < 2:  # "Show all results" / survey links have no company+location
             continue
+        if any(re.fullmatch(r"[\W_]+", line) for line in after[:2]):
+            continue  # survey block ("Improve your job recommendations:") with separator lines
         # Badges are the lines directly above the title, up to the first blank line.
         badges = []
         for line in reversed(lines[: link - 1]):

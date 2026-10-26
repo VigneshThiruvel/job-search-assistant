@@ -1,0 +1,10 @@
+.diff-added { background: var(--mantine-color-teal-light); border-radius: 3px; }
+.diff-removed { color: var(--mantine-color-dimmed); text-decoration: line-through; }
+.log { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; white-space: pre-wrap; line-height: 1.5; }
+.log-line-tool { color: var(--mantine-color-indigo-text); }
+.log-line-error { color: var(--mantine-color-red-text); }
+.log-line-ok { color: var(--mantine-color-teal-text); }
+.report h2, .report h3 { font-size: 1rem; margin: 0.75rem 0 0.25rem; }
+.report table { border-collapse: collapse; font-size: 13px; }
+.report td, .report th { border: 1px solid var(--mantine-color-default-border); padding: 2px 6px; }
+.prewrap { white-space: pre-wrap; }

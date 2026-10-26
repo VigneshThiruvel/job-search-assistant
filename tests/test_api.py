@@ -106,3 +106,111 @@ def test_cross_site_writes_and_foreign_hosts_are_blocked(setup) -> None:
     # DNS rebinding: a request whose Host is someone else's domain.
     r = client.get("/api/applications", headers={"Host": "evil.example"})
     assert r.status_code == 400
+
+
+class FakeRuns:
+    def __init__(self, path):
+        self.path, self.started = path, []
+
+    def start(self, kind, k, max_extract):
+        if kind == "agent_prepare":
+            raise ValueError("Claude Code not found")
+        conn = db.connect(self.path)
+        with conn:
+            run_id = conn.execute(
+                "INSERT INTO ui_runs (kind, args_json, status, started_at) "
+                "VALUES (?, '{}', 'running', 'now')",
+                (kind,),
+            ).lastrowid
+        self.started.append((kind, k, max_extract))
+        return run_id
+
+    def log(self, run_id, offset=0):
+        return ["line 1", "line 2"][offset:], 2
+
+    def cancel(self, run_id):
+        return True
+
+
+def test_runs_fit_and_skills_endpoints(setup, tmp_path) -> None:
+    _, path, box = setup
+    runs = FakeRuns(path)
+
+    def fake_graph(kind, scope, k, **params):
+        if kind == "coverage_of":
+            return [{"job_id": 3, "required": 2, "coverage": 0.5, "missing": ["dbt"]}]
+        if kind == "fit":
+            return [{"skill": "SQL", "category": "programming", "required": True,
+                     "my_credit": 1.0, "via": ["SQL"]}]  # fmt: skip
+        raise ConnectionError("Neo4j down")
+
+    taxonomy = tmp_path / "skills.yaml"
+    taxonomy.write_text("skills:\n  SQL:\n    category: programming\n    parent: null\n"
+                        "    aliases: [sql]\ndropped: []\n")  # fmt: skip
+    app = create_app(lambda: db.connect(path), resume_tex=TEX, inbox_dir=box, hosts=["testserver"],
+                     runs=runs, graph_query=fake_graph, taxonomy=taxonomy)  # fmt: skip
+    client = TestClient(app)
+
+    r = client.post("/api/runs", json={"kind": "agent_daily", "k": 5}, headers=ORIGIN)
+    assert r.status_code == 200 and r.json()["label"] == "Daily agent"
+    assert runs.started == [("agent_daily", 5, 30)]
+    assert (
+        client.post("/api/runs", json={"kind": "agent_prepare"}, headers=ORIGIN).status_code == 400
+    )
+    assert client.post("/api/runs", json={"kind": "rm -rf"}, headers=ORIGIN).status_code == 422
+    log = client.get(f"/api/runs/{r.json()['id']}", params={"offset": 1}).json()
+    assert log["lines"] == ["line 2"] and log["next_offset"] == 2
+    assert client.get("/api/health").json()["running"]["kind"] == "agent_daily"
+
+    assert client.get("/api/coverage", params={"ids": "3,1"}).json() == {
+        "3": {"coverage": 0.5, "missing": ["dbt"]}
+    }
+    fit = client.get("/api/applications/3/fit").json()
+    assert fit["available"] and fit["coverage"] == 1.0
+    assert client.get("/api/skills/insights").json() == {"available": False, "rows": []}
+
+    conn = db.connect(path)
+    with conn:
+        conn.execute("INSERT INTO skills VALUES ('SQL', 'programming', NULL)")
+        conn.execute("INSERT INTO skill_map VALUES ('sql', 'SQL', 'x'), ('dbt core', NULL, 'x')")
+    review = client.get("/api/skills/review").json()
+    assert review == {"new": [{"raw": "dbt core", "skill": None, "category": None,
+                               "parent": None}], "unimported": []}  # fmt: skip
+    taxonomy.write_text(taxonomy.read_text().replace("programming", "database"))  # my edit
+    r = client.post("/api/skills/export", json={}, headers=ORIGIN)
+    assert r.status_code == 409 and "not imported" in r.json()["detail"]
+
+
+def test_agent_run_summary_counts_the_queue(setup) -> None:
+    from job_search_assistant.api import run_summary
+
+    _, path, _ = setup
+    conn = db.connect(path)
+    with conn:
+        conn.execute(
+            "INSERT INTO ui_runs (kind, args_json, status, started_at, finished_at) "
+            "VALUES ('agent_daily', '{}', 'done', '2000-01-01', '2999-01-01')"
+        )
+    run = conn.execute("SELECT * FROM ui_runs").fetchone()
+    # The fixture queued job 1 (Arbeitnow only) and job 3 (also a LinkedIn alert).
+    assert run_summary(conn, run) == "2 job(s) queued: 1 from LinkedIn/XING, 1 from other sites"
+
+
+def test_today_queue_hides_old_jobs_and_can_dismiss_them(setup) -> None:
+    client, path, _ = setup
+    conn = db.connect(path)
+    with conn:  # job 1 was queued two days ago; job 3 today
+        conn.execute("UPDATE applications SET queued_at = '2026-01-01T09:00:00+00:00' "
+                     "WHERE job_id = 1")  # fmt: skip
+    queue = client.get("/api/queue").json()
+    assert [c["job_id"] for c in queue["cards"]] == [3] and queue["older"] == 1
+    assert client.get("/api/status").json()["queued_today"] == 1
+
+    with conn:  # an old ad is hidden even if it was queued today
+        conn.execute("UPDATE jobs SET posted_at = '2026-01-01T09:00:00+00:00' WHERE id IN (2, 3)")
+    assert client.get("/api/queue").json() == {"cards": [], "older": 2}
+
+    r = client.post("/api/queue/dismiss-older", json={}, headers=ORIGIN)
+    assert r.json()["detail"] == "dismissed 2 older job(s)"
+    assert applications.status_of(conn, 1) == "skipped"
+    assert applications.items(conn, "skipped")[0]["note"] == "not reviewed while fresh"

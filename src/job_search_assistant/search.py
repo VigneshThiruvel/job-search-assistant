@@ -111,6 +111,39 @@ def filter_sql(
     return join, "".join(f" AND {w}" for w in where)
 
 
+def explain(
+    extraction: dict | None, title: str, location: str | None, filters: Filters = MY_FILTERS
+) -> list[str]:
+    """Why a posting fails `filters`, in words (empty list = it passes).
+
+    Mirrors filter_sql rule by rule (a test keeps the two in sync), so the UI can say
+    "needs fluent German" instead of just "not queued".
+    """
+    if filters.in_scope_location and evalset.OUT_OF_SCOPE.search(f"{location or ''} {title}"):
+        return ["outside my locations"]
+    if not filters.needs_extraction():
+        return []
+    if extraction is None:
+        return ["not extracted yet"]
+    x, reasons = extraction, []
+    if filters.target_only and not x["is_target_role"]:
+        reasons.append("not one of my roles")
+    if filters.seniority is not None and x["seniority"] not in filters.seniority:
+        reasons.append(x["seniority"].replace("_", " "))
+    if (
+        filters.max_german is not None
+        and x["german_level"] not in GERMAN_LEVELS[: GERMAN_LEVELS.index(filters.max_german) + 1]
+    ):
+        reasons.append(f"needs {x['german_level']} German")
+    years = x["years_experience_min"]
+    if filters.max_years is not None and years is not None and years > filters.max_years:
+        reasons.append(f"needs {years}+ years")
+    if filters.other_languages_optional:
+        reasons += [f"needs {o['level']} {o['language']}" for o in x["other_languages"]
+                    if o["level"] != "plus"]  # fmt: skip
+    return reasons
+
+
 def eligible_job_ids(
     conn: sqlite3.Connection, filters: Filters, extraction: tuple[str, str] | None
 ) -> set[int]:

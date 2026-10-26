@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 // Origin (localhost:5173) stays, and the API allows it.
 export default defineConfig({
   plugins: [react()],
+  build: { chunkSizeWarningLimit: 1000 }, // served from localhost: size barely matters
   server: {
     host: "127.0.0.1",
     port: 5173,

@@ -137,3 +137,15 @@ def test_alert_jobs_are_fresh_by_email_date(setup) -> None:
     assert ids["li"] in fresh and ids["other"] in fresh
     # First seen today (the email was first read today), but the email is from January.
     assert ids["old_mail"] not in fresh
+
+
+def test_old_ads_are_not_fresh_even_if_first_seen_today(setup) -> None:
+    conn, ids = setup
+    # Arbeitnow lists an ad posted 9 days ago; we first saw it today.
+    conn.execute("UPDATE jobs SET posted_at = '2026-01-10T08:00:00+00:00' WHERE id = ?",
+                 (ids["arbeitnow_twin"],))  # fmt: skip
+    fresh = inbox.fresh_job_ids(conn)
+    assert ids["arbeitnow_twin"] not in fresh
+    # Its LinkedIn alert came today, but it's the same old ad: the earliest copy counts.
+    assert ids["li_with_text"] not in fresh
+    assert ids["other"] in fresh

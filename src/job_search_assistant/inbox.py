@@ -13,9 +13,11 @@ Above the marker I can set `Expired: yes` (still imported for the dataset, never
 ranked; with no description it just closes the job) and write notes, which the agent
 sees. Unfilled files older than FRESH_DAYS are deleted: those jobs wouldn't be ranked.
 
-Freshness: a duplicate group "arrived" when its first copy did — the email date for an
-alert job (the emails are re-read for 30 days, so `last_seen` says nothing), else
-`first_seen`. Only groups that arrived within FRESH_DAYS are extracted and ranked daily.
+Freshness: a job's age is the earliest `posted_at` of any copy in its duplicate group:
+the ad's own date (Arbeitnow, BA, Adzuna) or the email date (LinkedIn, XING). Not
+`first_seen` (we often find ads days after they were posted) and not `last_seen` (the
+emails are re-read for 30 days). Only jobs posted within FRESH_DAYS are extracted,
+ranked and shown in today's queue.
 
 Pasted text lives in `pasted_descriptions` (provenance: I pasted it) and is copied
 into `jobs.description`. Re-reading the alert emails resets that column to '' (the
@@ -25,6 +27,7 @@ Channels: a job is on the "alerts" list if any copy of it came from an alert ema
 (that's where I apply); everything else is "other" (Arbeitnow, BA, Adzuna).
 """
 
+import json
 import re
 import sqlite3
 from datetime import UTC, datetime, timedelta
@@ -37,7 +40,7 @@ INBOX = Path("data/inbox")
 ALERT_SOURCES = ("linkedin", "xing")
 MARKER = "----- paste the job description below this line -----"
 MIN_CHARS = 200  # shorter than this is an untouched file or a mis-paste
-FRESH_DAYS = 2  # postings expire fast: rank only what arrived in the last two days
+FRESH_DAYS = 2  # postings expire fast: only ads posted in the last two days
 EXPIRED = re.compile(r"^\s*expired:\s*(yes|y|true|ja)\s*$", re.I | re.M)
 FULL_TEXT = 400  # as evalset.candidates: a description good enough for extraction
 # Out of my scope (CLAUDE.md: no internships or working-student roles). Not "intern\w*":
@@ -80,21 +83,26 @@ def apply_pasted(conn: sqlite3.Connection) -> int:
     return cur.rowcount
 
 
-ARRIVED = f"""CASE WHEN j.source IN ({", ".join(repr(s) for s in ALERT_SOURCES)})
-                   THEN coalesce(j.posted_at, j.first_seen) ELSE j.first_seen END"""
+POSTED = "coalesce(j.posted_at, j.first_seen)"  # every source sets posted_at today
 
 
 def fresh_job_ids(conn: sqlite3.Connection, days: float = FRESH_DAYS) -> set[int]:
-    """Jobs whose duplicate group arrived within `days` (see module docstring)."""
+    """Jobs whose ad was posted within `days` (earliest copy; see module docstring)."""
     cutoff = (datetime.now(UTC) - timedelta(days=days)).isoformat()
     rows = conn.execute(
-        f"""WITH arrival AS (
-                SELECT j.id, min({ARRIVED}) OVER (PARTITION BY COALESCE(g.group_id, j.id)) AS t
+        f"""WITH age AS (
+                SELECT j.id, min({POSTED}) OVER (PARTITION BY COALESCE(g.group_id, j.id)) AS t
                 FROM jobs j LEFT JOIN job_groups g ON g.job_id = j.id)
-            SELECT id FROM arrival WHERE t >= ?""",
+            SELECT id FROM age WHERE t >= ?""",
         (cutoff,),
     )
     return {r[0] for r in rows}
+
+
+def local_midnight() -> str:
+    """Start of today in local time, as a UTC ISO timestamp (for comparing stored times)."""
+    midnight = datetime.now().astimezone().replace(hour=0, minute=0, second=0, microsecond=0)
+    return midnight.astimezone(UTC).isoformat()
 
 
 def expired_job_ids(conn: sqlite3.Connection) -> set[int]:
@@ -126,10 +134,7 @@ def mail_window_start(conn: sqlite3.Connection) -> str:
     starts = [r[0] for r in conn.execute(
         "SELECT started_at FROM daily_runs ORDER BY id DESC LIMIT 2"
     )]  # fmt: skip
-    if len(starts) == 2:
-        return starts[1]
-    midnight = datetime.now().astimezone().replace(hour=0, minute=0, second=0, microsecond=0)
-    return midnight.astimezone(UTC).isoformat()
+    return starts[1] if len(starts) == 2 else local_midnight()
 
 
 def needs_description(conn: sqlite3.Connection, since: str) -> list[sqlite3.Row]:
@@ -154,15 +159,17 @@ def needs_description(conn: sqlite3.Connection, since: str) -> list[sqlite3.Row]
             ORDER BY j.id""",
         (*ALERT_SOURCES, since, FULL_TEXT),
     ).fetchall()
-    return [
-        r
-        for r in rows
-        if r["rn"] == 1
-        and evalset.TARGET_TITLE.search(r["title"])
-        and not evalset.SENIOR_TITLE.search(r["title"])
-        and not STUDENT_TITLE.search(r["title"])
-        and not evalset.OUT_OF_SCOPE.search(f"{r['location'] or ''} {r['title']}")
-    ]
+    return [r for r in rows if r["rn"] == 1 and relevant_title(r["title"], r["location"])]
+
+
+def relevant_title(title: str, location: str | None) -> bool:
+    """Worth a description at all: one of my roles by title, not senior or student, in scope."""
+    return bool(
+        evalset.TARGET_TITLE.search(title)
+        and not evalset.SENIOR_TITLE.search(title)
+        and not STUDENT_TITLE.search(title)
+        and not evalset.OUT_OF_SCOPE.search(f"{location or ''} {title}")
+    )
 
 
 def slug(text: str) -> str:
@@ -302,6 +309,80 @@ def close_file(job_id: int, inbox: Path = INBOX) -> None:
         done = inbox / "done" / path.name
         done.parent.mkdir(exist_ok=True)
         path.replace(done)
+
+
+def alert_funnel(conn: sqlite3.Connection, extraction: tuple[str, str]) -> dict:
+    """What happened to each recent LinkedIn/XING job (one per duplicate group), and why.
+
+    jobs: one per group with a title worth a look (or any text), stage queued | eligible
+    (passes my filters, waits for the agent's ranking) | filtered (with reasons) |
+    not_extracted | needs_description | expired. other_titles: groups skipped by title
+    (not my roles, senior, student), as daily.py skips them for inbox files.
+    """
+    from job_search_assistant import search
+
+    fresh = fresh_job_ids(conn)
+    expired = expired_job_ids(conn)
+    rows = conn.execute(
+        f"""SELECT j.id, j.title, j.company, j.location, j.source, j.url,
+                   COALESCE(g.group_id, j.id) AS grp, x.output_json,
+                   (SELECT a.status || ':' || a.recommendation FROM applications a
+                    JOIN job_groups ga ON ga.job_id = a.job_id
+                    WHERE ga.group_id = COALESCE(g.group_id, j.id)) AS queued
+            FROM jobs j LEFT JOIN job_groups g ON g.job_id = j.id
+            LEFT JOIN extractions x ON x.job_id = j.id AND x.model = ? AND x.prompt_version = ?
+            WHERE {ALERT_GROUP.format(job="j.id")}
+            ORDER BY j.id""",
+        extraction,
+    ).fetchall()
+    best: dict[int, sqlite3.Row] = {}
+    for r in rows:  # per group: prefer a copy with an extraction, then an alert copy
+        if r["id"] not in fresh:
+            continue
+        have = best.get(r["grp"])
+        rank = (r["output_json"] is not None, r["source"] in ALERT_SOURCES)
+        if have is None or rank > (
+            have["output_json"] is not None,
+            have["source"] in ALERT_SOURCES,
+        ):
+            best[r["grp"]] = r
+    out, other_titles = [], 0
+    for r in best.values():
+        group = {r["id"], r["grp"]}
+        skip_title = not relevant_title(r["title"], r["location"])
+        if skip_title and not r["queued"] and r["output_json"] is None:
+            other_titles += 1
+            continue
+        x = json.loads(r["output_json"]) if r["output_json"] else None
+        reasons: list[str] = []
+        if r["queued"]:
+            stage, reasons = "queued", [r["queued"].replace(":", " · ")]
+        elif group & expired:
+            stage = "expired"
+        elif x is None:
+            stage = "not_extracted" if _has_text(conn, r["id"]) else "needs_description"
+        else:
+            reasons = search.explain(x, r["title"], r["location"])
+            stage = "filtered" if reasons else "eligible"
+        out.append(
+            {
+                "job_id": r["id"],
+                "title": r["title"],
+                "company": r["company"],
+                "source": r["source"],
+                "url": r["url"],
+                "stage": stage,
+                "reasons": reasons,
+            }
+        )
+    order = ["queued", "eligible", "not_extracted", "needs_description", "filtered", "expired"]
+    jobs = sorted(out, key=lambda o: (order.index(o["stage"]), -o["job_id"]))
+    return {"jobs": jobs, "other_titles": other_titles}
+
+
+def _has_text(conn: sqlite3.Connection, job_id: int) -> bool:
+    row = conn.execute("SELECT length(description) FROM jobs WHERE id = ?", (job_id,)).fetchone()
+    return bool(row and row[0] >= FULL_TEXT)
 
 
 def alert_urls(conn: sqlite3.Connection, job_ids: list[int]) -> dict[int, str]:

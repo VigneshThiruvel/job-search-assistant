@@ -113,3 +113,18 @@ def test_xing_id_is_stable_across_emails(xing_eml, tmp_path) -> None:
     source = make(xing, FakeIMAP({b"1": xing_eml, b"2": other}), tmp_path)
     ids = [source.normalize(r).source_job_id for r in source.fetch()]
     assert ids[0] == ids[2] and ids[1] == ids[3]
+
+
+def test_xing_survey_block_is_not_a_job() -> None:
+    from job_search_assistant.sources.email_alerts import parse_xing
+
+    survey = (
+        "--------------------------------------------------\n"
+        "Improve your job recommendations:\n"
+        "=> https://www.xing.com/m/SURVEYTOKEN\n"
+        "- - - - - - - - - - - - - - - - - - - -\n"
+        "========================================\n"
+        "What's your current jobseeker status?\n"
+        "--------------------------------------------------\n"
+    )
+    assert parse_xing(survey) == []

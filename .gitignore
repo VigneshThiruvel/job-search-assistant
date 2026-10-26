@@ -9,6 +9,7 @@ __pycache__/
 # Data (cached raw responses + database + graph)
 data/raw/
 data/*.db
+data/*.db-*
 data/neo4j/
 
 # Secrets
@@ -20,3 +21,6 @@ profile/
 # Cover letter drafts and pasted alert descriptions (personal)
 data/drafts/
 data/inbox/
+
+# UI run logs (job titles, agent reports)
+data/runs/

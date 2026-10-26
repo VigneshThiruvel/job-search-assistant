@@ -233,6 +233,17 @@ def connect_neo4j():
     return driver
 
 
+_shared: list = []
+
+
+def shared_driver():
+    """One driver per process, created on first use (a failed attempt is retried next time).
+    Raises if Neo4j is not reachable."""
+    if not _shared:
+        _shared.append(connect_neo4j())
+    return _shared[0]
+
+
 def build(driver, rows: dict[str, Any]) -> dict[str, int]:
     """Replace the whole graph with `rows` in one transaction; returns node counts."""
     for statement in CONSTRAINTS:  # schema changes can't share a transaction with writes

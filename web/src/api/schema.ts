@@ -21,6 +21,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Today Queue */
+        get: operations["today_queue_api_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/queue/dismiss-older": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Dismiss Older
+         * @description Skip every queued job that is no longer on today's list (kept, not deleted).
+         */
+        post: operations["dismiss_older_api_queue_dismiss_older_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/applications": {
         parameters: {
             query?: never;
@@ -177,6 +214,186 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Alerts
+         * @description Each recent LinkedIn/XING job and why it is (not) in my queue.
+         */
+        get: operations["alerts_api_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Health */
+        get: operations["health_api_health_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Runs */
+        get: operations["list_runs_api_runs_get"];
+        put?: never;
+        /** Start Run */
+        post: operations["start_run_api_runs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/runs/{run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Run */
+        get: operations["get_run_api_runs__run_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/runs/{run_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel Run */
+        post: operations["cancel_run_api_runs__run_id__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/coverage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Coverage
+         * @description Coverage of required skills per job (comma-separated ids); {} if Neo4j is down.
+         */
+        get: operations["coverage_api_coverage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/applications/{job_id}/fit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Fit */
+        get: operations["fit_api_applications__job_id__fit_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/skills/insights": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Insights */
+        get: operations["insights_api_skills_insights_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/skills/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Skill Review */
+        get: operations["skill_review_api_skills_review_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/skills/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Skill Export
+         * @description Write the DB's taxonomy to the review YAML (refused if that would lose YAML edits).
+         */
+        post: operations["skill_export_api_skills_export_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -185,6 +402,39 @@ export interface components {
         Action: {
             /** Note */
             note?: string | null;
+        };
+        /** AlertFunnel */
+        AlertFunnel: {
+            /**
+             * Jobs
+             * @description recent LinkedIn/XING jobs with a relevant title
+             */
+            jobs: components["schemas"]["AlertJob"][];
+            /**
+             * Other Titles
+             * @description recent alert jobs skipped by title (not my roles)
+             */
+            other_titles: number;
+        };
+        /** AlertJob */
+        AlertJob: {
+            /** Job Id */
+            job_id: number;
+            /** Title */
+            title: string;
+            /** Company */
+            company: string;
+            /** Source */
+            source: string;
+            /** Url */
+            url: string;
+            /**
+             * Stage
+             * @enum {string}
+             */
+            stage: "queued" | "eligible" | "not_extracted" | "needs_description" | "filtered" | "expired";
+            /** Reasons */
+            reasons: string[];
         };
         /**
          * Card
@@ -248,6 +498,13 @@ export interface components {
             /** Evidence */
             evidence: string;
         };
+        /** Coverage */
+        Coverage: {
+            /** Coverage */
+            coverage: number | null;
+            /** Missing */
+            missing: string[];
+        };
         /** Detail */
         Detail: {
             card: components["schemas"]["Card"];
@@ -259,10 +516,49 @@ export interface components {
             /** Claims */
             claims: components["schemas"]["Claim"][];
         };
+        /** Fit */
+        Fit: {
+            /**
+             * Available
+             * @description false if Neo4j is not running
+             */
+            available: boolean;
+            /** Coverage */
+            coverage?: number | null;
+            /**
+             * Skills
+             * @default []
+             */
+            skills: components["schemas"]["FitSkill"][];
+        };
+        /** FitSkill */
+        FitSkill: {
+            /** Skill */
+            skill: string;
+            /** Category */
+            category: string;
+            /** Required */
+            required: boolean;
+            /** My Credit */
+            my_credit: number;
+            /** Via */
+            via: string[];
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** Health */
+        Health: {
+            /** Neo4J */
+            neo4j: boolean;
+            /**
+             * Claude
+             * @description path of the Claude Code binary, if found
+             */
+            claude: string | null;
+            running: components["schemas"]["RunInfo"] | null;
         };
         /** InboxItem */
         InboxItem: {
@@ -280,6 +576,29 @@ export interface components {
             url: string;
             /** Posted At */
             posted_at: string | null;
+        };
+        /** Insight */
+        Insight: {
+            /** Available */
+            available: boolean;
+            /**
+             * Rows
+             * @default []
+             */
+            rows: {
+                [key: string]: unknown;
+            }[];
+        };
+        /** NewMapping */
+        NewMapping: {
+            /** Raw */
+            raw: string;
+            /** Skill */
+            skill: string | null;
+            /** Category */
+            category: string | null;
+            /** Parent */
+            parent: string | null;
         };
         /** Paste */
         Paste: {
@@ -328,6 +647,67 @@ export interface components {
             /** Bullets */
             bullets: components["schemas"]["ReviewBullet"][];
         };
+        /** RunInfo */
+        RunInfo: {
+            /** Id */
+            id: number;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "fetch" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
+            /** Label */
+            label: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "running" | "done" | "failed" | "cancelled" | "interrupted";
+            /** Started At */
+            started_at: string;
+            /** Finished At */
+            finished_at: string | null;
+            /** Exit Code */
+            exit_code: number | null;
+            /**
+             * Report
+             * @description the agent's final message (Markdown)
+             */
+            report: string | null;
+            /**
+             * Summary
+             * @description what the run changed, in one line
+             */
+            summary?: string | null;
+        };
+        /** RunLog */
+        RunLog: {
+            run: components["schemas"]["RunInfo"];
+            /** Lines */
+            lines: string[];
+            /** Next Offset */
+            next_offset: number;
+        };
+        /** RunRequest */
+        RunRequest: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "fetch" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
+            /**
+             * K
+             * @description daily agent: LinkedIn/XING shortlist size
+             * @default 10
+             */
+            k: number;
+            /**
+             * Max Extract
+             * @description daily agent: postings to extract
+             * @default 30
+             */
+            max_extract: number;
+        };
         /** Select */
         Select: {
             /** Note */
@@ -345,6 +725,13 @@ export interface components {
             /** Items */
             items: string[];
         };
+        /** SkillReview */
+        SkillReview: {
+            /** New */
+            new: components["schemas"]["NewMapping"][];
+            /** Unimported */
+            unimported: string[];
+        };
         /** SourceBullet */
         SourceBullet: {
             /** Id */
@@ -354,6 +741,11 @@ export interface components {
         };
         /** StatusCounts */
         StatusCounts: {
+            /**
+             * Queued Today
+             * @description what the Today page shows
+             */
+            queued_today: number;
             /** New Today */
             new_today: number;
             /**
@@ -377,6 +769,19 @@ export interface components {
              * @description postings with text but no embedding: run daily
              */
             unembedded: number;
+        };
+        /** TodayQueue */
+        TodayQueue: {
+            /**
+             * Cards
+             * @description queued today, ad posted within FRESH_DAYS
+             */
+            cards: components["schemas"]["Card"][];
+            /**
+             * Older
+             * @description still queued but older: hidden, can be dismissed
+             */
+            older: number;
         };
         /** ValidationError */
         ValidationError: {
@@ -416,6 +821,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StatusCounts"];
+                };
+            };
+        };
+    };
+    today_queue_api_queue_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TodayQueue"];
+                };
+            };
+        };
+    };
+    dismiss_older_api_queue_dismiss_older_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
                 };
             };
         };
@@ -706,6 +1153,303 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    alerts_api_alerts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertFunnel"];
+                };
+            };
+        };
+    };
+    health_api_health_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Health"];
+                };
+            };
+        };
+    };
+    list_runs_api_runs_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunInfo"][];
+                };
+            };
+        };
+    };
+    start_run_api_runs_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RunRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunInfo"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_run_api_runs__run_id__get: {
+        parameters: {
+            query?: {
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                run_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunLog"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_run_api_runs__run_id__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunInfo"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    coverage_api_coverage_get: {
+        parameters: {
+            query: {
+                ids: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["Coverage"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    fit_api_applications__job_id__fit_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Fit"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    insights_api_skills_insights_get: {
+        parameters: {
+            query?: {
+                kind?: "gaps" | "unlock" | "coverage" | "roles" | "together";
+                scope?: "eligible" | "target";
+                k?: number;
+                skill?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Insight"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    skill_review_api_skills_review_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SkillReview"];
+                };
+            };
+        };
+    };
+    skill_export_api_skills_export_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
                 };
             };
         };

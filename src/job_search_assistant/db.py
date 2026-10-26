@@ -94,6 +94,18 @@ CREATE TABLE IF NOT EXISTS daily_runs (
     started_at TEXT NOT NULL
 );
 
+-- Phase 7: background runs started from the UI (runner.py); logs in data/runs/<id>.log.
+CREATE TABLE IF NOT EXISTS ui_runs (
+    id          INTEGER PRIMARY KEY,
+    kind        TEXT NOT NULL,       -- fetch / embed / agent_daily / agent_prepare / neo4j
+    args_json   TEXT NOT NULL,
+    status      TEXT NOT NULL,       -- running / done / failed / cancelled / interrupted
+    started_at  TEXT NOT NULL,
+    finished_at TEXT,
+    exit_code   INTEGER,
+    report      TEXT                 -- the agent's final message (Markdown)
+);
+
 -- Phase 6: the review queue (see applications.py for who may change what).
 CREATE TABLE IF NOT EXISTS applications (
     job_id              INTEGER PRIMARY KEY REFERENCES jobs (id),
@@ -162,8 +174,12 @@ ON CONFLICT (source, source_job_id) DO UPDATE SET
 def connect(path: Path | str) -> sqlite3.Connection:
     if path != ":memory:":
         Path(path).parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
+    conn = sqlite3.connect(path, timeout=15)  # wait for a writer instead of failing at once
     conn.row_factory = sqlite3.Row
+    if path != ":memory:":
+        # Write-ahead log: readers (UI, MCP server) keep reading while daily.py writes.
+        # The mode is stored in the file, so this is a no-op after the first time.
+        conn.execute("PRAGMA journal_mode=WAL")
     # sqlite-vec adds vector functions (vec_distance_cosine, ...) to this connection.
     conn.enable_load_extension(True)
     sqlite_vec.load(conn)

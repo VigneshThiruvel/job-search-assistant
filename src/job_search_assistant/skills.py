@@ -245,21 +245,7 @@ def import_yaml(conn: sqlite3.Connection, path: Path, force: bool = False) -> li
     Refuses if the DB holds mappings the YAML lacks (made since the last export, e.g. by
     the daily agent): importing would silently delete them. `force` imports anyway.
     """
-    doc = yaml.safe_load(path.read_text())
-    skills, errors, owner = doc.get("skills") or {}, [], {}
-    for name, info in skills.items():
-        if info.get("category") not in CATEGORIES:
-            errors.append(f"{name!r}: unknown category {info.get('category')!r}")
-        if info.get("parent") is not None and info["parent"] not in skills:
-            errors.append(f"{name!r}: parent {info['parent']!r} is not a skill")
-        for alias in info.get("aliases") or []:
-            if raw_key(alias) in owner:
-                errors.append(f"alias {alias!r} under both {owner[raw_key(alias)]!r} and {name!r}")
-            owner[raw_key(alias)] = name
-    for alias in doc.get("dropped") or []:
-        if raw_key(alias) in owner:
-            errors.append(f"alias {alias!r} is both dropped and under {owner[raw_key(alias)]!r}")
-        owner[raw_key(alias)] = None
+    skills, owner, errors = read_yaml(path)
     newer = sorted({r[0] for r in conn.execute("SELECT raw FROM skill_map")} - set(owner))
     if newer and not force:
         errors.append(
@@ -284,16 +270,73 @@ def import_yaml(conn: sqlite3.Connection, path: Path, force: bool = False) -> li
     return []
 
 
+def read_yaml(path: Path) -> tuple[dict[str, Any], dict[str, str | None], list[str]]:
+    """(skills, raw -> skill or None, errors) from the review YAML."""
+    doc = yaml.safe_load(path.read_text())
+    skills, errors, owner = doc.get("skills") or {}, [], {}
+    for name, info in skills.items():
+        if info.get("category") not in CATEGORIES:
+            errors.append(f"{name!r}: unknown category {info.get('category')!r}")
+        if info.get("parent") is not None and info["parent"] not in skills:
+            errors.append(f"{name!r}: parent {info['parent']!r} is not a skill")
+        for alias in info.get("aliases") or []:
+            if raw_key(alias) in owner:
+                errors.append(f"alias {alias!r} under both {owner[raw_key(alias)]!r} and {name!r}")
+            owner[raw_key(alias)] = name
+    for alias in doc.get("dropped") or []:
+        if raw_key(alias) in owner:
+            errors.append(f"alias {alias!r} is both dropped and under {owner[raw_key(alias)]!r}")
+        owner[raw_key(alias)] = None
+    return skills, owner, errors
+
+
+def review_state(conn: sqlite3.Connection, path: Path = TAXONOMY) -> dict[str, list]:
+    """What differs between the DB and the review YAML.
+
+    new: mappings in the DB the YAML lacks (made since the last export, e.g. by the agent).
+    unimported: YAML edits not yet in the DB. Exporting would overwrite them.
+    """
+    yaml_skills, owner, _ = read_yaml(path) if path.exists() else ({}, {}, [])
+    db_map = dict(conn.execute("SELECT raw, skill FROM skill_map"))
+    db_skills = canonical_skills(conn)
+    new = [
+        {"raw": raw, "skill": skill, "category": db_skills.get(skill, {}).get("category"),
+         "parent": db_skills.get(skill, {}).get("parent")}
+        for raw, skill in sorted(db_map.items()) if raw not in owner
+    ]  # fmt: skip
+    unimported = [
+        f"{raw!r}: YAML says {s!r}, DB says {db_map.get(raw, '(missing)')!r}"
+        for raw, s in sorted(owner.items())
+        if db_map.get(raw, "(missing)") != s
+    ]
+    for name, info in yaml_skills.items():
+        have = db_skills.get(name)
+        if have and (have["category"], have["parent"]) != (
+            info.get("category"),
+            info.get("parent"),
+        ):
+            unimported.append(f"{name!r}: category/parent edited in the YAML")
+    return {"new": new, "unimported": unimported}
+
+
+def current_raw(conn: sqlite3.Connection) -> dict[str, dict[str, Any]]:
+    """Raw skills of the current extractions, résumé and extra skills (paths: repo-relative)."""
+    from job_search_assistant import search
+
+    resume = search.RESUME.read_text() if search.RESUME.exists() else ""
+    return raw_skills(conn, search.current_extraction(), resume, load_extra_skills())
+
+
 def main() -> None:
-    from job_search_assistant import db, search
 
     parser = argparse.ArgumentParser(prog="python -m job_search_assistant.skills")
     parser.add_argument("command", choices=["status", "export", "import"])
     parser.add_argument("--force", action="store_true", help="import: drop DB-only mappings")
     args = parser.parse_args()
+    from job_search_assistant import db
+
     conn = db.connect("data/jobs.db")
-    resume = search.RESUME.read_text() if search.RESUME.exists() else ""
-    raw = raw_skills(conn, search.current_extraction(), resume, load_extra_skills())
+    raw = current_raw(conn)
 
     if args.command == "import":
         if errors := import_yaml(conn, TAXONOMY, force=args.force):
