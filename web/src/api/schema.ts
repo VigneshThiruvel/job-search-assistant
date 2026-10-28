@@ -75,6 +75,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/tracker": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Tracker */
+        get: operations["tracker_api_tracker_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/applications/{job_id}": {
         parameters: {
             query?: never;
@@ -152,8 +169,68 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Applied */
+        /**
+         * Applied
+         * @description Record that I applied, then rename the PDFs I saved for it after the job.
+         */
         post: operations["applied_api_applications__job_id__applied_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/applications/{job_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Outcome */
+        post: operations["outcome_api_applications__job_id__status_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/applications/{job_id}/save": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Save File
+         * @description Compile the draft (a few seconds) and write it into my documents folder.
+         */
+        post: operations["save_file_api_applications__job_id__save_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/applications/{job_id}/reveal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reveal
+         * @description Show the saved file in Finder (macOS).
+         */
+        post: operations["reveal_api_applications__job_id__reveal_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -465,7 +542,7 @@ export interface components {
              * Status
              * @enum {string}
              */
-            status: "queued" | "selected" | "ready" | "skipped" | "applied";
+            status: "queued" | "selected" | "ready" | "skipped" | "applied" | "screening" | "interviewing" | "offer" | "accepted" | "declined" | "rejected" | "withdrawn" | "ghosted";
             /**
              * Recommendation
              * @enum {string}
@@ -487,6 +564,16 @@ export interface components {
             queued_at: string;
             /** Updated At */
             updated_at: string;
+            /** Applied At */
+            applied_at?: string | null;
+            /** Last Event At */
+            last_event_at?: string | null;
+            /**
+             * Ghost Hint
+             * @description no news for 30 days
+             * @default false
+             */
+            ghost_hint: boolean;
         };
         /**
          * Claim
@@ -505,6 +592,16 @@ export interface components {
             /** Missing */
             missing: string[];
         };
+        /** Dated */
+        Dated: {
+            /** Note */
+            note?: string | null;
+            /**
+             * Date
+             * @description YYYY-MM-DD when it happened, if not today
+             */
+            date?: string | null;
+        };
         /** Detail */
         Detail: {
             card: components["schemas"]["Card"];
@@ -515,6 +612,37 @@ export interface components {
             letter: string | null;
             /** Claims */
             claims: components["schemas"]["Claim"][];
+            /**
+             * Files
+             * @default []
+             */
+            files: components["schemas"]["SavedFile"][];
+            /**
+             * History
+             * @default []
+             */
+            history: components["schemas"]["Event"][];
+        };
+        /** Event */
+        Event: {
+            /** From Status */
+            from_status: string | null;
+            /** To Status */
+            to_status: string;
+            /** At */
+            at: string;
+            /** Note */
+            note: string | null;
+            /** Source */
+            source: string;
+        };
+        /** FileRequest */
+        FileRequest: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "resume" | "cover_letter";
         };
         /** Fit */
         Fit: {
@@ -551,6 +679,11 @@ export interface components {
         };
         /** Health */
         Health: {
+            /**
+             * Outdated
+             * @description the Python code changed since this server started
+             */
+            outdated: boolean;
             /** Neo4J */
             neo4j: boolean;
             /**
@@ -599,6 +732,21 @@ export interface components {
             category: string | null;
             /** Parent */
             parent: string | null;
+        };
+        /** OutcomeChange */
+        OutcomeChange: {
+            /** Note */
+            note?: string | null;
+            /**
+             * Date
+             * @description YYYY-MM-DD when it happened, if not today
+             */
+            date?: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "screening" | "interviewing" | "offer" | "accepted" | "declined" | "rejected" | "withdrawn" | "ghosted";
         };
         /** Paste */
         Paste: {
@@ -655,7 +803,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "fetch" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
+            kind: "fetch" | "mail" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
             /** Label */
             label: string;
             /**
@@ -694,7 +842,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "fetch" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
+            kind: "fetch" | "mail" | "embed" | "agent_daily" | "agent_prepare" | "neo4j";
             /**
              * K
              * @description daily agent: LinkedIn/XING shortlist size
@@ -707,6 +855,18 @@ export interface components {
              * @default 30
              */
             max_extract: number;
+        };
+        /** SavedFile */
+        SavedFile: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "resume" | "cover_letter";
+            /** Path */
+            path: string;
+            /** Exists */
+            exists: boolean;
         };
         /** Select */
         Select: {
@@ -765,6 +925,13 @@ export interface components {
              */
             inbox_open: number;
             /**
+             * Newest Alert
+             * @description date of the newest email per source
+             */
+            newest_alert: {
+                [key: string]: string | null;
+            };
+            /**
              * Unembedded
              * @description postings with text but no embedding: run daily
              */
@@ -782,6 +949,29 @@ export interface components {
              * @description still queued but older: hidden, can be dismissed
              */
             older: number;
+        };
+        /** TrackerStats */
+        TrackerStats: {
+            /** Applied */
+            applied: number;
+            /**
+             * Responded
+             * @description got any reply: screening, interview, offer, rejection
+             */
+            responded: number;
+            /** Interviewed */
+            interviewed: number;
+            /** Offers */
+            offers: number;
+            /** Rejected */
+            rejected: number;
+            /** Ghosted */
+            ghosted: number;
+            /**
+             * Awaiting
+             * @description applied / screening / interviewing right now
+             */
+            awaiting: number;
         };
         /** ValidationError */
         ValidationError: {
@@ -870,7 +1060,7 @@ export interface operations {
     list_applications_api_applications_get: {
         parameters: {
             query?: {
-                status?: ("queued" | "selected" | "ready" | "skipped" | "applied") | null;
+                status?: ("queued" | "selected" | "ready" | "skipped" | "applied" | "screening" | "interviewing" | "offer" | "accepted" | "declined" | "rejected" | "withdrawn" | "ghosted") | null;
             };
             header?: never;
             path?: never;
@@ -894,6 +1084,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    tracker_api_tracker_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrackerStats"];
                 };
             };
         };
@@ -1045,7 +1255,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["Action"];
+                "application/json": components["schemas"]["Dated"];
             };
         };
         responses: {
@@ -1056,6 +1266,113 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Card"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    outcome_api_applications__job_id__status_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OutcomeChange"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Card"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_file_api_applications__job_id__save_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FileRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedFile"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reveal_api_applications__job_id__reveal_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FileRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
                 };
             };
             /** @description Validation Error */

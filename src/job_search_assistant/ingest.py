@@ -118,10 +118,13 @@ def build_sources(raw_dir: Path) -> list[Source]:
     return sources
 
 
-def run_all(conn: sqlite3.Connection, raw_dir: Path = DATA_DIR / "raw") -> int:
-    """Every source, then the duplicate groups; returns the number of groups."""
+def run_all(
+    conn: sqlite3.Connection, raw_dir: Path = DATA_DIR / "raw", only: tuple[str, ...] = ()
+) -> int:
+    """Every source (or only the named ones), then the duplicate groups; returns their count."""
     for source in build_sources(raw_dir):
-        run_source(conn, source)
+        if not only or source.name in only:
+            run_source(conn, source)
     groups = dedup.rebuild_groups(conn)
     log.info("cross-source duplicate groups: %d", groups)
     inbox.apply_pasted(conn)  # the alert emails just reset pasted descriptions to ''

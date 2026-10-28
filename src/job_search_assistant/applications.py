@@ -5,7 +5,10 @@
     python -m job_search_assistant.applications select 4187 495 [--letter] [--note "stress Kafka"]
     python -m job_search_assistant.applications letter 4187 [--note ...]  # add a letter later
     python -m job_search_assistant.applications skip 4187 [--note "needs C1 German"]
-    python -m job_search_assistant.applications applied 4187
+    python -m job_search_assistant.applications applied 4187 [--date 2026-10-27]
+    python -m job_search_assistant.applications status 4187 interviewing [--date ...] [--note ...]
+    python -m job_search_assistant.applications history 4187
+    python -m job_search_assistant.applications save 4187     # PDFs -> ~/Documents/full_time/
     python -m job_search_assistant.applications export 4187   # PDF (+ letter) -> data/drafts/
 
     queued ──(me: select)──> selected ──(agent: tailored résumé [+ letter if asked])──> ready
@@ -18,13 +21,22 @@ Selecting a job requests a tailored résumé; a cover letter only when I ask for
 letter later doesn't redo the résumé. The agent may only add `queued` rows and
 answer open requests (via the MCP server); every other move is mine, here.
 Nothing in this project submits an application: `applied` records that *I* did.
+
+Phase 7b, after I applied (all mine; no MCP tool can change these):
+
+    applied ──> screening ──> interviewing ──> offer ──> accepted / declined
+       └──────────┴───────────────┴──────────┴──> rejected / withdrawn / ghosted
+
+Outcomes can move to any other outcome (a reply after "ghosted", a rejection after an
+offer), never back before `applied`: this records what happened, it doesn't run a workflow.
+Every status change is appended to `application_events`, in the same transaction.
 """
 
 import argparse
 import json
 import re
 import sqlite3
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Literal
 
@@ -35,8 +47,15 @@ from job_search_assistant import inbox, tailor
 GUIDE = Path("profile/cover_letter.md")  # gitignored, like the résumé
 DRAFTS = Path("data/drafts")
 RECOMMENDATIONS = ("apply", "maybe", "skip")
-STATUSES = ("queued", "selected", "ready", "skipped", "applied")
 OPEN = ("queued", "selected", "ready")
+OUTCOMES = ("applied", "screening", "interviewing", "offer", "accepted", "declined",
+            "rejected", "withdrawn", "ghosted")  # fmt: skip
+STATUSES = (*OPEN, "skipped", *OUTCOMES)
+AWAITING = ("applied", "screening", "interviewing")  # the ball is in their court
+GHOST_DAYS = 30  # no event for this long while awaiting: suggest "ghosted"
+RESPONDED = ("screening", "interviewing", "offer", "accepted", "declined", "rejected")
+INTERVIEWED = ("interviewing", "offer", "accepted", "declined")
+OFFERED = ("offer", "accepted", "declined")
 MAX_WORDS = 500  # the guide asks for 250-400; beyond this it is not a one-page letter
 
 
@@ -49,6 +68,36 @@ class Claim(BaseModel):
 
 def now() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def when(date: str | None) -> str:
+    """An event time: now, or a date I give (YYYY-MM-DD or ISO), never in the future."""
+    if not date:
+        return now()
+    try:
+        t = datetime.fromisoformat(date)
+    except ValueError:
+        raise ValueError(f"date {date!r} is not YYYY-MM-DD") from None
+    if t.tzinfo is None:  # a plain date means that day, local noon (no timezone surprises)
+        t = (t.replace(hour=12) if len(date) <= 10 else t).astimezone()
+    if t > datetime.now(UTC):
+        raise ValueError(f"date {date} is in the future")
+    return t.astimezone(UTC).isoformat()
+
+
+def _event(
+    conn: sqlite3.Connection, job_id: int, old: str | None, new: str, *,
+    at: str | None = None, note: str | None = None, source: str = "me",
+) -> None:  # fmt: skip
+    """Log a status change; call inside the transaction that changes the status."""
+    if old == new:
+        return
+    conn.execute(
+        """INSERT INTO application_events
+           (job_id, from_status, to_status, at, recorded_at, note, source)
+           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        (job_id, old, new, at or now(), now(), note, source),
+    )
 
 
 def row(conn: sqlite3.Connection, job_id: int) -> sqlite3.Row | None:
@@ -82,6 +131,7 @@ def queue(
                VALUES (?, 'queued', ?, ?, ?, ?)""",
             (job_id, recommendation, fit_summary.strip(), now(), now()),
         )
+        _event(conn, job_id, None, "queued", source="agent")
 
 
 def _open(conn: sqlite3.Connection, job_id: int, allowed: tuple[str, ...]) -> sqlite3.Row:
@@ -95,9 +145,10 @@ def _open(conn: sqlite3.Connection, job_id: int, allowed: tuple[str, ...]) -> sq
 
 def select(conn: sqlite3.Connection, job_id: int, letter: bool = False, note: str | None = None):
     """Me: I want to apply. Requests a (fresh) tailored résumé, and a letter if `letter`."""
-    _open(conn, job_id, ("queued", "selected", "ready", "skipped"))
+    r = _open(conn, job_id, ("queued", "selected", "ready", "skipped"))
     t = now()
     with conn:
+        _event(conn, job_id, r["status"], "selected", note=note)
         conn.execute(
             """UPDATE applications SET status = 'selected', resume_requested_at = ?,
                    letter_requested_at = CASE WHEN ? THEN ? ELSE letter_requested_at END,
@@ -112,6 +163,7 @@ def request_letter(conn: sqlite3.Connection, job_id: int, note: str | None = Non
     r = _open(conn, job_id, ("queued", "selected", "ready", "skipped"))
     t = now()
     with conn:
+        _event(conn, job_id, r["status"], "selected", note=note)
         conn.execute(
             """UPDATE applications SET status = 'selected', letter_requested_at = ?,
                    resume_requested_at = coalesce(resume_requested_at, ?),
@@ -121,17 +173,107 @@ def request_letter(conn: sqlite3.Connection, job_id: int, note: str | None = Non
         )
 
 
-def close(conn: sqlite3.Connection, job_id: int, status: str, note: str | None = None) -> None:
-    """Me: skip a job, or record that I applied (from any open status, or skipped -> applied)."""
+def close(
+    conn: sqlite3.Connection, job_id: int, status: str, note: str | None = None,
+    date: str | None = None,
+) -> None:  # fmt: skip
+    """Me: skip a job, or record that I applied (from any open status, or skipped -> applied).
+
+    `date`: when I applied, if not today."""
     if status not in ("skipped", "applied"):
         raise ValueError(f"I can close a job as skipped or applied, not {status!r}")
-    _open(conn, job_id, OPEN + (("skipped",) if status == "applied" else ()))
+    r = _open(conn, job_id, OPEN + (("skipped",) if status == "applied" else ()))
+    at = when(date)
     with conn:
+        _event(conn, job_id, r["status"], status, at=at, note=note)
         conn.execute(
             """UPDATE applications SET status = ?, note = coalesce(?, note), updated_at = ?
                WHERE job_id = ?""",
             (status, note, now(), job_id),
         )
+
+
+def record_outcome(
+    conn: sqlite3.Connection, job_id: int, status: str, note: str | None = None,
+    date: str | None = None,
+) -> None:  # fmt: skip
+    """Me: what happened after I applied (a reply, an interview, an offer, a rejection...)."""
+    if status not in OUTCOMES or status == "applied":
+        raise ValueError(f"{status!r} is not an outcome; use one of {OUTCOMES[1:]}")
+    r = _open(conn, job_id, OUTCOMES)
+    if r["status"] == status:
+        raise ValueError(f"job {job_id} is already {status}")
+    at = when(date)
+    applied_at = conn.execute(
+        "SELECT min(at) FROM application_events WHERE job_id = ? AND to_status = 'applied'",
+        (job_id,),
+    ).fetchone()[0]
+    if applied_at and at < applied_at:
+        raise ValueError(f"date is before I applied ({applied_at[:10]})")
+    with conn:
+        _event(conn, job_id, r["status"], status, at=at, note=note)
+        conn.execute(
+            """UPDATE applications SET status = ?, note = coalesce(?, note), updated_at = ?
+               WHERE job_id = ?""",
+            (status, note, now(), job_id),
+        )
+
+
+def history(conn: sqlite3.Connection, job_id: int) -> list[dict]:
+    """Every status change of a job, in the order recorded (a backdated "applied" can have
+    an earlier `at` than "queued", but it still came after it)."""
+    return [dict(r) for r in conn.execute(
+        "SELECT * FROM application_events WHERE job_id = ? ORDER BY id", (job_id,)
+    )]  # fmt: skip
+
+
+def last_events(conn: sqlite3.Connection) -> dict[int, tuple[str, str | None]]:
+    """job_id -> (time of the latest recorded event, when I applied or None)."""
+    return {
+        r[0]: (r[1], r[2])
+        for r in conn.execute(
+            """SELECT job_id, at, applied_at FROM (
+                   SELECT job_id, at,
+                          min(CASE WHEN to_status = 'applied' THEN at END)
+                              OVER (PARTITION BY job_id) AS applied_at,
+                          ROW_NUMBER() OVER (PARTITION BY job_id ORDER BY id DESC) AS rn
+                   FROM application_events)
+               WHERE rn = 1"""
+        )
+    }
+
+
+def ghost_hint(status: str, last_at: str | None) -> bool:
+    """Waiting on them with no news for GHOST_DAYS: worth marking ghosted (my call)."""
+    if status not in AWAITING or not last_at:
+        return False
+    return datetime.now(UTC) - datetime.fromisoformat(last_at) > timedelta(days=GHOST_DAYS)
+
+
+def stats(conn: sqlite3.Connection) -> dict[str, int]:
+    """How far my applications got: each count = jobs that ever reached that stage."""
+
+    def reached(statuses: tuple[str, ...]) -> int:
+        marks = ",".join("?" * len(statuses))
+        return conn.execute(
+            f"""SELECT count(DISTINCT job_id) FROM application_events
+                WHERE to_status IN ({marks})""",
+            statuses,
+        ).fetchone()[0]
+
+    awaiting = conn.execute(
+        f"SELECT count(*) FROM applications WHERE status IN ({','.join('?' * len(AWAITING))})",
+        AWAITING,
+    ).fetchone()[0]
+    return {
+        "applied": reached(("applied",)),
+        "responded": reached(RESPONDED),
+        "interviewed": reached(INTERVIEWED),
+        "offers": reached(OFFERED),
+        "rejected": reached(("rejected",)),
+        "ghosted": reached(("ghosted",)),
+        "awaiting": awaiting,
+    }
 
 
 def _answered(conn: sqlite3.Connection, table: str, job_id: int, since: str | None) -> bool:
@@ -157,6 +299,7 @@ def needs(conn: sqlite3.Connection, job_id: int) -> tuple[bool, bool]:
 
 def _mark_ready_if_done(conn: sqlite3.Connection, job_id: int) -> None:
     if needs(conn, job_id) == (False, False):
+        _event(conn, job_id, "selected", "ready", source="agent")
         conn.execute(
             "UPDATE applications SET status = 'ready', updated_at = ? WHERE job_id = ?",
             (now(), job_id),
@@ -287,14 +430,20 @@ def resume_review(resume: tailor.Resume, t: tailor.TailoredResume) -> str:
     return "\n".join(lines)
 
 
+def draft_dir(i: dict, out_dir: Path = DRAFTS) -> Path:
+    """data/drafts/<job id>-<company>/ (created)."""
+    slug = re.sub(r"[^a-z0-9]+", "-", i["company"].lower()).strip("-")[:40]
+    base = out_dir / f"{i['job_id']}-{slug}"
+    base.mkdir(parents=True, exist_ok=True)
+    return base
+
+
 def export(conn: sqlite3.Connection, job_id: int, resume_tex: str, out_dir: Path = DRAFTS):
     """Write the tailored résumé (.tex + PDF) and the letter (.md); returns (paths, warnings)."""
     i = item(conn, job_id)
     if not i["resume_json"] and not i["letter"]:
         raise ValueError(f"job {job_id} has no drafts yet")
-    slug = re.sub(r"[^a-z0-9]+", "-", i["company"].lower()).strip("-")[:40]
-    base = out_dir / f"{job_id}-{slug}"
-    base.mkdir(parents=True, exist_ok=True)
+    base = draft_dir(i, out_dir)
     paths, warnings = [], []
     if i["resume_json"]:
         tailored = tailor.TailoredResume.model_validate_json(i["resume_json"])
@@ -313,12 +462,16 @@ def export(conn: sqlite3.Connection, job_id: int, resume_tex: str, out_dir: Path
 
 
 def main() -> None:
+    from dotenv import load_dotenv
+
     from job_search_assistant import db
+
+    load_dotenv()
 
     parser = argparse.ArgumentParser(prog="python -m job_search_assistant.applications")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("list").add_argument("--status", choices=STATUSES)
-    for name in ("show", "export"):
+    for name in ("show", "export", "history", "save"):
         sub.add_parser(name).add_argument("job_id", type=int)
     p = sub.add_parser("select", help="I want to apply: request a tailored résumé")
     p.add_argument("job_ids", type=int, nargs="+")
@@ -328,6 +481,13 @@ def main() -> None:
         p = sub.add_parser(name)
         p.add_argument("job_id", type=int)
         p.add_argument("--note")
+        if name == "applied":
+            p.add_argument("--date", help="YYYY-MM-DD, if not today")
+    p = sub.add_parser("status", help="what happened after I applied")
+    p.add_argument("job_id", type=int)
+    p.add_argument("status", choices=OUTCOMES[1:])
+    p.add_argument("--date", help="YYYY-MM-DD, if not today")
+    p.add_argument("--note")
     args = parser.parse_args()
     conn = db.connect("data/jobs.db")
 
@@ -369,12 +529,34 @@ def main() -> None:
                 select(conn, job_id, letter=args.letter, note=args.note)
             print(f"selected {len(args.job_ids)} job(s); now run "
                   "/mcp__job-search__prepare_applications in Claude Code")  # fmt: skip
+        elif args.command == "history":
+            for e in history(conn, args.job_id):
+                print(f"{e['at'][:10]}  {e['from_status'] or '-':>12} -> {e['to_status']:<12} "
+                      f"({e['source']})" + (f"  {e['note']}" if e["note"] else ""))  # fmt: skip
+        elif args.command == "save":
+            from job_search_assistant import documents
+
+            for kind in documents.KINDS:
+                try:
+                    print(f"saved {documents.save(conn, args.job_id, kind)}")
+                except ValueError as exc:
+                    print(f"{kind}: {exc}")
+        elif args.command == "status":
+            record_outcome(conn, args.job_id, args.status, args.note, args.date)
+            print(f"job {args.job_id} -> {args.status}")
         elif args.command == "letter":
             request_letter(conn, args.job_id, args.note)
             print("letter requested; now run /mcp__job-search__prepare_applications")
+        elif args.command == "skip":
+            close(conn, args.job_id, "skipped", args.note)
+            print(f"job {args.job_id} -> skipped")
         else:
-            close(conn, args.job_id, "skipped" if args.command == "skip" else "applied", args.note)
-            print(f"job {args.job_id} -> {status_of(conn, args.job_id)}")
+            from job_search_assistant import documents
+
+            close(conn, args.job_id, "applied", args.note, args.date)
+            print(f"job {args.job_id} -> applied")
+            for path in documents.finalize(conn, args.job_id):
+                print(f"renamed to {path}")
     except ValueError as exc:
         raise SystemExit(str(exc)) from None
 

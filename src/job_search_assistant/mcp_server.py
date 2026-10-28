@@ -237,10 +237,12 @@ def build_server(
     encoder_lock = threading.Lock()
 
     def encode(text: str):
+        # The lock covers encoding too: sync tools run in worker threads, and two parallel
+        # calls on MPS race in torch's shader cache and spin forever (seen 2026-10-28).
         with encoder_lock:
             if not encoder:
                 encoder.append(load_encoder())
-        return encoder[0]([text])[0]
+            return encoder[0]([text])[0]
 
     extraction = (search.EXTRACTION_MODEL, version)
 
@@ -422,10 +424,22 @@ def build_server(
         return f"Categories: {', '.join(skills.CATEGORIES)}\n\n{skill_spec}"
 
     @server.tool(annotations=READ_ONLY)
-    def list_canonical_skills() -> dict[str, dict[str, str | None]]:
-        """Every canonical skill so far: name -> {category, parent}. Reuse these names."""
+    def list_canonical_skills(contains: str | None = None) -> dict[str, Any]:
+        """Canonical skills so far. Reuse these names; never create a synonym of one.
+
+        Without `contains`: every name, grouped by category (compact: the full list with
+        parents no longer fits in one tool result). With `contains` (case-insensitive
+        substring, e.g. "spark"): matching skills with category and parent.
+        """
         with closing(connect()) as conn:
-            return skills.canonical_skills(conn)
+            all_skills = skills.canonical_skills(conn)
+        if contains:
+            needle = contains.lower()
+            return {n: info for n, info in all_skills.items() if needle in n.lower()}
+        grouped: dict[str, list[str]] = {}
+        for name, info in sorted(all_skills.items()):
+            grouped.setdefault(info["category"], []).append(name)
+        return {category: ", ".join(names) for category, names in sorted(grouped.items())}
 
     @server.tool(annotations=READ_ONLY)
     def list_unmapped_skills(limit: int = 200) -> dict[str, Any]:
@@ -621,8 +635,7 @@ def build_server(
         k = max(1, min(k, MAX_LIMIT))
         with closing(connect()) as conn:
             eligible = search.eligible_job_ids(conn, search.MY_FILTERS, extraction)
-            eligible &= inbox.fresh_job_ids(conn, days)
-            eligible -= inbox.expired_job_ids(conn)
+            eligible &= inbox.fresh_job_ids(conn, days)  # my filters already drop expired jobs
             queued = {
                 r[0]
                 for r in conn.execute(

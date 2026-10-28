@@ -128,28 +128,20 @@ def my_note(conn: sqlite3.Connection, job_id: int) -> tuple[str | None, bool]:
     return row[0], bool(row[1])
 
 
-def mail_window_start(conn: sqlite3.Connection) -> str:
-    """Emails received from here on get inbox files: since the full daily run before the
-    latest one (the latest is usually the one running now), else since today's midnight."""
-    starts = [r[0] for r in conn.execute(
-        "SELECT started_at FROM daily_runs ORDER BY id DESC LIMIT 2"
-    )]  # fmt: skip
-    return starts[1] if len(starts) == 2 else local_midnight()
+def needs_description(conn: sqlite3.Connection) -> list[sqlite3.Row]:
+    """Fresh alert jobs that look like my roles and have no text anywhere yet.
 
-
-def needs_description(conn: sqlite3.Connection, since: str) -> list[sqlite3.Row]:
-    """Alert jobs from emails received since `since` that look like my roles and have no
-    text anywhere yet.
-
+    Freshness alone bounds the set (no "emails since the last run" window: a job that
+    missed one run, e.g. before a title-rule fix, must still get its file).
     One per duplicate group (a LinkedIn and a XING alert for the same job count once);
     skipped if any copy already has a full description, or the job is in my queue.
     """
+    fresh = fresh_job_ids(conn)
     rows = conn.execute(
         f"""SELECT j.*, ROW_NUMBER() OVER (
                 PARTITION BY COALESCE(g.group_id, j.id) ORDER BY j.id) AS rn
             FROM jobs j LEFT JOIN job_groups g ON g.job_id = j.id
             WHERE j.source IN ({",".join("?" * len(ALERT_SOURCES))})
-              AND coalesce(j.posted_at, j.first_seen) >= ?
               AND NOT EXISTS (SELECT 1 FROM job_groups ga
                               JOIN job_groups gb ON gb.group_id = ga.group_id
                               JOIN jobs o ON o.id = gb.job_id
@@ -157,9 +149,12 @@ def needs_description(conn: sqlite3.Connection, since: str) -> list[sqlite3.Row]
                                 AND o.source != 'adzuna')
               AND NOT EXISTS (SELECT 1 FROM applications a WHERE a.job_id = j.id)
             ORDER BY j.id""",
-        (*ALERT_SOURCES, since, FULL_TEXT),
+        (*ALERT_SOURCES, FULL_TEXT),
     ).fetchall()
-    return [r for r in rows if r["rn"] == 1 and relevant_title(r["title"], r["location"])]
+    return [
+        r for r in rows
+        if r["rn"] == 1 and r["id"] in fresh and relevant_title(r["title"], r["location"])
+    ]  # fmt: skip
 
 
 def relevant_title(title: str, location: str | None) -> bool:
@@ -176,11 +171,11 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:40] or "job"
 
 
-def write_templates(conn: sqlite3.Connection, since: str, inbox: Path = INBOX) -> list[Path]:
+def write_templates(conn: sqlite3.Connection, inbox: Path = INBOX) -> list[Path]:
     """One inbox file per fresh job that needs a description; existing files are left alone.
 
     Only jobs within FRESH_DAYS (older ones would not be ranked); unfilled files for jobs
-    that have aged out are deleted.
+    that have aged out are deleted. Runs after every daily step, --skip-ingest included.
     """
     inbox.mkdir(parents=True, exist_ok=True)
     fresh = fresh_job_ids(conn)
@@ -190,8 +185,8 @@ def write_templates(conn: sqlite3.Connection, since: str, inbox: Path = INBOX) -
             path.unlink()
     existing = {f.name.split("-")[0] for f in inbox.rglob("*.txt")}  # incl. done/
     written = []
-    for r in needs_description(conn, since):
-        if str(r["id"]) in existing or r["id"] not in fresh:
+    for r in needs_description(conn):
+        if str(r["id"]) in existing:
             continue
         path = inbox / f"{r['id']}-{slug(r['company'])}.txt"
         path.write_text(

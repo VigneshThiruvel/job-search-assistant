@@ -339,6 +339,33 @@ def render(resume: Resume, t: TailoredResume) -> str:
     return f"{tex[: small + 1]}\n{to_latex(t.summary)}\n{tex[close - 1 :]}"
 
 
+# Every LaTeX special character, for free text (a letter) rather than checked bullets.
+# One pass (re.sub), so the braces of \textbackslash{} are not escaped again.
+LETTER_ESCAPES = {
+    "\\": r"\textbackslash{}", "{": r"\{", "}": r"\}", "$": r"\$", "&": r"\&", "%": r"\%",
+    "#": r"\#", "_": r"\_", "~": r"\textasciitilde{}", "^": r"\textasciicircum{}",
+    "—": "---", "–": "--",
+}  # fmt: skip
+
+
+def render_letter(resume_tex: str, letter: str, date: str) -> str:
+    """A one-page letter with the résumé's preamble and heading (same look, same contact
+    line). The letter is Markdown from the agent: * emphasis and # are dropped, every
+    LaTeX character escaped (posting text may have reached it), line breaks kept."""
+    preamble = resume_tex[: resume_tex.index(r"\begin{document}")]
+    heading = re.search(r"\\begin\{center\}.*?\\end\{center\}", resume_tex, re.S)
+    # **bold**, *italic*, # headings; underscores stay (snake_case, file_names, ...).
+    text = re.sub(r"\*\*|(?<!\w)\*(?=\S)|(?<=\S)\*(?!\w)|^#+\s*", "", letter, flags=re.M)
+    text = re.sub("|".join(map(re.escape, LETTER_ESCAPES)), lambda m: LETTER_ESCAPES[m[0]], text)
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+    body = "\n\n".join(" \\\\\n".join(line.strip() for line in p.splitlines()) for p in paragraphs)
+    return (
+        f"{preamble}\\begin{{document}}\n{heading.group(0) if heading else ''}\n\n"
+        "\\setlength{\\parindent}{0pt}\\setlength{\\parskip}{0.8em}\\normalsize\n"
+        f"\\vspace{{1.5em}}\n\\hfill {date}\n\n{body}\n\n\\end{{document}}\n"
+    )
+
+
 def original_pages(tex: str, work_dir: Path) -> int | None:
     """Page count of the untailored résumé: the budget a tailored one must not exceed."""
     path = work_dir / "_original" / "resume.tex"

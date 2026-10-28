@@ -44,6 +44,16 @@ def test_explain_agrees_with_the_sql_filter() -> None:
         assert (reasons == []) == (job_id in eligible), (x, location, reasons)
     assert search.explain(None, "Data Analyst", "Berlin") == ["not extracted yet"]
     assert unextracted not in eligible
+
+    # Expired (marked on a LinkedIn copy): the whole group drops out, extraction stays.
+    passing = next(i for i in cases if i in eligible)
+    copy = add(conn, "copy", "linkedin", "Data Analyst", "Berlin", description="")
+    conn.executemany("INSERT INTO job_groups VALUES (?, ?)", [(passing, passing), (copy, passing)])
+    conn.execute("INSERT INTO pasted_descriptions (job_id, text, expired, pasted_at) "
+                 "VALUES (?, '', 1, 'now')", (copy,))  # fmt: skip
+    assert passing not in search.eligible_job_ids(conn, search.MY_FILTERS, EXTRACTION)
+    x, location = cases[passing]
+    assert search.explain(x, "Data Analyst", location, expired=True) == ["marked expired"]
     x = {**cases[next(iter(cases))][0], "german_level": "fluent", "seniority": "senior"}
     assert search.explain(x, "Data Analyst", "Berlin") == ["senior", "needs fluent German"]
 

@@ -20,6 +20,11 @@ export type AlertFunnel = S["AlertFunnel"];
 export type TodayQueue = S["TodayQueue"];
 export type AlertJob = S["AlertJob"];
 export type Status = Card["status"];
+export type Outcome = S["OutcomeChange"]["status"];
+export type Kind = S["FileRequest"]["kind"];
+export type SavedFile = S["SavedFile"];
+export type Event = S["Event"];
+export type TrackerStats = S["TrackerStats"];
 export type InsightKind = "gaps" | "unlock" | "coverage" | "roles" | "together";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -54,7 +59,13 @@ export const api = {
     post<Card>(`/api/applications/${jobId}/select`, { letter, note }),
   letter: (jobId: number, note: string | null) => post<Card>(`/api/applications/${jobId}/letter`, { note }),
   skip: (jobId: number, note: string | null) => post<Card>(`/api/applications/${jobId}/skip`, { note }),
-  applied: (jobId: number, note: string | null) => post<Card>(`/api/applications/${jobId}/applied`, { note }),
+  applied: (jobId: number, note: string | null, date: string | null) =>
+    post<Card>(`/api/applications/${jobId}/applied`, { note, date }),
+  outcome: (jobId: number, status: Outcome, note: string | null, date: string | null) =>
+    post<Card>(`/api/applications/${jobId}/status`, { status, note, date }),
+  saveFile: (jobId: number, kind: Kind) => post<SavedFile>(`/api/applications/${jobId}/save`, { kind }),
+  reveal: (jobId: number, kind: Kind) => post<{ detail: string }>(`/api/applications/${jobId}/reveal`, { kind }),
+  tracker: () => request<TrackerStats>("/api/tracker"),
   inbox: () => request<InboxItem[]>("/api/inbox"),
   alerts: () => request<AlertFunnel>("/api/alerts"),
   queue: () => request<TodayQueue>("/api/queue"),

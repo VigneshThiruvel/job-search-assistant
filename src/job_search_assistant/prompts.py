@@ -8,7 +8,8 @@ def normalize_skills(batches: str = "3", batch_size: str = "200") -> str:
     return (
         f"Normalize skills with the job-search-assistant tools, up to {batches} batches of "
         f"{batch_size}. First call get_skill_guidelines. For each batch: call "
-        "list_canonical_skills (reuse existing names; never create a synonym of one), then "
+        "list_canonical_skills (names by category; contains= to search; reuse existing names, "
+        "never create a synonym of one), then "
         f"list_unmapped_skills with limit={batch_size}, map every raw skill in the batch "
         "per the guidelines, and save_skill_mappings. If it reports problems, fix them and "
         "resend the whole batch. Stop when list_unmapped_skills returns an empty batch. "
@@ -40,13 +41,14 @@ def daily_run(k: str = "10", max_extract: str = "30") -> str:
         "(get_job, then save_extraction with your own model id), exactly per the "
         "guidelines.\n"
         "2. Skills: call list_unmapped_skills. If its batch is not empty, call "
-        "get_skill_guidelines and list_canonical_skills, map every raw skill and "
+        "get_skill_guidelines and list_canonical_skills (names by category; use its "
+        "contains= search to check a name or see parents), map every raw skill and "
         "save_skill_mappings (fix and resend the whole batch if rejected); repeat until "
         "the batch is empty.\n"
         "3. Call rebuild_graph.\n"
         f'4. Call get_profile once, then rank_candidates twice: channel="alerts", k={k} '
-        '(LinkedIn/XING, where I mainly apply), and channel="other", k=5, '
-        "min_coverage=0.7 (other sites: only strong matches).\n"
+        '(LinkedIn/XING, where I mainly apply), and channel="other", k=5 '
+        "(other sites: the five best by skill coverage).\n"
         "5. For each candidate: get_job_details and job_fit (take my_note into account). "
         "Write a fit summary of at most 120 words: why it fits (job_fit skills I have, "
         "concrete résumé items), gaps "

@@ -70,7 +70,7 @@ labels:
 TARGET_TITLE = re.compile(
     r"\b(data|daten)[\w &/-]{0,25}(analyst|engineer|scientist|science|analytics)"
     r"|\banalytics engineer|\bmachine learning|\bml[\w -]{0,10}engineer"
-    r"|\b(ai|ki)[\w -]{0,10}engineer"
+    r"|\b(ai|ki)[\w -]{0,10}(engineer|developer|entwickler)"
     r"|\bbi[\w -]{0,10}(analyst|developer|engineer)|business intelligence|datenanaly",
     re.I,
 )

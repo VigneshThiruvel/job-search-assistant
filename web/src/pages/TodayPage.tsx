@@ -54,8 +54,14 @@ function Checklist() {
     <Card withBorder padding="md">
       <Title order={5} mb="xs">Today</Title>
       <Step n={1} done={isToday(fetched?.finished_at)} title="Fetch new jobs"
-        detail={`APIs + alert emails, then embedding · last: ${when(fetched?.finished_at)} · ${s.new_today} new today`}
-        action={run("fetch", "Fetch")} />
+        detail={`All sources + embedding (~30 min) · last: ${when(fetched?.finished_at)} · ${s.new_today} new today · ` +
+          `newest alert email: LinkedIn ${when(s.newest_alert.linkedin)}, XING ${when(s.newest_alert.xing)}`}
+        action={
+          <Group gap={6} wrap="nowrap">
+            {run("mail", "Check mail")}
+            {run("fetch", "Fetch all")}
+          </Group>
+        } />
       <Step n={2} done={s.inbox_open === 0} title="Paste LinkedIn/XING descriptions"
         detail={s.inbox_open ? `${s.inbox_open} waiting` : "nothing waiting"}
         action={s.inbox_open ? <Button size="xs" variant="light" onClick={() => go("inbox")}>Open inbox</Button> : null} />
@@ -95,7 +101,7 @@ export default function TodayPage() {
   const sorted = [...(queued.data ?? [])].sort((a, b) => ORDER[a.recommendation] - ORDER[b.recommendation]);
   const lists = [
     { title: "LinkedIn / XING", hint: "where you apply", cards: sorted.filter((c) => c.channel === "alerts") },
-    { title: "Other sites", hint: "strong matches only", cards: sorted.filter((c) => c.channel === "other") },
+    { title: "Other sites", hint: "best 5 by skill coverage", cards: sorted.filter((c) => c.channel === "other") },
   ];
   return (
     <Stack>
@@ -125,7 +131,7 @@ export default function TodayPage() {
                 <Text size="sm" c="dimmed">
                   {l.title === "LinkedIn / XING"
                     ? "Nothing to review from LinkedIn/XING. The panel above says why."
-                    : "Nothing to review from other sites (they need ≥ 70% skill coverage)."}
+                    : "Nothing to review from other sites today."}
                 </Text>
               )}
               {l.cards.map((c) => (

@@ -31,6 +31,7 @@ class Filters:
     max_years: int | None = None  # highest acceptable years_experience_min; unstated = kept
     other_languages_optional: bool = False  # Dutch, French, ... at most "plus"
     in_scope_location: bool = False  # drop UK/US/etc. (evalset.OUT_OF_SCOPE); empty = kept
+    open_only: bool = False  # drop jobs I marked expired (any copy in the duplicate group)
 
     def needs_extraction(self) -> bool:
         return (
@@ -52,6 +53,7 @@ MY_FILTERS = Filters(
     max_years=2,
     other_languages_optional=True,
     in_scope_location=True,
+    open_only=True,  # expired: never recommended, but still extracted (market data)
 )
 
 
@@ -81,6 +83,14 @@ def filter_sql(
             "out_of_scope", 1, lambda s: bool(evalset.OUT_OF_SCOPE.search(s)), deterministic=True
         )
         where.append("NOT out_of_scope(coalesce(j.location, '') || ' ' || j.title)")
+    if filters.open_only:
+        where.append(
+            """NOT EXISTS (SELECT 1 FROM pasted_descriptions p
+                           LEFT JOIN job_groups gp ON gp.job_id = p.job_id
+                           LEFT JOIN job_groups gj ON gj.job_id = j.id
+                           WHERE p.expired = 1
+                             AND (p.job_id = j.id OR gp.group_id = gj.group_id))"""
+        )
     if filters.needs_extraction():
         if extraction is None:
             raise ValueError("filters need an extraction (model, prompt_version)")
@@ -112,7 +122,11 @@ def filter_sql(
 
 
 def explain(
-    extraction: dict | None, title: str, location: str | None, filters: Filters = MY_FILTERS
+    extraction: dict | None,
+    title: str,
+    location: str | None,
+    filters: Filters = MY_FILTERS,
+    expired: bool = False,  # I marked this job (or a copy of it) expired
 ) -> list[str]:
     """Why a posting fails `filters`, in words (empty list = it passes).
 
@@ -121,6 +135,8 @@ def explain(
     """
     if filters.in_scope_location and evalset.OUT_OF_SCOPE.search(f"{location or ''} {title}"):
         return ["outside my locations"]
+    if filters.open_only and expired:
+        return ["marked expired"]
     if not filters.needs_extraction():
         return []
     if extraction is None:

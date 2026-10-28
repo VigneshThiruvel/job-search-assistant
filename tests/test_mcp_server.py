@@ -33,7 +33,7 @@ def server(tmp_path):
             location="Berlin",
             country=None,
             remote=None,
-            description="We need SQL and Python. German is a plus.",
+            description="We need SQL and Python. German is a plus." + " Apply now." * 45,
             posted_at=datetime.now(UTC),  # fresh: ranking only sees ads from the last 2 days
             raw={},
         )
@@ -180,6 +180,7 @@ async def test_target_scope_needs_dedup_groups_and_target_titles(server) -> None
     conn = db.connect(path)
     with conn:
         conn.execute("UPDATE jobs SET description = ? WHERE id = 2", ("x" * 500,))
+        conn.execute("UPDATE jobs SET description = 'We need SQL.' WHERE id = 1")
         conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 2)")
     async with Client(mcp_server) as client:
         result = await client.call_tool("list_jobs_to_extract", {"model": "m", "scope": "target"})
@@ -242,6 +243,34 @@ async def test_rag_tools_retrieve_with_extraction_summary(server) -> None:
         assert "never claim experience" in prompt.messages[0].content.text
 
 
+async def test_parallel_searches_never_encode_at_once(tmp_path) -> None:
+    # Torch on MPS is not thread-safe: two overlapping encodes spun forever (2026-10-28).
+    import threading
+    import time
+
+    import anyio
+
+    path = tmp_path / "jobs.db"
+    db.connect(path).close()
+    active, peak, lock = [0], [0], threading.Lock()
+
+    def slow_encode(texts):
+        with lock:
+            active[0] += 1
+            peak[0] = max(peak[0], active[0])
+        time.sleep(0.2)
+        with lock:
+            active[0] -= 1
+        return fake_encode(texts)
+
+    mcp_server = build_server(lambda: db.connect(path), "RULES", tmp_path,
+                              load_encoder=lambda: slow_encode)  # fmt: skip
+    async with Client(mcp_server) as client, anyio.create_task_group() as tg:
+        for q in ("1", "2", "3"):
+            tg.start_soon(client.call_tool, "search_jobs", {"query": q, "my_filters": False})
+    assert peak[0] == 1
+
+
 async def test_skill_mapping_round_trip(server) -> None:
     mcp_server, path = server
     conn = db.connect(path)
@@ -271,7 +300,13 @@ async def test_skill_mapping_round_trip(server) -> None:
         assert not result.is_error, text
 
         result = await client.call_tool("list_canonical_skills", {})
-        assert result.structured_content["Apache Spark"]["category"] == "data_engineering"
+        assert result.structured_content == {
+            "data_engineering": "Apache Spark, PySpark", "programming": "SQL",
+        }  # fmt: skip  # compact: names by category
+        result = await client.call_tool("list_canonical_skills", {"contains": "spark"})
+        assert result.structured_content["PySpark"] == {
+            "category": "data_engineering", "parent": "Apache Spark",
+        }  # fmt: skip
         result = await client.call_tool("list_unmapped_skills", {})
         assert result.structured_content["remaining"] == 1
 
@@ -309,6 +344,7 @@ async def test_new_jobs_count_groups_and_pending_extractions(server) -> None:
     conn = db.connect(path)
     with conn:
         conn.execute("UPDATE jobs SET description = ? WHERE id = 2", ("x" * 500,))
+        conn.execute("UPDATE jobs SET description = 'We need SQL.' WHERE id = 1")
         conn.execute("INSERT INTO job_groups VALUES (1, 1), (2, 2)")
     async with Client(mcp_server) as client:
         result = await client.call_tool("list_new_jobs", {"since": "2026-01-01"})

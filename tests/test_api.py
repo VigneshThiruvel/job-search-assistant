@@ -39,7 +39,8 @@ def setup(tmp_path):
     box.mkdir()
     (box / "2-acme.txt").write_text(f"# header\nExpired: no\nNotes:\n\n{inbox.MARKER}\n\n")
     app = create_app(lambda: db.connect(path), resume_tex=TEX, inbox_dir=box,
-                     drafts_dir=tmp_path / "drafts", hosts=["testserver"])  # fmt: skip
+                     drafts_dir=tmp_path / "drafts", hosts=["testserver"],
+                     documents_dir=tmp_path / "docs")  # fmt: skip
     return TestClient(app), path, box
 
 
@@ -214,3 +215,71 @@ def test_today_queue_hides_old_jobs_and_can_dismiss_them(setup) -> None:
     assert r.json()["detail"] == "dismissed 2 older job(s)"
     assert applications.status_of(conn, 1) == "skipped"
     assert applications.items(conn, "skipped")[0]["note"] == "not reviewed while fresh"
+
+
+def test_api_statuses_match_the_queue_rules() -> None:
+    from typing import get_args
+
+    from job_search_assistant import api
+
+    assert get_args(api.Status) == applications.STATUSES
+    assert get_args(api.Outcome) == applications.OUTCOMES[1:]
+
+
+def test_tracking_after_applying_and_saving_pdfs(setup, tmp_path, monkeypatch) -> None:
+    from job_search_assistant import documents
+
+    client, path, _ = setup
+    monkeypatch.setenv("DOCUMENT_PREFIX", "jane_doe")
+
+    def fake_build(conn, job_id, kind, resume_tex, drafts=None, date=None):
+        pdf = tmp_path / f"{job_id}-{kind}.pdf"
+        pdf.write_text(f"job {job_id}")
+        return pdf
+
+    monkeypatch.setattr(documents, "build", fake_build)
+    r = client.post("/api/applications/3/save", json={"kind": "resume"}, headers=ORIGIN)
+    assert r.json()["path"] == str(tmp_path / "docs/resume/jane_doe_resume.pdf")
+
+    r = client.post("/api/applications/3/status", json={"status": "screening"}, headers=ORIGIN)
+    assert r.status_code == 409  # not applied yet
+    r = client.post("/api/applications/3/applied", json={"date": "2026-09-01"}, headers=ORIGIN)
+    card = r.json()
+    assert card["status"] == "applied" and card["applied_at"].startswith("2026-09-01")
+    assert card["ghost_hint"] is True  # nothing heard for more than a month
+    detail = client.get("/api/applications/3").json()
+    assert detail["files"] == [
+        {
+            "kind": "resume",
+            "exists": True,
+            "path": str(tmp_path / "docs/resume/acme_data-engineer.pdf"),
+        }
+    ]
+    assert [e["to_status"] for e in detail["history"]] == ["queued", "applied"]
+
+    r = client.post(
+        "/api/applications/3/status",
+        json={"status": "interviewing", "note": "round 1"},
+        headers=ORIGIN,
+    )
+    assert r.json()["status"] == "interviewing" and r.json()["ghost_hint"] is False
+    r = client.post("/api/applications/3/status", json={"status": "queued"}, headers=ORIGIN)
+    assert r.status_code == 422  # not an outcome
+    assert client.get("/api/tracker").json() == {
+        "applied": 1,
+        "responded": 1,
+        "interviewed": 1,
+        "offers": 0,
+        "rejected": 0,
+        "ghosted": 0,
+        "awaiting": 1,
+    }
+
+
+def test_health_says_when_the_code_changed_since_start(setup, monkeypatch) -> None:
+    from job_search_assistant import api
+
+    client, _, _ = setup
+    assert client.get("/api/health").json()["outdated"] is False
+    monkeypatch.setattr(api, "code_stamp", lambda: float("inf"))  # a file was edited
+    assert client.get("/api/health").json()["outdated"] is True

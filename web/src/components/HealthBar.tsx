@@ -37,6 +37,11 @@ export default function HealthBar() {
   if (!h) return <Loader size="xs" />;
   return (
     <Group gap="xs" wrap="nowrap">
+      {h.outdated !== false && ( // missing field = a server older than this UI
+        <Tooltip label="The code changed since the API server started. Stop it (Ctrl+C) and run: uv run python -m job_search_assistant.api">
+          <Badge color="red" variant="filled">Restart API server</Badge>
+        </Tooltip>
+      )}
       {h.running && (
         <Button size="compact-sm" variant="light" leftSection={<Loader size={12} />} onClick={() => watch(h.running!.id)}>
           {h.running.label}…

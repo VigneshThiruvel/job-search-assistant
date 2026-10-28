@@ -19,8 +19,10 @@ requests to 127.0.0.1:
 
 import argparse
 import json
+import logging
 import os
 import sqlite3
+import subprocess
 from collections.abc import Callable
 from contextlib import closing
 from datetime import UTC, datetime
@@ -37,6 +39,7 @@ from job_search_assistant import (
     applications,
     daily,
     db,
+    documents,
     embed,
     graph,
     inbox,
@@ -47,9 +50,34 @@ from job_search_assistant import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
+PACKAGE = Path(__file__).resolve().parent
+
+
+def code_stamp() -> float:
+    """Newest modification time of the backend's Python files."""
+    return max(f.stat().st_mtime for f in PACKAGE.rglob("*.py"))
+
+
 HOSTS = ["127.0.0.1", "localhost"]
 ORIGINS = {f"http://{h}:{p}" for h in HOSTS for p in (8000, 5173)}  # app + Vite dev server
-Status = Literal["queued", "selected", "ready", "skipped", "applied"]
+Status = Literal[
+    "queued",
+    "selected",
+    "ready",
+    "skipped",
+    "applied",
+    "screening",
+    "interviewing",
+    "offer",
+    "accepted",
+    "declined",
+    "rejected",
+    "withdrawn",
+    "ghosted",
+]  # fmt: skip (= applications.STATUSES, checked in tests)
+Outcome = Literal["screening", "interviewing", "offer", "accepted", "declined", "rejected",
+                  "withdrawn", "ghosted"]  # fmt: skip
+Kind = Literal["resume", "cover_letter"]
 
 
 class Card(BaseModel):
@@ -72,6 +100,33 @@ class Card(BaseModel):
     needs_letter: bool
     queued_at: str
     updated_at: str
+    applied_at: str | None = None
+    last_event_at: str | None = None
+    ghost_hint: bool = Field(False, description=f"no news for {applications.GHOST_DAYS} days")
+
+
+class Event(BaseModel):
+    from_status: str | None
+    to_status: str
+    at: str
+    note: str | None
+    source: str
+
+
+class SavedFile(BaseModel):
+    kind: Kind
+    path: str
+    exists: bool
+
+
+class TrackerStats(BaseModel):
+    applied: int
+    responded: int = Field(description="got any reply: screening, interview, offer, rejection")
+    interviewed: int
+    offers: int
+    rejected: int
+    ghosted: int
+    awaiting: int = Field(description="applied / screening / interviewing right now")
 
 
 class SourceBullet(BaseModel):
@@ -104,6 +159,8 @@ class Detail(BaseModel):
     resume: ResumeReview | None
     letter: str | None
     claims: list[applications.Claim]
+    files: list[SavedFile] = []
+    history: list[Event] = []
 
 
 class InboxItem(BaseModel):
@@ -130,9 +187,21 @@ class Select(Action):
     letter: bool = False
 
 
+class Dated(Action):
+    date: str | None = Field(None, description="YYYY-MM-DD when it happened, if not today")
+
+
+class OutcomeChange(Dated):
+    status: Outcome
+
+
+class FileRequest(BaseModel):
+    kind: Kind
+
+
 class RunInfo(BaseModel):
     id: int
-    kind: Literal["fetch", "embed", "agent_daily", "agent_prepare", "neo4j"]
+    kind: Literal["fetch", "mail", "embed", "agent_daily", "agent_prepare", "neo4j"]
     label: str
     status: Literal["running", "done", "failed", "cancelled", "interrupted"]
     started_at: str
@@ -165,12 +234,13 @@ class RunLog(BaseModel):
 
 
 class RunRequest(BaseModel):
-    kind: Literal["fetch", "embed", "agent_daily", "agent_prepare", "neo4j"]
+    kind: Literal["fetch", "mail", "embed", "agent_daily", "agent_prepare", "neo4j"]
     k: int = Field(10, ge=1, le=30, description="daily agent: LinkedIn/XING shortlist size")
     max_extract: int = Field(30, ge=1, le=100, description="daily agent: postings to extract")
 
 
 class Health(BaseModel):
+    outdated: bool = Field(description="the Python code changed since this server started")
     neo4j: bool
     claude: str | None = Field(description="path of the Claude Code binary, if found")
     running: RunInfo | None
@@ -225,6 +295,7 @@ class StatusCounts(BaseModel):
     selected: int
     ready: int
     inbox_open: int = Field(description="alert jobs waiting for a pasted description")
+    newest_alert: dict[str, str | None] = Field(description="date of the newest email per source")
     unembedded: int = Field(description="postings with text but no embedding: run daily")
 
 
@@ -238,9 +309,11 @@ def create_app(
     runs: runner.Runner | None = None,
     graph_query: Callable[..., list[dict]] | None = None,
     taxonomy: Path = skills.TAXONOMY,
+    documents_dir: Path | None = None,  # None: documents.root() (APPLICATION_DIR)
 ) -> FastAPI:
     """`connect` opens a fresh connection per request (sync endpoints run in threads)."""
-    app = FastAPI(title="job-search-assistant", version="0.7a")
+    app = FastAPI(title="job-search-assistant", version="0.7b")
+    started_code = code_stamp()  # the UI warns when the code on disk is newer
     runs = runs or runner.Runner(connect)
     query = graph_query or (lambda *a, **kw: graph.query(graph.shared_driver(), *a, **kw))
 
@@ -268,13 +341,18 @@ def create_app(
                 return JSONResponse({"detail": "cross-site write blocked"}, status_code=403)
         return await call_next(request)
 
-    def card(conn: sqlite3.Connection, r: dict) -> Card:
+    def card(conn: sqlite3.Connection, r: dict, events: dict | None = None) -> Card:
         url = inbox.alert_urls(conn, [r["job_id"]]).get(r["job_id"], r["url"])
+        events = applications.last_events(conn) if events is None else events
+        last_at, applied_at = events.get(r["job_id"], (None, None))
         return Card(
             **{f: r[f] for f in Card.model_fields if f in r},
             apply_url=url,
             has_resume=r["resume_json"] is not None,
             has_letter=r["letter"] is not None,
+            applied_at=applied_at,
+            last_event_at=last_at,
+            ghost_hint=applications.ghost_hint(r["status"], last_at),
         )
 
     def act(job_id: int, change: Callable[[sqlite3.Connection], None]) -> Card:
@@ -289,14 +367,20 @@ def create_app(
     def status() -> StatusCounts:
         with closing(connect()) as conn:
             s = daily.status(conn, datetime.now(UTC).date().isoformat())
-            unembedded = conn.execute(
-                """SELECT count(*) FROM jobs j WHERE description != '' AND NOT EXISTS
-                       (SELECT 1 FROM embeddings e WHERE e.job_id = j.id AND e.model = ?)""",
-                (embed.DEFAULT_MODEL,),
-            ).fetchone()[0]
+            unembedded = len(embed.pending(conn, embed.DEFAULT_MODEL)[0])
             open_items = len(inbox.open_items(conn, inbox_dir))
             today = len(today_ids(conn))
-        return StatusCounts(**s, queued_today=today, inbox_open=open_items, unembedded=unembedded)
+            newest = dict(conn.execute(
+                "SELECT source, max(posted_at) FROM jobs WHERE source IN ('linkedin', 'xing') "
+                "GROUP BY source"
+            ).fetchall())  # fmt: skip
+        return StatusCounts(
+            **s,
+            queued_today=today,
+            inbox_open=open_items,
+            unembedded=unembedded,
+            newest_alert={k: newest.get(k) for k in ("linkedin", "xing")},
+        )
 
     def today_ids(conn: sqlite3.Connection) -> set[int]:
         """Queued today (local) and the ad is still fresh: the only jobs worth reviewing."""
@@ -328,7 +412,13 @@ def create_app(
     @app.get("/api/applications")
     def list_applications(status: Status | None = None) -> list[Card]:
         with closing(connect()) as conn:
-            return [card(conn, r) for r in applications.items(conn, status)]
+            events = applications.last_events(conn)
+            return [card(conn, r, events) for r in applications.items(conn, status)]
+
+    @app.get("/api/tracker")
+    def tracker() -> TrackerStats:
+        with closing(connect()) as conn:
+            return TrackerStats(**applications.stats(conn))
 
     @app.get("/api/applications/{job_id}")
     def get_application(job_id: int) -> Detail:
@@ -341,6 +431,8 @@ def create_app(
                 "SELECT description FROM jobs WHERE id = ?", (job_id,)
             ).fetchone()[0]
             c = card(conn, r)
+            files = documents.saved(conn, job_id)
+            events = applications.history(conn, job_id)
         review = None
         if r["resume_json"]:
             review = resume_review(
@@ -349,7 +441,7 @@ def create_app(
             )
         claims = json.loads(r["claims_json"]) if r["claims_json"] else []
         return Detail(card=c, description=description, resume=review, letter=r["letter"],
-                      claims=claims)  # fmt: skip
+                      claims=claims, files=files, history=events)  # fmt: skip
 
     @app.post("/api/applications/{job_id}/select")
     def select(job_id: int, body: Select) -> Card:
@@ -364,8 +456,46 @@ def create_app(
         return act(job_id, lambda c: applications.close(c, job_id, "skipped", body.note))
 
     @app.post("/api/applications/{job_id}/applied")
-    def applied(job_id: int, body: Action) -> Card:
-        return act(job_id, lambda c: applications.close(c, job_id, "applied", body.note))
+    def applied(job_id: int, body: Dated) -> Card:
+        """Record that I applied, then rename the PDFs I saved for it after the job."""
+
+        def change(conn: sqlite3.Connection) -> None:
+            applications.close(conn, job_id, "applied", body.note, body.date)
+            try:
+                documents.finalize(conn, job_id, resume_tex.read_text(), drafts_dir, documents_dir)
+            except Exception:  # the status is recorded; the files can be re-saved by hand
+                logging.getLogger(__name__).exception("renaming the PDFs of job %d", job_id)
+
+        return act(job_id, change)
+
+    @app.post("/api/applications/{job_id}/status")
+    def outcome(job_id: int, body: OutcomeChange) -> Card:
+        return act(job_id, lambda c: applications.record_outcome(
+            c, job_id, body.status, body.note, body.date))  # fmt: skip
+
+    @app.post("/api/applications/{job_id}/save")
+    def save_file(job_id: int, body: FileRequest) -> SavedFile:
+        """Compile the draft (a few seconds) and write it into my documents folder."""
+        with closing(connect()) as conn:
+            try:
+                path = documents.save(conn, job_id, body.kind, resume_tex.read_text(),
+                                      drafts_dir, documents_dir)  # fmt: skip
+            except ValueError as exc:
+                raise HTTPException(404, str(exc)) from None
+            except subprocess.CalledProcessError:
+                raise HTTPException(500, "LaTeX failed; see data/drafts/ for the log") from None
+        return SavedFile(kind=body.kind, path=str(path), exists=True)
+
+    @app.post("/api/applications/{job_id}/reveal")
+    def reveal(job_id: int, body: FileRequest) -> dict[str, str]:
+        """Show the saved file in Finder (macOS)."""
+        with closing(connect()) as conn:
+            files = {f["kind"]: f for f in documents.saved(conn, job_id)}
+        f = files.get(body.kind)
+        if f is None or not f["exists"]:
+            raise HTTPException(404, f"no saved {body.kind} for job {job_id}")
+        subprocess.run(["open", "-R", f["path"]], check=False)
+        return {"detail": f["path"]}
 
     @app.get("/api/applications/{job_id}/resume.pdf")
     def resume_pdf(job_id: int) -> FileResponse:
@@ -414,7 +544,8 @@ def create_app(
         with closing(connect()) as conn:
             busy = conn.execute("SELECT id FROM ui_runs WHERE status = 'running'").fetchone()
             running = run_info(conn, busy[0]) if busy else None
-        return Health(neo4j=neo4j, claude=str(binary) if binary else None, running=running)
+        return Health(outdated=code_stamp() > started_code, neo4j=neo4j,
+                      claude=str(binary) if binary else None, running=running)  # fmt: skip
 
     @app.post("/api/runs")
     def start_run(body: RunRequest) -> RunInfo:

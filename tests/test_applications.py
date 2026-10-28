@@ -131,3 +131,63 @@ def test_daily_status_counts_new_jobs_and_queue(conn, monkeypatch) -> None:
         "new_today": 1, "pending_extraction": 0, "queued": 1, "selected": 0, "ready": 0,
     }  # fmt: skip
     assert daily.status(conn, "2026-10-02")["new_today"] == 0  # first seen yesterday
+
+
+def test_every_status_change_is_logged_and_outcomes_follow_applying(conn) -> None:
+    applications.queue(conn, 1, "apply", "Good fit.")
+    applications.select(conn, 1)
+    save_resume(conn, 1)  # -> ready
+    with pytest.raises(ValueError, match="not an outcome|only works"):
+        applications.record_outcome(conn, 1, "interviewing")  # not applied yet
+    with pytest.raises(ValueError, match="future"):
+        applications.close(conn, 1, "applied", date="2999-01-01")
+    applications.close(conn, 1, "applied", date="2026-10-20")
+    with pytest.raises(ValueError, match="before I applied"):
+        applications.record_outcome(conn, 1, "screening", date="2026-10-19")
+    with pytest.raises(ValueError, match="not an outcome"):
+        applications.record_outcome(conn, 1, "queued")
+    applications.record_outcome(conn, 1, "screening", "recruiter call", date="2026-10-24")
+    applications.record_outcome(conn, 1, "interviewing")
+    with pytest.raises(ValueError, match="already interviewing"):
+        applications.record_outcome(conn, 1, "interviewing")
+
+    events = applications.history(conn, 1)
+    assert [(e["from_status"], e["to_status"], e["source"]) for e in events] == [
+        (None, "queued", "agent"), ("queued", "selected", "me"), ("selected", "ready", "agent"),
+        ("ready", "applied", "me"), ("applied", "screening", "me"),
+        ("screening", "interviewing", "me"),
+    ]  # fmt: skip
+    assert events[3]["at"].startswith("2026-10-20") and events[4]["note"] == "recruiter call"
+
+    applications.queue(conn, 2, "maybe", "Partial fit.")
+    applications.close(conn, 2, "applied", date="2026-09-01")
+    assert applications.stats(conn) == {"applied": 2, "responded": 1, "interviewed": 1,
+                                        "offers": 0, "rejected": 0, "ghosted": 0,
+                                        "awaiting": 2}  # fmt: skip
+    last = applications.last_events(conn)
+    assert applications.ghost_hint("applied", last[2][0])  # silent since September
+    assert not applications.ghost_hint("interviewing", last[1][0])  # news today
+    assert not applications.ghost_hint("rejected", last[2][0])  # nothing to wait for
+    applications.record_outcome(conn, 2, "ghosted")
+    applications.record_outcome(conn, 2, "screening")  # a late reply after "ghosted" is fine
+
+
+def test_rows_from_before_the_log_are_backfilled(tmp_path) -> None:
+    path = tmp_path / "jobs.db"
+    conn = db.connect(path)
+    job = Job(source="arbeitnow", source_job_id="j", url="https://e/j", title="Data Analyst",
+              company="ACME", location="Berlin", country=None, remote=None, description="d",
+              posted_at=datetime(2026, 10, 1, tzinfo=UTC), raw={})  # fmt: skip
+    db.upsert_job(conn, job, lang="en", content_hash="h", seen_at=datetime.now(UTC))
+    conn.execute("""INSERT INTO applications (job_id, status, recommendation, fit_summary,
+                    queued_at, updated_at) VALUES (1, 'applied', 'apply', 'x',
+                    '2026-10-01T09:00:00+00:00', '2026-10-03T09:00:00+00:00')""")
+    conn.commit()
+    conn.close()
+    for _ in range(2):  # idempotent: the second connect adds nothing
+        conn = db.connect(path)
+        assert [(e["to_status"], e["at"][:10]) for e in applications.history(conn, 1)] == [
+            ("queued", "2026-10-01"),
+            ("applied", "2026-10-03"),
+        ]
+        conn.close()

@@ -97,3 +97,11 @@ def test_sample_refuses_to_overwrite_labels(tmp_path) -> None:
         assert "refusing" in str(e)
     else:
         raise AssertionError("expected SystemExit")
+
+
+def test_target_titles_include_ai_developers() -> None:
+    from job_search_assistant.evalset import TARGET_TITLE
+
+    for title in ("Junior KI-Entwickler / AI Developer (m/w/d)", "AI Engineer", "KI Engineer"):
+        assert TARGET_TITLE.search(title), title
+    assert not TARGET_TITLE.search("Junior Controller (m/w/d)")

@@ -6,6 +6,10 @@ Runs a local multilingual model (no API): bge-m3 maps German and English text
 into the same vector space, so "Datenmodellierung" and "data modeling" land
 close together. One vector per posting, L2-normalized, stored in the
 `embeddings` table; a posting is re-embedded only when its text hash changes.
+
+Only postings ranking can use are embedded (`worth_embedding`): my role titles, not
+senior or student, in scope, with a full description from a source we extract. That was
+~5% of the corpus on 2026-10-28; vectors of postings outside it are deleted.
 """
 
 import argparse
@@ -32,6 +36,43 @@ Encoder = Callable[[Sequence[str]], np.ndarray]
 def posting_text(job: dict[str, Any]) -> str:
     """What gets embedded: the same fields the extractor sees."""
     return f"{job['title']}\n{job['company']}, {job['location'] or ''}\n\n{job['description']}"
+
+
+def worth_embedding(job: dict[str, Any]) -> bool:
+    """The same postings extraction and ranking can use (Adzuna snippets never are)."""
+    from job_search_assistant import evalset, inbox
+
+    return (
+        job["source"] in evalset.TARGET_SOURCES
+        and len(job["description"] or "") >= inbox.FULL_TEXT
+        and inbox.relevant_title(job["title"], job["location"])
+    )
+
+
+def pending(conn: sqlite3.Connection, model: str) -> tuple[list[tuple[int, str, str]], set[int]]:
+    """(postings to embed as (id, text, hash), ids of stored vectors no longer in scope)."""
+    known = dict(conn.execute("SELECT job_id, text_hash FROM embeddings WHERE model = ?", (model,)))
+    todo, keep = [], set()
+    for row in conn.execute("SELECT * FROM jobs WHERE description != '' ORDER BY id"):
+        job = dict(row)
+        if not worth_embedding(job):
+            continue
+        keep.add(job["id"])
+        text = posting_text(job)
+        if known.get(job["id"]) != (h := text_hash(text)):
+            todo.append((job["id"], text, h))
+    return todo, set(known) - keep
+
+
+def prune(conn: sqlite3.Connection, model: str) -> int:
+    """Delete vectors of postings no longer worth embedding (no model needed); returns count."""
+    _, stale = pending(conn, model)
+    with conn:
+        conn.executemany("DELETE FROM embeddings WHERE job_id = ? AND model = ?",
+                         [(i, model) for i in stale])  # fmt: skip
+    if stale:
+        log.info("deleted %d vectors of postings outside the embedding scope", len(stale))
+    return len(stale)
 
 
 def text_hash(text: str) -> str:
@@ -67,19 +108,15 @@ def embed_jobs(
     clock: Callable[[], float] = time.monotonic,
     sleep: Callable[[float], None] = time.sleep,
 ) -> int:
-    """Embed every posting with a description whose text is new or changed; returns count.
+    """Embed every posting worth it whose text is new or changed; returns count.
 
-    Commits per batch, so an interrupted run keeps its progress. With a duty
-    cycle, pauses for `rest` seconds after every `work` seconds of encoding
-    (lets the laptop cool down).
+    Deletes vectors of postings no longer in scope first. Commits per batch, so an
+    interrupted run keeps its progress. With a duty cycle, pauses for `rest` seconds
+    after every `work` seconds of encoding (lets the laptop cool down).
     """
-    known = dict(conn.execute("SELECT job_id, text_hash FROM embeddings WHERE model = ?", (model,)))
-    todo = []
-    for row in conn.execute("SELECT * FROM jobs WHERE description != '' ORDER BY id"):
-        text = posting_text(dict(row))
-        if known.get(row["id"]) != (h := text_hash(text)):
-            todo.append((row["id"], text, h))
-    log.info("%d postings to embed with %s (%d up to date)", len(todo), model, len(known))
+    prune(conn, model)
+    todo, _ = pending(conn, model)
+    log.info("%d postings to embed with %s", len(todo), model)
 
     window_start = clock()
     for start in range(0, len(todo), batch_size):

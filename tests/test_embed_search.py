@@ -22,6 +22,7 @@ def fake_encode(texts):
 
 
 calls: list[list[str]] = []
+FILLER = " Apply now." * 45  # no vocabulary words; lifts texts over inbox.FULL_TEXT
 POSTINGS = [  # (title, description)
     ("Data Engineer", "Kafka streaming pipelines, Kafka Connect, streaming at scale"),
     ("Data Engineer", "Kafka streaming pipelines, Kafka Connect, streaming at scale"),  # dup
@@ -45,7 +46,7 @@ def conn():
             location="Berlin",
             country=None,
             remote=None,
-            description=description,
+            description=description and description + FILLER,
             posted_at=datetime(2026, 10, 1, tzinfo=UTC),
             raw={},
         )
@@ -63,9 +64,23 @@ def test_embeds_postings_with_descriptions_once(conn) -> None:
     assert len(calls) == 1
 
 
+def test_only_postings_ranking_can_use_are_embedded(conn) -> None:
+    embed.embed_jobs(conn, fake_encode, "fake")
+    # Out of scope from now on: a non-target title, a senior title, a UK location, a snippet.
+    conn.execute("UPDATE jobs SET title = 'Sales Manager' WHERE id = 1")
+    conn.execute("UPDATE jobs SET title = 'Senior Data Engineer' WHERE id = 2")
+    conn.execute("UPDATE jobs SET location = 'London' WHERE id = 3")
+    conn.execute("UPDATE jobs SET source = 'adzuna' WHERE id = 4")
+    assert embed.pending(conn, "fake") == ([], {1, 2, 3, 4})
+    assert embed.prune(conn, "fake") == 4
+    assert conn.execute("SELECT count(*) FROM embeddings").fetchone()[0] == 0
+    conn.execute("UPDATE jobs SET title = 'Junior Data Engineer' WHERE id = 2")  # a rule fix
+    assert embed.embed_jobs(conn, fake_encode, "fake") == 1
+
+
 def test_edited_posting_is_re_embedded(conn) -> None:
     embed.embed_jobs(conn, fake_encode, "fake")
-    conn.execute("UPDATE jobs SET description = 'now about agents' WHERE id = 3")
+    conn.execute("UPDATE jobs SET description = ? WHERE id = 3", ("now about agents" + FILLER,))
     assert embed.embed_jobs(conn, fake_encode, "fake") == 1
     assert "agents" in calls[-1][0]
 

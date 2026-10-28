@@ -133,6 +133,36 @@ CREATE TABLE IF NOT EXISTS cover_letters (
     claims_json TEXT NOT NULL,         -- [{claim, evidence}], evidence quoted from my facts
     written_at  TEXT NOT NULL
 );
+-- Phase 7b: every status change, append-only. applications.status is the latest one
+-- (a cache for cheap lists); this log answers "when" and "how long until they replied".
+CREATE TABLE IF NOT EXISTS application_events (
+    id          INTEGER PRIMARY KEY,
+    job_id      INTEGER NOT NULL REFERENCES applications (job_id),
+    from_status TEXT,                  -- NULL for the first event (queued)
+    to_status   TEXT NOT NULL,
+    at          TEXT NOT NULL,         -- when it happened (I may backdate: "applied Monday")
+    recorded_at TEXT NOT NULL,
+    note        TEXT,
+    source      TEXT NOT NULL          -- me / agent / backfill (later: mail, see 7c)
+);
+CREATE INDEX IF NOT EXISTS application_events_job ON application_events (job_id, at);
+-- Rows that predate the log: queued at queued_at, current status at updated_at.
+INSERT INTO application_events (job_id, from_status, to_status, at, recorded_at, source)
+    SELECT job_id, NULL, 'queued', queued_at, queued_at, 'backfill' FROM applications a
+    WHERE NOT EXISTS (SELECT 1 FROM application_events e WHERE e.job_id = a.job_id);
+INSERT INTO application_events (job_id, from_status, to_status, at, recorded_at, source)
+    SELECT job_id, 'queued', status, updated_at, updated_at, 'backfill' FROM applications a
+    WHERE status != 'queued' AND NOT EXISTS (SELECT 1 FROM application_events e
+                                             WHERE e.job_id = a.job_id AND e.to_status != 'queued');
+-- PDFs saved to my documents folder (documents.py), so "I applied" renames the right file.
+CREATE TABLE IF NOT EXISTS saved_files (
+    job_id   INTEGER NOT NULL REFERENCES applications (job_id),
+    kind     TEXT NOT NULL,            -- resume / cover_letter
+    path     TEXT NOT NULL,
+    sha256   TEXT NOT NULL,
+    saved_at TEXT NOT NULL,
+    PRIMARY KEY (job_id, kind)
+);
 
 CREATE TABLE IF NOT EXISTS runs (
     id          INTEGER PRIMARY KEY,

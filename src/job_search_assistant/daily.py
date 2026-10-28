@@ -51,6 +51,11 @@ def main() -> None:
     load_dotenv()
     parser = argparse.ArgumentParser(prog="python -m job_search_assistant.daily")
     parser.add_argument("--skip-ingest", action="store_true", help="only embed + report")
+    parser.add_argument(
+        "--mail-only",
+        action="store_true",
+        help="fetch only the LinkedIn/XING alert emails (seconds, not minutes)",
+    )
     parser.add_argument("--work-minutes", type=float, default=5, help="embedding duty cycle")
     parser.add_argument("--rest-minutes", type=float, default=10)
     args = parser.parse_args()
@@ -61,20 +66,17 @@ def main() -> None:
             with conn:
                 conn.execute("INSERT INTO daily_runs (started_at) VALUES (?)",
                              (datetime.now(UTC).isoformat(),))  # fmt: skip
-            ingest.run_all(conn)
+            ingest.run_all(conn, only=inbox.ALERT_SOURCES if args.mail_only else ())
         imported, problems = inbox.import_inbox(conn)
         for p in problems:
             log.warning("inbox: %s", p)
-        if conn.execute(
-            """SELECT 1 FROM jobs j WHERE description != '' AND NOT EXISTS
-                   (SELECT 1 FROM embeddings e WHERE e.job_id = j.id AND e.model = ?)""",
-            (embed.DEFAULT_MODEL,),
-        ).fetchone():  # the encoder takes ~10 s to load; skip it when nothing is new
+        embed.prune(conn, embed.DEFAULT_MODEL)
+        if embed.pending(conn, embed.DEFAULT_MODEL)[0]:  # skip the ~10 s model load if idle
             duty = (args.work_minutes * 60, args.rest_minutes * 60)
             encoder = embed.load_encoder(embed.DEFAULT_MODEL)
             embed.embed_jobs(conn, encoder, embed.DEFAULT_MODEL, duty_cycle=duty)
         s = status(conn, datetime.now(UTC).date().isoformat())
-        templates = inbox.write_templates(conn, inbox.mail_window_start(conn))
+        templates = inbox.write_templates(conn)
         waiting = sorted(p.name for p in inbox.INBOX.glob("*.txt"))
     finally:
         conn.close()

@@ -4,7 +4,7 @@ skills:
   Python:
     category: programming
     parent: null
-    mentions: 502
+    mentions: 571
     aliases:
     - context managers
     - python
@@ -14,7 +14,7 @@ skills:
   SQL:
     category: programming
     parent: null
-    mentions: 342
+    mentions: 386
     aliases:
     - analytisches sql
     - datenbankabfragen
@@ -26,7 +26,7 @@ skills:
   Machine Learning:
     category: ml_ai
     parent: null
-    mentions: 210
+    mentions: 244
     aliases:
     - ai-modellen
     - ai/ml fundamentals
@@ -59,6 +59,7 @@ skills:
     - ml fundamentals
     - ml models
     - ml systems
+    - ml workflows
     - ml-architecturen
     - ml-frameworks
     - ml-modelle
@@ -75,9 +76,10 @@ skills:
   CI/CD:
     category: devops
     parent: null
-    mentions: 196
+    mentions: 220
     aliases:
     - automated deployment
+    - automation pipelines
     - automatisierte deployments
     - ci
     - ci pipelines
@@ -92,7 +94,7 @@ skills:
   Monitoring:
     category: devops
     parent: null
-    mentions: 171
+    mentions: 187
     aliases:
     - cloud monitoring
     - cloud-monitoring
@@ -104,10 +106,24 @@ skills:
     - observabilité
     - production monitoring
     - telemetry
+  AWS:
+    category: cloud
+    parent: Cloud Computing
+    mentions: 186
+    aliases:
+    - amazon web services
+    - aws
+    - aws certification
+    - aws certifications
+    - aws cloud
+    - aws cloud services
+    - aws serverless
+    - aws-zertifizierung
+    - aws-zertifizierungen
   Azure:
     category: cloud
     parent: Cloud Computing
-    mentions: 165
+    mentions: 183
     aliases:
     - azure
     - azure certification
@@ -125,22 +141,110 @@ skills:
     - microsoft azure
     - microsoft azure data platform
     - ms azure
-  AWS:
-    category: cloud
-    parent: Cloud Computing
-    mentions: 160
+  AI Agents:
+    category: ml_ai
+    parent: null
+    mentions: 180
     aliases:
-    - aws
-    - aws certification
-    - aws certifications
-    - aws cloud
-    - aws cloud services
-    - aws serverless
-    - aws-zertifizierung
+    - agent engineering
+    - agent framework
+    - agent frameworks
+    - agent gateways
+    - agent harness
+    - agent memory
+    - agent orchestration
+    - agent orchestration frameworks
+    - agent runtimes
+    - agent skills
+    - agent workflows
+    - agent-based solutions
+    - agent-based systems
+    - agent-frameworks
+    - agenten
+    - agenten-frameworks
+    - agenten-orchestrierung
+    - agenten-systeme
+    - agentenbasierte ai-ansätze
+    - agentenbasierte systeme
+    - agentensysteme
+    - agentic ai
+    - agentic ai workflows
+    - agentic architectures
+    - agentic frameworks
+    - agentic systems
+    - agentic use cases
+    - agentic workflows
+    - agentic workloads
+    - agentische frameworks
+    - agentische ki
+    - agentische ki-systeme
+    - agentische skills
+    - agentische software
+    - agentische suchsysteme
+    - agentische werkzeuge
+    - agentische workflows
+    - agents
+    - agents ia
+    - ai agenten
+    - ai agents
+    - ai-agenten
+    - ai-agents
+    - conversational agents
+    - ki agenten
+    - ki-agenten
+    - llm agents
+    - llm-based agents
+    - llm-basierte agenten
+    - multi-tool agents
+    - orchestration frameworks
+    - sandboxed code execution
+    - tool-using agents
+  Large Language Models:
+    category: ml_ai
+    parent: Generative AI
+    mentions: 179
+    aliases:
+    - language model training
+    - language models
+    - large language models
+    - large language models (llm)
+    - large language models (llms)
+    - latent reasoning
+    - llm
+    - llm applications
+    - llm frameworks
+    - llm hub
+    - llm pipelines
+    - llm products
+    - llm workflows
+    - llm's
+    - llm-anwendungen
+    - llm-augmented models
+    - llm-backed features
+    - llm-based approaches
+    - llm-based solutions
+    - llm-based systems
+    - llm-based workflows
+    - llm-basierte anwendungen
+    - llm-basierte systeme
+    - llm-integraties
+    - llm-integrationen
+    - llm-powered applications
+    - llm-powered products
+    - llm-powered systems
+    - llm-powered workflows
+    - llms
+    - lokale llm's
+    - multi-model routing
+    - multi-step llm pipelines
+    - open-weight llms
+    - orchestration framework
+    - small language models
+    - sprachmodelle
   Data Modeling:
     category: data_engineering
     parent: null
-    mentions: 154
+    mentions: 177
     aliases:
     - 3nf
     - analytical data modelling
@@ -165,106 +269,19 @@ skills:
     - relationale datenmodelle
     - relationele datamodellering
     - warehouse modeling
-  Large Language Models:
-    category: ml_ai
-    parent: null
-    mentions: 150
-    aliases:
-    - language model training
-    - large language models
-    - large language models (llm)
-    - large language models (llms)
-    - llm
-    - llm applications
-    - llm frameworks
-    - llm hub
-    - llm pipelines
-    - llm products
-    - llm workflows
-    - llm's
-    - llm-anwendungen
-    - llm-augmented models
-    - llm-backed features
-    - llm-based approaches
-    - llm-based solutions
-    - llm-based systems
-    - llm-based workflows
-    - llm-basierte anwendungen
-    - llm-basierte systeme
-    - llm-integrationen
-    - llm-powered products
-    - llm-powered systems
-    - llm-powered workflows
-    - llms
-    - multi-step llm pipelines
-    - open-weight llms
-    - orchestration framework
-    - small language models
-  AI Agents:
-    category: ml_ai
-    parent: null
-    mentions: 146
-    aliases:
-    - agent engineering
-    - agent framework
-    - agent frameworks
-    - agent gateways
-    - agent harness
-    - agent orchestration
-    - agent orchestration frameworks
-    - agent runtimes
-    - agent skills
-    - agent workflows
-    - agent-based solutions
-    - agent-based systems
-    - agent-frameworks
-    - agenten
-    - agenten-frameworks
-    - agenten-orchestrierung
-    - agenten-systeme
-    - agentenbasierte ai-ansätze
-    - agentenbasierte systeme
-    - agentensysteme
-    - agentic ai
-    - agentic ai workflows
-    - agentic architectures
-    - agentic frameworks
-    - agentic systems
-    - agentic use cases
-    - agentic workflows
-    - agentic workloads
-    - agentische ki
-    - agentische ki-systeme
-    - agentische skills
-    - agentische software
-    - agentische werkzeuge
-    - agentische workflows
-    - agents
-    - agents ia
-    - ai agenten
-    - ai agents
-    - ai-agenten
-    - ai-agents
-    - ki agenten
-    - ki-agenten
-    - llm agents
-    - llm-based agents
-    - llm-basierte agenten
-    - multi-tool agents
-    - orchestration frameworks
-    - sandboxed code execution
-    - tool-using agents
   Cloud Computing:
     category: cloud
     parent: null
-    mentions: 138
+    mentions: 156
     aliases:
     - cloud
     - cloud ai services
+    - cloud analytics tools
     - cloud certification
     - cloud certifications
     - cloud computing
     - cloud data platforms
+    - cloud deployment
     - cloud engineering
     - cloud environments
     - cloud infrastructure
@@ -273,9 +290,11 @@ skills:
     - cloud operations
     - cloud platform
     - cloud platforms
+    - cloud provider
     - cloud services
     - cloud technologies
     - cloud-ai-plattformen
+    - cloud-anwendungen
     - cloud-architekturen
     - cloud-basierte datenverarbeitung
     - cloud-dienste
@@ -283,6 +302,7 @@ skills:
     - cloud-ml-dienste
     - cloud-native architectures
     - cloud-native deployments
+    - cloud-native development
     - cloud-native infrastructure
     - cloud-native-technologien
     - cloud-platformen
@@ -292,19 +312,14 @@ skills:
     - cloud-technologien
     - cloud-umgebungen
     - cloudbasierte softwareentwicklung
+    - cloudinfrastructuur
     - cloudomgevingen
     - landing zones
     - plateformes cloud
-  Docker:
-    category: devops
-    parent: Containerization
-    mentions: 118
-    aliases:
-    - docker
   Google Cloud:
     category: cloud
     parent: Cloud Computing
-    mentions: 118
+    mentions: 134
     aliases:
     - gcp
     - google cloud
@@ -312,42 +327,56 @@ skills:
     - google cloud platform (gcp)
     - google cloud professional cloud architect
     - google cloud professional data engineer
+  Docker:
+    category: devops
+    parent: Containerization
+    mentions: 129
+    aliases:
+    - docker
   Data Pipelines:
     category: data_engineering
     parent: null
-    mentions: 113
+    mentions: 126
     aliases:
     - ai data pipelines
     - analysepipelines
     - analytics pipelines
     - data pipelines
     - data preparation pipelines
+    - data processing pipelines
     - data-pipeline
     - data-pipelines
     - datapipelines
     - datastromen
+    - daten-pipelines
     - datenpipelines
     - pipeline automation
+    - pipeline engineering
     - pipeline frameworks
     - pipeline setup
     - pipelines
     - pipelines de données
-  ETL:
-    category: data_engineering
-    parent: null
-    mentions: 110
+  Git:
+    category: devops
+    parent: Version Control
+    mentions: 122
     aliases:
-    - datenladeprozesse
-    - etl
-    - etl concepts
-    - etl pipelines
-    - etl-processen
-    - etl-prozesse
-    - etl-tools
+    - git
+    - gitflow
+  Kubernetes:
+    category: devops
+    parent: null
+    mentions: 120
+    aliases:
+    - cka
+    - ckad
+    - cks
+    - k8s
+    - kubernetes
   Databricks:
     category: data_engineering
     parent: null
-    mentions: 108
+    mentions: 117
     aliases:
     - azure databricks
     - databricks
@@ -357,20 +386,22 @@ skills:
     - databricks jobs
     - databricks ml
     - dbx
-  Kubernetes:
-    category: devops
+  ETL:
+    category: data_engineering
     parent: null
-    mentions: 108
+    mentions: 117
     aliases:
-    - cka
-    - ckad
-    - cks
-    - k8s
-    - kubernetes
+    - datenladeprozesse
+    - etl
+    - etl concepts
+    - etl pipelines
+    - etl-processen
+    - etl-prozesse
+    - etl-tools
   Power BI:
     category: analytics_bi
     parent: null
-    mentions: 107
+    mentions: 117
     aliases:
     - microsoft pl-300
     - pl-300
@@ -378,17 +409,10 @@ skills:
     - power-bi
     - powerbi
     - tmdl
-  Git:
-    category: devops
-    parent: Version Control
-    mentions: 106
-    aliases:
-    - git
-    - gitflow
   MLOps:
     category: ml_ai
     parent: null
-    mentions: 101
+    mentions: 110
     aliases:
     - ai infrastructure
     - ai ops
@@ -402,6 +426,7 @@ skills:
     - ml ops
     - ml platforms
     - ml systems in production
+    - ml training and inference systems
     - ml-operations-frameworks
     - ml-plattformarchitekturen
     - ml/ai systems in production
@@ -409,13 +434,14 @@ skills:
     - mlops-frameworks
     - model lifecycle management
     - model retraining
+    - orchestratie van ai-diensten
     - production ml
     - production ml systems
     - retraining
   Retrieval-Augmented Generation:
     category: ml_ai
     parent: Large Language Models
-    mentions: 96
+    mentions: 107
     aliases:
     - abruf-pipelines
     - agentic rag
@@ -432,42 +458,13 @@ skills:
   PyTorch:
     category: ml_ai
     parent: Deep Learning
-    mentions: 94
+    mentions: 102
     aliases:
     - pytorch
-  Data Warehousing:
-    category: database
-    parent: null
-    mentions: 88
-    aliases:
-    - analytical databases
-    - cloud data warehouse
-    - cloud data warehouses
-    - cloud data warehousing
-    - cloud warehouse
-    - cloud-based data warehouses
-    - data marts
-    - data warehouse
-    - data warehouse architectures
-    - data warehouse design
-    - data warehouse development
-    - data warehouses
-    - data warehousing
-    - data-warehouse
-    - data-warehouse-architekturen
-    - data-warehouse-konzepte
-    - data-warehouse-strukturen
-    - datawarehousing
-    - dwh
-    - dwh-architekturen
-    - enterprise data warehouses
-    - historisierung
-    - inmon
-    - warehouses
   APIs:
     category: software_engineering
     parent: null
-    mentions: 86
+    mentions: 100
     aliases:
     - api
     - api frameworks
@@ -485,15 +482,66 @@ skills:
     - streaming apis
     - webhooks
     - webservices
+  Generative AI:
+    category: ml_ai
+    parent: null
+    mentions: 100
+    aliases:
+    - autoregressive models
+    - gen ai tools
+    - genai
+    - generatieve ai
+    - generative ai
+    - generative ai frameworks
+    - generative image models
+    - generative image pipelines
+    - generative ki
+    - generative ki-tools
+    - generative methods
+    - generative models
+    - génération de contenu
+    - ia générative
+  Data Warehousing:
+    category: database
+    parent: null
+    mentions: 99
+    aliases:
+    - analytical databases
+    - cloud data warehouse
+    - cloud data warehouses
+    - cloud data warehousing
+    - cloud warehouse
+    - cloud-based data warehouses
+    - data marts
+    - data warehouse
+    - data warehouse architectures
+    - data warehouse design
+    - data warehouse development
+    - data warehouses
+    - data warehousing
+    - data-warehouse
+    - data-warehouse-architekturen
+    - data-warehouse-entwicklung
+    - data-warehouse-konzepte
+    - data-warehouse-strukturen
+    - datawarehousing
+    - dwh
+    - dwh-architekturen
+    - enterprise data warehouses
+    - historisierung
+    - inmon
+    - warehouses
   Data Analysis:
     category: analytics_bi
     parent: null
-    mentions: 86
+    mentions: 98
     aliases:
     - abverkaufsdatenanalyse
     - ad-hoc-analysen
     - advanced analytics
+    - analyse de données
     - analyse-tools
+    - analyses descriptives
     - analyseverfahren
     - analytics
     - analytics methods
@@ -516,13 +564,14 @@ skills:
   dbt:
     category: data_engineering
     parent: null
-    mentions: 86
+    mentions: 98
     aliases:
     - dbt
+    - dbt tests
   Statistics:
     category: methods
     parent: null
-    mentions: 85
+    mentions: 94
     aliases:
     - applied statistics
     - bevölkerungsstatistik
@@ -535,6 +584,8 @@ skills:
     - mathematical statistics
     - mathematisch-statistische verfahren
     - mathematisch-statistische werkzeuge
+    - méthodes de redressement
+    - onzekerheidsanalyse
     - pearson's correlation
     - quantitative research methods
     - statistical analysis
@@ -551,17 +602,74 @@ skills:
     - statistische datenanalyse
     - statistische methoden
     - statistische verfahren
+  Apache Airflow:
+    category: data_engineering
+    parent: null
+    mentions: 88
+    aliases:
+    - airflow
+    - apache airflow
   ELT:
     category: data_engineering
     parent: null
-    mentions: 81
+    mentions: 87
     aliases:
     - elt
     - elt-tools
+  AI-Assisted Coding:
+    category: software_engineering
+    parent: null
+    mentions: 86
+    aliases:
+    - agentic coding
+    - agentic coding tools
+    - agentic coding workflows
+    - agentic development
+    - agentic sdlc
+    - agentic tools
+    - agentische coding-werkzeuge
+    - agentische softwareentwicklung
+    - ai assistants
+    - ai coding agents
+    - ai coding assistants
+    - ai coding tools
+    - ai development tools
+    - ai tools
+    - ai tools for development productivity
+    - ai-assisted coding
+    - ai-assisted development
+    - ai-assisted development tools
+    - ai-assisted development workflows
+    - ai-assisted engineering
+    - ai-assisted engineering tools
+    - ai-assisted tools
+    - ai-assisted workflows
+    - ai-coding-tools
+    - ai-development-tools
+    - ai-gestütztes coding
+    - ai-native coding
+    - ai-ondersteund ontwikkelen
+    - ai-ontwikkeltools
+    - ai-powered development tools
+    - ai-werkzeuge
+    - code-automatisierung
+    - coderen met ai
+    - coding agent
+    - coding agents
+    - coding assistants
+    - coding-tools
+    - développement assisté par ia
+    - ki-basierte entwicklungstools
+    - ki-gestützte entwicklungswerkzeuge
+    - llm coding agents
+    - llm-assisted programming
+    - llm-powered code review
+    - vibe coding tools
+    - vibe-coding
   Data Quality:
     category: data_engineering
     parent: null
-    mentions: 80
+    mentions: 86
     aliases:
     - contrôles de données
     - data profiling
@@ -581,40 +689,63 @@ skills:
     - datenvalidierung
     - intégrité des données
     - reconciliation
-  Generative AI:
-    category: ml_ai
-    parent: null
-    mentions: 80
-    aliases:
-    - autoregressive models
-    - gen ai tools
-    - genai
-    - generatieve ai
-    - generative ai
-    - generative ai frameworks
-    - generative image pipelines
-    - generative ki
-    - generative ki-tools
-    - generative methods
-    - generative models
-    - ia générative
-  Apache Airflow:
-    category: data_engineering
-    parent: null
-    mentions: 79
-    aliases:
-    - airflow
-    - apache airflow
   Snowflake:
     category: cloud
     parent: null
-    mentions: 77
+    mentions: 86
     aliases:
     - snowflake
+    - snowflake mcp
+  AI Evaluation:
+    category: ml_ai
+    parent: null
+    mentions: 85
+    aliases:
+    - agent evaluation
+    - ai evaluation
+    - ai output evaluation
+    - dataset design
+    - eval tooling for ai/llm systems
+    - evals
+    - evals in ci
+    - evaluation
+    - evaluation automation
+    - evaluation design
+    - evaluation frameworks
+    - evaluation infrastructure
+    - evaluation of llm systems
+    - evaluation von ai- oder machine-learning-systemen
+    - evaluation von modellausgaben
+    - evaluationen
+    - evaluations
+    - evaluations for non-deterministic systems
+    - evaluationsstrategien
+    - evaluierung
+    - evaluierung von ki-lösungen
+    - golden datasets
+    - llm evaluation
+    - llm-evaluation
+    - llm-evaluation-frameworks
+    - prompt-/agent-evaluierung
+  Dashboards:
+    category: analytics_bi
+    parent: null
+    mentions: 82
+    aliases:
+    - bi-dashboards
+    - dashboard
+    - dashboard tools
+    - dashboard-entwicklung
+    - dashboard-konzeption
+    - dashboarding
+    - dashboarding tools
+    - dashboards
+    - kpi dashboards
+    - tableaux de bord
   Business Intelligence:
     category: analytics_bi
     parent: null
-    mentions: 75
+    mentions: 81
     aliases:
     - analytics- und bi-tools
     - bi
@@ -636,74 +767,16 @@ skills:
     - bi-tools
     - bi-werkzeuge
     - business intelligence
+    - business intelligence tools
     - business-intelligence-lösungen
     - business-intelligence-tools
     - conversational analytics
     - outil de bi
     - reporting-, bi- und analytics-plattformen
-  AI-Assisted Coding:
-    category: software_engineering
-    parent: null
-    mentions: 71
-    aliases:
-    - agentic coding
-    - agentic coding tools
-    - agentic coding workflows
-    - agentic development
-    - agentic sdlc
-    - agentische coding-werkzeuge
-    - agentische softwareentwicklung
-    - ai assistants
-    - ai coding agents
-    - ai coding assistants
-    - ai coding tools
-    - ai tools
-    - ai tools for development productivity
-    - ai-assisted coding
-    - ai-assisted development
-    - ai-assisted development tools
-    - ai-assisted development workflows
-    - ai-assisted engineering
-    - ai-assisted engineering tools
-    - ai-assisted tools
-    - ai-assisted workflows
-    - ai-coding-tools
-    - ai-development-tools
-    - ai-gestütztes coding
-    - ai-native coding
-    - ai-ondersteund ontwikkelen
-    - ai-ontwikkeltools
-    - ai-powered development tools
-    - ai-werkzeuge
-    - coding agent
-    - coding agents
-    - coding assistants
-    - coding-tools
-    - développement assisté par ia
-    - ki-basierte entwicklungstools
-    - ki-gestützte entwicklungswerkzeuge
-    - llm coding agents
-    - llm-assisted programming
-    - llm-powered code review
-    - vibe-coding
-  Dashboards:
-    category: analytics_bi
-    parent: null
-    mentions: 68
-    aliases:
-    - bi-dashboards
-    - dashboard
-    - dashboard tools
-    - dashboard-entwicklung
-    - dashboarding
-    - dashboarding tools
-    - dashboards
-    - kpi dashboards
-    - tableaux de bord
   Testing:
     category: software_engineering
     parent: null
-    mentions: 68
+    mentions: 80
     aliases:
     - contract testing
     - software testing
@@ -714,64 +787,10 @@ skills:
     - testing-frameworks
     - tests
     - tests logiciels
-  AI Evaluation:
-    category: ml_ai
-    parent: null
-    mentions: 67
-    aliases:
-    - agent evaluation
-    - ai evaluation
-    - eval tooling for ai/llm systems
-    - evals
-    - evals in ci
-    - evaluation
-    - evaluation automation
-    - evaluation design
-    - evaluation frameworks
-    - evaluation infrastructure
-    - evaluation of llm systems
-    - evaluation von ai- oder machine-learning-systemen
-    - evaluation von modellausgaben
-    - evaluations
-    - evaluations for non-deterministic systems
-    - evaluationsstrategien
-    - evaluierung
-    - evaluierung von ki-lösungen
-    - golden datasets
-    - llm evaluation
-    - llm-evaluation
-    - llm-evaluation-frameworks
-    - prompt-/agent-evaluierung
-  Terraform:
-    category: devops
-    parent: Infrastructure as Code
-    mentions: 67
-    aliases:
-    - terraform
-  Data Governance:
-    category: data_engineering
-    parent: null
-    mentions: 62
-    aliases:
-    - data governance
-    - data management
-    - data-governance
-    - daten-/ki-governance
-    - gouvernance
-    - governance
-    - normes de gestion des données
-    - reporting governance
-  BigQuery:
-    category: database
-    parent: Google Cloud
-    mentions: 61
-    aliases:
-    - bigquery
-    - google bigquery
   Software Engineering:
     category: software_engineering
     parent: null
-    mentions: 60
+    mentions: 73
     aliases:
     - applikationsentwicklung
     - développement logiciel
@@ -784,10 +803,16 @@ skills:
     - software-prinzipien
     - softwareentwicklung
     - softwareontwikkeling
+  Terraform:
+    category: devops
+    parent: Infrastructure as Code
+    mentions: 71
+    aliases:
+    - terraform
   Artificial Intelligence:
     category: ml_ai
     parent: null
-    mentions: 59
+    mentions: 69
     aliases:
     - ai
     - ai engineering
@@ -800,31 +825,47 @@ skills:
     - angewandte ki-forschung
     - artificial intelligence
     - cloudbasierte und lokale ki-systeme
+    - ia
+    - intelligence artificielle
     - ki
     - ki-anwendungen
     - ki-architekturen
+    - ki-basierte lösungsansätze
     - ki-entwicklungsplattform
     - ki-frameworks
     - ki-lösungen
     - ki-plattformen
     - ki-systeme
+    - ki-technologien
     - ki-tools
     - ki-werkzeuge
     - künstliche intelligenz
     - künstliche intelligenz (ai)
     - production ai systems
-  Apache Spark:
+  BigQuery:
+    category: database
+    parent: Google Cloud
+    mentions: 67
+    aliases:
+    - bigquery
+    - google bigquery
+  Data Governance:
     category: data_engineering
     parent: null
-    mentions: 58
+    mentions: 65
     aliases:
-    - apache spark
-    - spark
-    - spark-based platform
+    - data governance
+    - data management
+    - data-governance
+    - daten-/ki-governance
+    - gouvernance
+    - governance
+    - normes de gestion des données
+    - reporting governance
   Prompt Engineering:
     category: ml_ai
     parent: Large Language Models
-    mentions: 57
+    mentions: 65
     aliases:
     - prompt design
     - prompt engineering
@@ -833,11 +874,50 @@ skills:
     - prompt-design
     - prompt-engineering
     - prompting
+    - prompting llms
     - prompts
+  Apache Spark:
+    category: data_engineering
+    parent: null
+    mentions: 62
+    aliases:
+    - apache spark
+    - spark
+    - spark-based platform
+  Data Engineering:
+    category: data_engineering
+    parent: null
+    mentions: 61
+    aliases:
+    - cloud data engineering
+    - data engineering
+    - data engineering language
+    - data infrastructure
+    - data processing
+    - data-engineering
+    - dataverwerking
+  Apache Kafka:
+    category: data_engineering
+    parent: Stream Processing
+    mentions: 60
+    aliases:
+    - apache kafka
+    - kafka
+  Model Context Protocol:
+    category: ml_ai
+    parent: AI Agents
+    mentions: 58
+    aliases:
+    - mcp
+    - mcp integrations
+    - mcp servers
+    - mcp-server
+    - model context protocol
+    - model context protocol (mcp)
   Model Serving:
     category: ml_ai
     parent: MLOps
-    mentions: 53
+    mentions: 58
     aliases:
     - distributed inference
     - inference
@@ -857,20 +937,10 @@ skills:
     - open-source model deployment
     - real-time ml
     - streaming-inferenz
-  Data Engineering:
-    category: data_engineering
-    parent: null
-    mentions: 52
-    aliases:
-    - cloud data engineering
-    - data engineering
-    - data engineering language
-    - data processing
-    - data-engineering
   Infrastructure as Code:
     category: devops
     parent: null
-    mentions: 52
+    mentions: 57
     aliases:
     - iac
     - infrastructure as code
@@ -878,17 +948,95 @@ skills:
     - infrastructure automation
     - infrastructure-as-code
     - policy-as-code
-  Apache Kafka:
-    category: data_engineering
-    parent: Stream Processing
-    mentions: 51
+  Tableau:
+    category: analytics_bi
+    parent: null
+    mentions: 57
     aliases:
-    - apache kafka
-    - kafka
+    - tableau
+  Databases:
+    category: database
+    parent: null
+    mentions: 56
+    aliases:
+    - database
+    - database technologies
+    - databases
+    - datenbank-technologien
+    - datenbanken
+    - datenbankmanagementsysteme
+    - datenbankstrukturen
+    - datenbanksystem
+    - datenbanksysteme
+    - datenbanktechnologien
+    - datenbankumgebungen
+    - datenmanagementsysteme
+    - htap
+    - objektorientierte datenbanken
+    - oltp
+  Deep Learning:
+    category: ml_ai
+    parent: null
+    mentions: 55
+    aliases:
+    - deep learning
+    - deep learning frameworks
+    - deep-learning framework
+    - dnn
+    - gradient checkpointing
+    - neural network architectures
+    - neural networks
+  Data Visualization:
+    category: analytics_bi
+    parent: null
+    mentions: 54
+    aliases:
+    - data visualisation
+    - data visualization
+    - dataviz
+    - datenvisualisierung
+    - visual analytics
+    - visualisation de données
+    - visualisierung
+    - visualisierungen
+    - visualisierungstools
+    - visualization
+  TensorFlow:
+    category: ml_ai
+    parent: Deep Learning
+    mentions: 53
+    aliases:
+    - tensorflow
+  Natural Language Processing:
+    category: ml_ai
+    parent: null
+    mentions: 52
+    aliases:
+    - classification de texte
+    - multilingual model training
+    - multilingual modeling
+    - multilingual nlp
+    - natural language processing
+    - natural language processing (nlp)
+    - nlp
+    - nlp model training
+    - summarization
+    - text mining
+    - text processing
+    - ticket classification
+    - tokenisierung
+    - transliteration
+  PostgreSQL:
+    category: database
+    parent: null
+    mentions: 52
+    aliases:
+    - postgres
+    - postgresql
   Quantization:
     category: ml_ai
     parent: Model Compression
-    mentions: 50
+    mentions: 51
     aliases:
     - awq
     - fp8
@@ -901,66 +1049,10 @@ skills:
     - quantization
     - quantization-aware training
     - smoothquant
-  TensorFlow:
-    category: ml_ai
-    parent: Deep Learning
-    mentions: 50
-    aliases:
-    - tensorflow
-  Model Context Protocol:
-    category: ml_ai
-    parent: AI Agents
-    mentions: 49
-    aliases:
-    - mcp
-    - mcp integrations
-    - mcp servers
-    - mcp-server
-    - model context protocol
-    - model context protocol (mcp)
-  Tableau:
-    category: analytics_bi
-    parent: null
-    mentions: 49
-    aliases:
-    - tableau
-  Data Visualization:
-    category: analytics_bi
-    parent: null
-    mentions: 48
-    aliases:
-    - data visualisation
-    - data visualization
-    - dataviz
-    - datenvisualisierung
-    - visual analytics
-    - visualisation de données
-    - visualisierung
-    - visualisierungen
-    - visualisierungstools
-    - visualization
-  Databases:
-    category: database
-    parent: null
-    mentions: 48
-    aliases:
-    - database
-    - database technologies
-    - databases
-    - datenbank-technologien
-    - datenbanken
-    - datenbankmanagementsysteme
-    - datenbanksysteme
-    - datenbanktechnologien
-    - datenbankumgebungen
-    - datenmanagementsysteme
-    - htap
-    - objektorientierte datenbanken
-    - oltp
   Workflow Orchestration:
     category: data_engineering
     parent: null
-    mentions: 48
+    mentions: 51
     aliases:
     - dag-platform
     - data orchestration
@@ -979,46 +1071,94 @@ skills:
     - workflow orchestration
     - workflow orchestrator
     - workflow-orchestrierungstools
-  Deep Learning:
-    category: ml_ai
+  Information Security:
+    category: software_engineering
     parent: null
-    mentions: 46
+    mentions: 50
     aliases:
-    - deep learning
-    - deep learning frameworks
-    - deep-learning framework
-    - dnn
-    - gradient checkpointing
-    - neural network architectures
-    - neural networks
+    - bsi-grundschutz
+    - cisa
+    - cism
+    - cissp
+    - cyber security
+    - cybersecurity
+    - cybersecurity für ki-systeme
+    - informationssicherheit
+    - infosec
+    - it security
+    - it-security
+    - it-security audits
+    - it-sicherheit
+    - it-sicherheitstechnologien
+    - security
+    - security governance
+    - security reviews
+    - security tools
+  R:
+    category: programming
+    parent: null
+    mentions: 50
+    aliases:
+    - r
+  Relational Databases:
+    category: database
+    parent: Databases
+    mentions: 50
+    aliases:
+    - bases de données relationnelles
+    - relational database
+    - relational database systems
+    - relational databases
+    - relational mass data processing
+    - relationale datenbanken
+    - relationale datenbanksysteme
+    - relationale datenstrukturen
+    - relationele databases
+    - sql databases
   Reporting:
     category: analytics_bi
     parent: null
-    mentions: 46
+    mentions: 50
     aliases:
     - analyse- und reporting-lösungen
     - automated reports
     - bi-reportentwicklung
     - erstellung von berichten
     - ki-gestützte reportings
+    - kpi-reporting
     - management-reporting
     - rapportages
     - reporting
     - reporting frameworks
+    - reporting tools
     - reporting-landschaften
     - reporting-tools
+    - reporting-werkzeuge
     - reports
-  PostgreSQL:
-    category: database
+  Workflow Automation:
+    category: software_engineering
     parent: null
-    mentions: 45
+    mentions: 50
     aliases:
-    - postgres
-    - postgresql
+    - automation
+    - automation platforms
+    - automation tools
+    - automation workflows
+    - automatisation
+    - automatisierte workflows
+    - automatisierung
+    - automatisierung analytischer workflows
+    - automatisierungen
+    - automatisierungslösungen
+    - documentation automation
+    - outils d'automatisation
+    - process automation
+    - prozessautomatisierung
+    - workflow automation
   Inference Optimization:
     category: ml_ai
     parent: Deep Learning
-    mentions: 44
+    mentions: 49
     aliases:
     - eagle
     - inference optimization
@@ -1031,32 +1171,83 @@ skills:
     - model optimization
     - speculative decoding
     - transformer inference
-  Information Security:
-    category: software_engineering
+  Java:
+    category: programming
     parent: null
-    mentions: 43
+    mentions: 48
     aliases:
-    - bsi-grundschutz
-    - cisa
-    - cism
-    - cissp
-    - cyber security
-    - cybersecurity
-    - cybersecurity für ki-systeme
-    - informationssicherheit
-    - it security
-    - it-security
-    - it-security audits
-    - it-sicherheit
-    - it-sicherheitstechnologien
-    - security
-    - security governance
-    - security reviews
-    - security tools
+    - java
+    - jvm languages
+  A/B Testing:
+    category: methods
+    parent: null
+    mentions: 47
+    aliases:
+    - a/b testing
+    - a/b tests
+    - a/b-testing
+    - a/b-tests
+    - experiment analysis
+    - experimentation
+    - experimentation analysis
+    - experimentation infrastructure
+    - experiments
+    - feature experiments
+    - multi-arm experiments
+  Claude Code:
+    category: software_engineering
+    parent: AI-Assisted Coding
+    mentions: 47
+    aliases:
+    - claude code
+  scikit-learn:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 46
+    aliases:
+    - scikit-learn
+    - sklearn
+  Microsoft Fabric:
+    category: cloud
+    parent: null
+    mentions: 45
+    aliases:
+    - fabric
+    - fabric apps
+    - fabric workspace management
+    - fabric-pipelines
+    - microsoft fabric
+    - microsoft fabric certification
+    - ms fabric
+  Containerization:
+    category: devops
+    parent: null
+    mentions: 44
+    aliases:
+    - container
+    - container-based environments
+    - container-plattformen
+    - container-technologien
+    - containerisation
+    - containerisierte anwendungen
+    - containerisierung
+    - containerization
+    - containerizing ml inference
+    - containeromgevingen
+    - containers
+    - containertechnologien
+    - conteneurisation
+    - linux-container
+  LangChain:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 44
+    aliases:
+    - langchain
   Networking:
     category: devops
     parent: null
-    mentions: 43
+    mentions: 44
     aliases:
     - bgp
     - cable testers
@@ -1090,66 +1281,21 @@ skills:
     - vpn
     - wireless
     - wlan
-  R:
-    category: programming
+  Excel:
+    category: analytics_bi
     parent: null
     mentions: 43
     aliases:
-    - r
-  Microsoft Fabric:
-    category: cloud
-    parent: null
-    mentions: 42
-    aliases:
-    - fabric
-    - fabric workspace management
-    - fabric-pipelines
-    - microsoft fabric
-    - microsoft fabric certification
-    - ms fabric
-  scikit-learn:
-    category: ml_ai
-    parent: Machine Learning
-    mentions: 42
-    aliases:
-    - scikit-learn
-    - sklearn
-  A/B Testing:
-    category: methods
-    parent: null
-    mentions: 41
-    aliases:
-    - a/b testing
-    - a/b tests
-    - a/b-tests
-    - experiment analysis
-    - experimentation
-    - experimentation analysis
-    - experimentation infrastructure
-    - experiments
-    - feature experiments
-    - multi-arm experiments
-  Natural Language Processing:
-    category: ml_ai
-    parent: null
-    mentions: 41
-    aliases:
-    - multilingual model training
-    - multilingual modeling
-    - natural language processing
-    - natural language processing (nlp)
-    - nlp
-    - nlp model training
-    - summarization
-    - text processing
-    - ticket classification
-    - tokenisierung
-    - transliteration
+    - advanced excel
+    - excel
+    - ms excel
+    - pivot-tabellen
   REST APIs:
     category: software_engineering
     parent: APIs
-    mentions: 41
+    mentions: 43
     aliases:
+    - api-connecties
     - apis rest
     - rest
     - rest api
@@ -1157,6 +1303,12 @@ skills:
     - rest-apis
     - restful api
     - restful apis
+  TypeScript:
+    category: programming
+    parent: null
+    mentions: 43
+    aliases:
+    - typescript
   Data Platforms:
     category: data_engineering
     parent: null
@@ -1181,93 +1333,27 @@ skills:
     - datenplattform-architekturen
     - datenplattformen
     - moderne datenplattformen
-  Java:
-    category: programming
+  Information Retrieval:
+    category: ml_ai
     parent: null
     mentions: 40
     aliases:
-    - java
-    - jvm languages
-  LangChain:
-    category: ml_ai
-    parent: Large Language Models
-    mentions: 39
-    aliases:
-    - langchain
-  Relational Databases:
-    category: database
-    parent: Databases
-    mentions: 39
-    aliases:
-    - bases de données relationnelles
-    - relational database
-    - relational database systems
-    - relational databases
-    - relational mass data processing
-    - relationale datenbanken
-    - relationale datenbanksysteme
-    - relationale datenstrukturen
-    - relationele databases
-  TypeScript:
-    category: programming
-    parent: null
-    mentions: 38
-    aliases:
-    - typescript
-  Claude Code:
-    category: software_engineering
-    parent: AI-Assisted Coding
-    mentions: 37
-    aliases:
-    - claude code
-  Workflow Automation:
-    category: software_engineering
-    parent: null
-    mentions: 36
-    aliases:
-    - automation
-    - automation platforms
-    - automation tools
-    - automation workflows
-    - automatisation
-    - automatisierte workflows
-    - automatisierung
-    - automatisierung analytischer workflows
-    - automatisierungslösungen
-    - process automation
-    - prozessautomatisierung
-    - workflow automation
-  Containerization:
-    category: devops
-    parent: null
-    mentions: 35
-    aliases:
-    - container-based environments
-    - container-plattformen
-    - container-technologien
-    - containerisation
-    - containerisierte anwendungen
-    - containerisierung
-    - containerization
-    - containerizing ml inference
-    - containeromgevingen
-    - containers
-    - containertechnologien
-    - conteneurisation
-    - linux-container
-  Data Science:
-    category: ml_ai
-    parent: null
-    mentions: 35
-    aliases:
-    - data science
-    - data science frameworks
-    - data-science-methoden
-    - data-science-tools
+    - information retrieval
+    - inverted indexes
+    - ki-basierte suchsysteme
+    - natural language search engines
+    - retrieval
+    - retrieval evaluation
+    - retrieval pipelines
+    - retrieval systems
+    - retrieval tuning
+    - search
+    - search indexes
+    - search systems
   Vector Databases:
     category: database
     parent: null
-    mentions: 35
+    mentions: 38
     aliases:
     - metadata filtering
     - vector databases
@@ -1277,39 +1363,112 @@ skills:
     - vektor-datenbanken
     - vektordatenbanken
     - vektorspeicher
-  Excel:
-    category: analytics_bi
+  Access Control:
+    category: software_engineering
     parent: null
-    mentions: 34
+    mentions: 37
     aliases:
-    - advanced excel
-    - excel
-    - ms excel
-    - pivot-tabellen
-  Information Retrieval:
+    - abac
+    - access control
+    - access controls
+    - access management
+    - acls
+    - berechtigungen
+    - berechtigungskonzepte
+    - iam
+    - identity & access management
+    - identity and access management
+    - ols
+    - rbac
+    - role-based access control
+    - row-level security
+  LangGraph:
     category: ml_ai
-    parent: null
-    mentions: 34
+    parent: AI Agents
+    mentions: 37
     aliases:
-    - information retrieval
-    - retrieval
-    - retrieval evaluation
-    - retrieval pipelines
-    - retrieval systems
-    - retrieval tuning
-    - search
-    - search indexes
-    - search systems
+    - langgraph
   PySpark:
     category: data_engineering
     parent: Apache Spark
-    mentions: 34
+    mentions: 37
     aliases:
     - pyspark
+  Stream Processing:
+    category: data_engineering
+    parent: null
+    mentions: 37
+    aliases:
+    - echtzeit-/streaming-schnittstellen
+    - event streaming
+    - event streams
+    - event-processing systems
+    - event-streaming
+    - real-time decisioning
+    - stream processing
+    - streaming
+    - streaming architectures
+    - streaming data frameworks
+    - streaming pipelines
+    - streaming systems
+    - streaming-daten
+    - streaming-datenpipelines
+    - streaming-pipelines
+  Computer Vision:
+    category: ml_ai
+    parent: null
+    mentions: 36
+    aliases:
+    - biometric verification
+    - classical computer vision
+    - computer vision
+    - feature detection
+    - keypoint detection
+    - liveness detection
+    - ml/cv-modelle
+    - optical flow
+    - presentation attack detection
+    - street-level imagery
+    - vision models
+  Data Science:
+    category: ml_ai
+    parent: null
+    mentions: 36
+    aliases:
+    - data science
+    - data science frameworks
+    - data-science-methoden
+    - data-science-tools
+  LLM Fine-tuning:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 36
+    aliases:
+    - feinabstimmung
+    - feintuning
+    - fine-tuning
+    - fine-tuning llms
+    - finetuning
+    - llm fine-tuning
+    - llm finetuning
+    - sft
+  Test Automation:
+    category: software_engineering
+    parent: Testing
+    mentions: 36
+    aliases:
+    - automated testing
+    - automatisierte tests
+    - automatisiertes testing
+    - geautomatiseerd testen
+    - test automation
+    - test scripts
+    - testautomatisierung
+    - tests automatisés
   Tool Calling:
     category: ml_ai
     parent: Large Language Models
-    mentions: 34
+    mentions: 36
     aliases:
     - function calling
     - function/tool calling
@@ -1320,15 +1479,94 @@ skills:
     - tool-engineering
     - tool-use
     - tool/function calling
+  pandas:
+    category: programming
+    parent: Python
+    mentions: 36
+    aliases:
+    - pandas
+  Data Lakehouse:
+    category: data_engineering
+    parent: null
+    mentions: 34
+    aliases:
+    - data lakehouse
+    - data lakehousing
+    - data-lakehouse-architekturen
+    - datalakehouse
+    - lakehouse
+    - lakehouse-architektur
+    - lakehouse-architekturen
+  Data Privacy:
+    category: business_domain
+    parent: null
+    mentions: 34
+    aliases:
+    - ccpa
+    - cipp/e
+    - data privacy
+    - datenschutz
+    - datenschutzgesetze
+    - datenschutzmanagement
+    - pii handling
+    - privacy
+    - privacy-enhancing technologies
+    - protection des données
+    - sensitive data
+    - tüv-datenschutzbeauftragter
   Feature Engineering:
     category: ml_ai
     parent: Machine Learning
-    mentions: 33
+    mentions: 34
     aliases:
     - feature engineering
     - feature extraction
     - feature pipelines
     - feature selection
+  JavaScript:
+    category: programming
+    parent: null
+    mentions: 34
+    aliases:
+    - javascript
+  MLflow:
+    category: ml_ai
+    parent: MLOps
+    mentions: 34
+    aliases:
+    - mlflow
+  Forecasting:
+    category: methods
+    parent: null
+    mentions: 33
+    aliases:
+    - bayesian forecasting
+    - forecasting
+    - forecasting algorithms
+    - forecasting models
+    - forecasts
+    - holt-winters
+    - ml for forecasting
+    - nowcasting
+    - prognose
+    - prognosemodelle
+    - prévision quantilique
+    - revenue forecasting
+    - sales forecasting
+  Linux:
+    category: devops
+    parent: null
+    mentions: 33
+    aliases:
+    - linux
+    - linux/unix
+  NoSQL Databases:
+    category: database
+    parent: Databases
+    mentions: 33
+    aliases:
+    - non-relational databases
+    - nosql
   Software Architecture:
     category: software_engineering
     parent: null
@@ -1346,59 +1584,10 @@ skills:
     - softwarearchitekturen
     - solution design
     - system architecture
-  Stream Processing:
-    category: data_engineering
-    parent: null
-    mentions: 33
-    aliases:
-    - echtzeit-/streaming-schnittstellen
-    - event streaming
-    - event streams
-    - event-processing systems
-    - event-streaming
-    - real-time decisioning
-    - streaming
-    - streaming architectures
-    - streaming data frameworks
-    - streaming pipelines
-    - streaming systems
-    - streaming-daten
-    - streaming-datenpipelines
-    - streaming-pipelines
-  Data Privacy:
-    category: business_domain
-    parent: null
-    mentions: 32
-    aliases:
-    - ccpa
-    - cipp/e
-    - data privacy
-    - datenschutz
-    - datenschutzgesetze
-    - datenschutzmanagement
-    - pii handling
-    - privacy
-    - privacy-enhancing technologies
-    - protection des données
-    - sensitive data
-    - tüv-datenschutzbeauftragter
-  Test Automation:
-    category: software_engineering
-    parent: Testing
-    mentions: 32
-    aliases:
-    - automated testing
-    - automatisierte tests
-    - automatisiertes testing
-    - geautomatiseerd testen
-    - test automation
-    - test scripts
-    - testautomatisierung
-    - tests automatisés
   Version Control:
     category: devops
     parent: null
-    mentions: 32
+    mentions: 33
     aliases:
     - code-versionierung
     - versiebeheer
@@ -1408,123 +1597,15 @@ skills:
     - versionskontrolle
     - versionskontrollsysteme
     - versionsverwaltung
-  Computer Vision:
-    category: ml_ai
-    parent: null
-    mentions: 31
-    aliases:
-    - biometric verification
-    - classical computer vision
-    - computer vision
-    - feature detection
-    - keypoint detection
-    - liveness detection
-    - ml/cv-modelle
-    - optical flow
-    - presentation attack detection
-    - street-level imagery
-    - vision models
-  MLflow:
-    category: ml_ai
-    parent: MLOps
-    mentions: 31
-    aliases:
-    - mlflow
-  NoSQL Databases:
-    category: database
-    parent: Databases
-    mentions: 31
-    aliases:
-    - non-relational databases
-    - nosql
-  Access Control:
-    category: software_engineering
-    parent: null
-    mentions: 30
-    aliases:
-    - abac
-    - access control
-    - access controls
-    - access management
-    - acls
-    - berechtigungen
-    - berechtigungskonzepte
-    - iam
-    - identity & access management
-    - identity and access management
-    - ols
-    - rbac
-    - role-based access control
-    - row-level security
-  Data Lakehouse:
-    category: data_engineering
-    parent: null
-    mentions: 30
-    aliases:
-    - data lakehouse
-    - data lakehousing
-    - data-lakehouse-architekturen
-    - datalakehouse
-    - lakehouse
-    - lakehouse-architektur
-    - lakehouse-architekturen
-  LLM Fine-tuning:
-    category: ml_ai
-    parent: Large Language Models
-    mentions: 30
-    aliases:
-    - feinabstimmung
-    - feintuning
-    - fine-tuning
-    - fine-tuning llms
-    - finetuning
-    - llm fine-tuning
-    - llm finetuning
-    - sft
-  pandas:
-    category: programming
-    parent: Python
-    mentions: 30
-    aliases:
-    - pandas
-  Forecasting:
-    category: methods
-    parent: null
-    mentions: 29
-    aliases:
-    - bayesian forecasting
-    - forecasting
-    - forecasting algorithms
-    - forecasting models
-    - forecasts
-    - holt-winters
-    - ml for forecasting
-    - nowcasting
-    - prognose
-    - prognosemodelle
-    - prévision quantilique
-    - revenue forecasting
-  LangGraph:
-    category: ml_ai
-    parent: AI Agents
-    mentions: 29
-    aliases:
-    - langgraph
-  Linux:
-    category: devops
-    parent: null
-    mentions: 28
-    aliases:
-    - linux
-    - linux/unix
   Model Evaluation:
     category: ml_ai
     parent: Machine Learning
-    mentions: 28
+    mentions: 32
     aliases:
     - classifier evaluation
     - data leakage
     - datenleckagen
+    - evaluation metrics
     - evaluation von ki-modellen
     - model diagnostics
     - model evaluation
@@ -1537,6 +1618,105 @@ skills:
     - offline evaluation metrics
     - offline/online metrics
     - online evaluation
+  Predictive Modeling:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 32
+    aliases:
+    - analyses prédictives
+    - construction de scores
+    - predictive analytics
+    - predictive marketing
+    - predictive modeling
+    - predictive modelling
+    - predictive models
+    - predictive-analytics
+    - prädiktive modelle
+    - scoring
+    - treatment outcome prediction
+    - voorspelmodellen
+  Cursor:
+    category: software_engineering
+    parent: AI-Assisted Coding
+    mentions: 31
+    aliases:
+    - cursor
+    - cursor.ai
+  SAP:
+    category: business_domain
+    parent: null
+    mentions: 31
+    aliases:
+    - sap
+    - sap business accelerator hub
+    - sap data models
+    - sap gateway
+    - sap graph api
+    - sap one domain model
+    - sap-daten
+    - sap-datenmanagement
+  AWS S3:
+    category: cloud
+    parent: AWS
+    mentions: 30
+    aliases:
+    - aws s3
+    - s3
+  DevOps:
+    category: devops
+    parent: null
+    mentions: 30
+    aliases:
+    - devops
+    - devops-tools
+  Azure DevOps:
+    category: devops
+    parent: Azure
+    mentions: 29
+    aliases:
+    - azure devops
+    - azure devops pipelines
+  Data Integration:
+    category: data_engineering
+    parent: null
+    mentions: 29
+    aliases:
+    - data integratie tool
+    - data integration
+    - data integration tools
+    - datenanbindung
+    - datenintegration
+    - multi-modal data integration
+  Microsoft Office:
+    category: business_domain
+    parent: null
+    mentions: 29
+    aliases:
+    - microsoft 365
+    - microsoft office
+    - ms office
+    - ms-office
+    - office
+    - office-anwendungen
+    - powerpoint
+  ERP:
+    category: business_domain
+    parent: null
+    mentions: 28
+    aliases:
+    - erp
+    - erp data
+    - erp-daten
+    - erp-schnittstellen
+    - erp-system
+    - erp-systeme
+    - erp-systemen
+  GitHub:
+    category: devops
+    parent: Git
+    mentions: 28
+    aliases:
+    - github
   Model Monitoring:
     category: ml_ai
     parent: MLOps
@@ -1566,23 +1746,10 @@ skills:
     - agiles projektmanagement
     - lean
     - méthodes agiles
-  SAP:
-    category: business_domain
-    parent: null
-    mentions: 27
-    aliases:
-    - sap
-    - sap business accelerator hub
-    - sap data models
-    - sap gateway
-    - sap graph api
-    - sap one domain model
-    - sap-daten
-    - sap-datenmanagement
   Data Architecture:
     category: data_engineering
     parent: null
-    mentions: 26
+    mentions: 27
     aliases:
     - architecture si data
     - bi cloud architecture
@@ -1590,114 +1757,42 @@ skills:
     - data architecture
     - data architectures
     - data architectuur
+    - data platform architectures
     - data-architecturen
     - data-architectuur
     - datenarchitekturen
     - lambda & kappa architectures
     - moderne datenarchitekturen
-  ERP:
-    category: business_domain
+  Data Lakes:
+    category: data_engineering
     parent: null
+    mentions: 27
+    aliases:
+    - data lake
+    - data lake architectures
+    - data lakes
+  Amazon Redshift:
+    category: database
+    parent: AWS
     mentions: 26
     aliases:
-    - erp
-    - erp data
-    - erp-daten
-    - erp-schnittstellen
-    - erp-system
-    - erp-systeme
-    - erp-systemen
-  GDPR:
-    category: business_domain
-    parent: Data Privacy
-    mentions: 26
-    aliases:
-    - datenschutz (dsgvo)
-    - datenschutz-folgenabschätzungen (dsfa)
-    - dsgvo
-    - gdpr
-    - rgpd
-  GitHub:
-    category: devops
-    parent: Git
-    mentions: 26
-    aliases:
-    - github
-  Predictive Modeling:
-    category: ml_ai
-    parent: Machine Learning
-    mentions: 26
-    aliases:
-    - predictive analytics
-    - predictive marketing
-    - predictive modeling
-    - predictive modelling
-    - predictive models
-    - predictive-analytics
-    - prädiktive modelle
-    - scoring
-    - treatment outcome prediction
-    - voorspelmodellen
+    - amazon redshift
+    - aws redshift
+    - redshift
+    - redshift spectrum
   Azure Data Factory:
     category: cloud
     parent: Azure
-    mentions: 25
+    mentions: 26
     aliases:
     - azure data factory
     - data factory
     - data flows
     - data-factory-pipelines
-  Data Integration:
-    category: data_engineering
-    parent: null
-    mentions: 25
-    aliases:
-    - data integratie tool
-    - data integration
-    - data integration tools
-    - datenanbindung
-    - datenintegration
-    - multi-modal data integration
-  DevOps:
-    category: devops
-    parent: null
-    mentions: 25
-    aliases:
-    - devops
-    - devops-tools
-  JavaScript:
-    category: programming
-    parent: null
-    mentions: 25
-    aliases:
-    - javascript
-  AWS S3:
-    category: cloud
-    parent: AWS
-    mentions: 24
-    aliases:
-    - aws s3
-    - s3
-  Embeddings:
-    category: ml_ai
-    parent: null
-    mentions: 24
-    aliases:
-    - embedding models
-    - embedding optimization
-    - embedding space alignment
-    - embeddings
-  Data Lakes:
-    category: data_engineering
-    parent: null
-    mentions: 23
-    aliases:
-    - data lake
-    - data lakes
   Dimensional Modeling:
     category: data_engineering
     parent: Data Modeling
-    mentions: 23
+    mentions: 26
     aliases:
     - dimensional data modelling
     - dimensional modeling
@@ -1710,35 +1805,27 @@ skills:
     - dimensionele datamodellering
     - kimball
     - kimball dimensional modelling
-  FastAPI:
-    category: software_engineering
-    parent: Python
-    mentions: 23
-    aliases:
-    - fastapi
-  Microsoft Office:
+  GDPR:
     category: business_domain
+    parent: Data Privacy
+    mentions: 26
+    aliases:
+    - datenschutz (dsgvo)
+    - datenschutz-folgenabschätzungen (dsfa)
+    - dsgvo
+    - gdpr
+    - rgpd
+  Go:
+    category: programming
     parent: null
-    mentions: 23
+    mentions: 26
     aliases:
-    - microsoft 365
-    - microsoft office
-    - ms office
-    - ms-office
-    - office
-    - office-anwendungen
-    - powerpoint
-  Azure DevOps:
-    category: devops
-    parent: Azure
-    mentions: 22
-    aliases:
-    - azure devops
-    - azure devops pipelines
+    - go
+    - golang
   KPIs:
     category: analytics_bi
     parent: null
-    mentions: 22
+    mentions: 26
     aliases:
     - b2b saas metrics
     - betriebswirtschaftliche kennzahlen
@@ -1747,21 +1834,30 @@ skills:
     - kpi reporting
     - kpi-definitionen
     - kpi-governance
+    - kpi-management
     - kpi-systeme
     - kpis
     - marketplace metrics
     - metric definition
-  Scrum:
-    category: business_domain
-    parent: Agile
-    mentions: 22
+  Embeddings:
+    category: ml_ai
+    parent: null
+    mentions: 25
     aliases:
-    - scrum
-    - scrum/agile
+    - embedding models
+    - embedding optimization
+    - embedding space alignment
+    - embeddings
+  FastAPI:
+    category: software_engineering
+    parent: Python
+    mentions: 25
+    aliases:
+    - fastapi
   Semantic Layer:
     category: data_engineering
     parent: Data Modeling
-    mentions: 22
+    mentions: 25
     aliases:
     - modèles de données sémantiques
     - semantic layer
@@ -1773,6 +1869,180 @@ skills:
     - semantische layer
     - semantische modelle
     - semantische modellierung
+  LLM APIs:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 24
+    aliases:
+    - ai apis
+    - apis llm
+    - genai apis
+    - ki-/llm-dienste
+    - ki/llm-apis
+    - llm api integration
+    - llm apis
+    - llm integrations
+    - llm provider apis
+    - llm providers
+    - llm-apis
+    - model apis
+    - third-party ai apis
+  NumPy:
+    category: programming
+    parent: Python
+    mentions: 24
+    aliases:
+    - numpy
+  Structured Outputs:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 24
+    aliases:
+    - structured extraction
+    - structured output
+    - structured outputs
+    - strukturierte extraktion
+    - strukturierte outputs
+  Time Series Analysis:
+    category: methods
+    parent: Statistics
+    mentions: 24
+    aliases:
+    - sarima
+    - séries temporelles
+    - tijdreeksdata
+    - time series analysis
+    - time-series aggregation
+    - time-series analysis
+    - time-series data
+    - time-series modelling
+    - time-series process data
+    - vector autoregression
+    - zeitreihenanalyse
+    - zeitreihenanalysen
+    - zeitreihendaten
+  Vertex AI:
+    category: cloud
+    parent: Google Cloud
+    mentions: 24
+    aliases:
+    - gcp vertex ai
+    - google cloud vertex ai
+    - google vertex ai
+    - vertex ai
+  AWS SageMaker:
+    category: cloud
+    parent: AWS
+    mentions: 23
+    aliases:
+    - amazon sagemaker
+    - aws sagemaker
+    - sagemaker
+  Backend Development:
+    category: software_engineering
+    parent: null
+    mentions: 23
+    aliases:
+    - back end
+    - back-end
+    - back-end development
+    - back-endontwikkeling
+    - backend
+    - backend development
+    - backend engineering
+    - backend services
+    - backend systems
+    - backend-entwicklung
+    - backend-systeme
+    - backend-technologien
+    - web app backends
+  C++:
+    category: programming
+    parent: null
+    mentions: 23
+    aliases:
+    - c++
+  Project Management:
+    category: business_domain
+    parent: null
+    mentions: 23
+    aliases:
+    - gestion de projet
+    - project delivery
+    - project management
+    - project management tools
+    - projektkoordination
+    - projektleitung
+    - projektmanagement
+    - projektmanagement (pma level b)
+    - projektmanagement-tools
+    - projektplanung
+  Scala:
+    category: programming
+    parent: null
+    mentions: 23
+    aliases:
+    - scala
+  Claude:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 22
+    aliases:
+    - claude
+  Dagster:
+    category: data_engineering
+    parent: null
+    mentions: 22
+    aliases:
+    - dagster
+  GPU Computing:
+    category: ml_ai
+    parent: null
+    mentions: 22
+    aliases:
+    - gpu
+    - gpu acceleration
+    - gpu architectures
+    - gpu computing
+    - gpu inference
+    - gpu infrastructure
+    - gpu job scheduling
+    - gpu programming
+    - gpu scheduling
+    - gpu-scaling
+    - gpu-workloads
+    - gpus
+    - hardware accelerators
+    - hardware-accelerated deep learning
+    - nvidia h100/h200
+    - nvidia-gpu-stack
+    - nvlink
+  GitHub Actions:
+    category: devops
+    parent: CI/CD
+    mentions: 22
+    aliases:
+    - github actions
+  Recommender Systems:
+    category: ml_ai
+    parent: null
+    mentions: 22
+    aliases:
+    - personalization
+    - recommendation
+    - recommendation models
+    - recommendation systems
+    - recommendations
+    - recommender systems
+    - sequence-based user preference modeling
+    - two-tower architectures
+  Scrum:
+    category: business_domain
+    parent: Agile
+    mentions: 22
+    aliases:
+    - scrum
+    - scrum/agile
   Semantic Search:
     category: ml_ai
     parent: null
@@ -1787,142 +2057,101 @@ skills:
     - semantische suche
     - semantische suchverfahren
     - vector search
-  Vertex AI:
-    category: cloud
-    parent: Google Cloud
+  Transformers:
+    category: ml_ai
+    parent: Deep Learning
     mentions: 22
     aliases:
-    - gcp vertex ai
-    - google cloud vertex ai
-    - google vertex ai
-    - vertex ai
-  Backend Development:
+    - attention
+    - hugging face transformers
+    - rope
+    - transformer
+    - transformer architectures
+    - transformers
+  AI Guardrails:
+    category: ml_ai
+    parent: null
+    mentions: 21
+    aliases:
+    - aws guardrails
+    - guardrails
+  Big Data:
+    category: data_engineering
+    parent: null
+    mentions: 21
+    aliases:
+    - big data
+    - big data frameworks
+    - big data processing
+    - big data technologien
+    - big-data systeme
+    - big-data-tools
+    - data processing frameworks
+    - grote datasets
+    - large-scale data processing frameworks
+    - large-scale data systems
+    - skalierbare datenverarbeitungstechnologien
+    - verarbeitung großer datenmengen
+  Code Review:
     category: software_engineering
     parent: null
     mentions: 21
     aliases:
-    - back end
-    - back-end
-    - back-end development
-    - backend
-    - backend development
-    - backend engineering
-    - backend services
-    - backend systems
-    - backend-entwicklung
-    - backend-systeme
-    - backend-technologien
-    - web app backends
-  LLM APIs:
-    category: ml_ai
-    parent: Large Language Models
-    mentions: 21
-    aliases:
-    - ai apis
-    - apis llm
-    - genai apis
-    - ki-/llm-dienste
-    - ki/llm-apis
-    - llm api integration
-    - llm apis
-    - llm integrations
-    - llm provider apis
-    - llm providers
-    - llm-apis
-    - model apis
-  NumPy:
-    category: programming
-    parent: Python
-    mentions: 21
-    aliases:
-    - numpy
-  Project Management:
+    - code review
+    - code reviews
+    - code-reviews
+    - pull-request-based development
+  Jira:
     category: business_domain
     parent: null
     mentions: 21
     aliases:
-    - gestion de projet
-    - project delivery
-    - project management
-    - project management tools
-    - projektkoordination
-    - projektleitung
-    - projektmanagement
-    - projektmanagement (pma level b)
-    - projektplanung
-  Recommender Systems:
-    category: ml_ai
-    parent: null
-    mentions: 21
-    aliases:
-    - personalization
-    - recommendation
-    - recommendation models
-    - recommendation systems
-    - recommendations
-    - recommender systems
-    - sequence-based user preference modeling
-    - two-tower architectures
-  Amazon Redshift:
-    category: database
-    parent: AWS
-    mentions: 20
-    aliases:
-    - amazon redshift
-    - aws redshift
-    - redshift
-  C++:
+    - jira
+    - jira service desk
+    - jira-workflows
+    - project management workflow configuration
+  Bash:
     category: programming
     parent: null
     mentions: 20
     aliases:
-    - c++
-  Claude:
+    - bash
+    - bash/shell
+    - shell
+    - shell scripting
+  Distributed Training:
     category: ml_ai
-    parent: Large Language Models
+    parent: Deep Learning
     mentions: 20
     aliases:
-    - claude
-  Cursor:
+    - distributed training
+    - fsdp
+    - large-scale model training
+    - multi-gpu
+    - pytorch distributed
+    - training orchestration
+  GitHub Copilot:
     category: software_engineering
     parent: AI-Assisted Coding
     mentions: 20
     aliases:
-    - cursor
-    - cursor.ai
-  Dagster:
-    category: data_engineering
+    - copilot
+    - github copilot
+  Looker:
+    category: analytics_bi
     parent: null
     mentions: 20
     aliases:
-    - dagster
-  GPU Computing:
+    - looker
+  OpenAI API:
     category: ml_ai
-    parent: null
+    parent: LLM APIs
     mentions: 20
     aliases:
-    - gpu
-    - gpu architectures
-    - gpu computing
-    - gpu inference
-    - gpu job scheduling
-    - gpu programming
-    - gpu scheduling
-    - gpu-scaling
-    - gpu-workloads
-    - gpus
-    - hardware accelerators
-    - hardware-accelerated deep learning
-    - nvidia h100/h200
-    - nvidia-gpu-stack
-    - nvlink
-  Go:
-    category: programming
-    parent: null
-    mentions: 20
-    aliases:
-    - go
-    - golang
+    - openai
+    - openai api
+    - openai apis
+    - openai gpt api
   Optimization:
     category: methods
     parent: null
@@ -1940,13 +2169,46 @@ skills:
     - optimization
     - portfolio optimization
     - portfolio/mix optimisation
-  AI Guardrails:
-    category: ml_ai
+  Statistical Modeling:
+    category: methods
+    parent: Statistics
+    mentions: 20
+    aliases:
+    - modélisation statistique
+    - statistical modeling
+    - statistical modelling
+    - statistical models
+    - statistische grundmodelle
+    - statistische modelle
+    - statistische modellering
+    - statistische modellierung
+  Causal Inference:
+    category: methods
     parent: null
     mentions: 19
     aliases:
-    - aws guardrails
-    - guardrails
+    - causal analysis
+    - causal impact
+    - causal inference
+    - causal reasoning
+    - kausale inferenz
+    - kausale modellierung
+    - quasi-experimental methods
+  Context Engineering:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 19
+    aliases:
+    - context assembly
+    - context design
+    - context engineering
+    - context management
+    - context window
+    - context window optimization
+    - context windows
+    - context-engineering
+    - kontext-engineering
+    - kontext-management
   Data Center Infrastructure:
     category: devops
     parent: null
@@ -1970,56 +2232,27 @@ skills:
     - stromversorgung
     - systèmes de secours électrique
     - ups
-  GitHub Actions:
-    category: devops
-    parent: CI/CD
-    mentions: 19
-    aliases:
-    - github actions
-  Jira:
-    category: business_domain
+  Distributed Systems:
+    category: software_engineering
     parent: null
     mentions: 19
     aliases:
-    - jira
-    - jira service desk
-    - jira-workflows
-  Structured Outputs:
-    category: ml_ai
-    parent: Large Language Models
+    - distributed scheduling
+    - distributed systems
+    - distributed systems troubleshooting
+    - verteilte systeme
+  GitLab:
+    category: devops
+    parent: Git
     mentions: 19
     aliases:
-    - structured extraction
-    - structured output
-    - structured outputs
-    - strukturierte extraktion
-    - strukturierte outputs
-  Time Series Analysis:
-    category: methods
-    parent: Statistics
+    - gitlab
+  Rust:
+    category: programming
+    parent: null
     mentions: 19
     aliases:
-    - sarima
-    - time series analysis
-    - time-series aggregation
-    - time-series analysis
-    - time-series data
-    - time-series modelling
-    - time-series process data
-    - vector autoregression
-    - zeitreihenanalyse
-    - zeitreihenanalysen
-    - zeitreihendaten
-  Transformers:
-    category: ml_ai
-    parent: Deep Learning
-    mentions: 19
-    aliases:
-    - attention
-    - rope
-    - transformer
-    - transformer architectures
-    - transformers
+    - rust
   Web Analytics:
     category: analytics_bi
     parent: null
@@ -2035,96 +2268,16 @@ skills:
     - web analytics
     - web tracking
     - web-analytics
-  Bash:
+  CUDA:
     category: programming
     parent: null
     mentions: 18
     aliases:
-    - bash
-    - bash/shell
-    - shell
-    - shell scripting
-  Big Data:
-    category: data_engineering
-    parent: null
-    mentions: 18
-    aliases:
-    - big data
-    - big data frameworks
-    - big data processing
-    - big data technologien
-    - data processing frameworks
-    - grote datasets
-    - large-scale data processing frameworks
-    - large-scale data systems
-    - skalierbare datenverarbeitungstechnologien
-    - verarbeitung großer datenmengen
-  Distributed Systems:
-    category: software_engineering
-    parent: null
-    mentions: 18
-    aliases:
-    - distributed scheduling
-    - distributed systems
-    - distributed systems troubleshooting
-    - verteilte systeme
-  Looker:
-    category: analytics_bi
-    parent: null
-    mentions: 18
-    aliases:
-    - looker
-  Rust:
-    category: programming
-    parent: null
-    mentions: 18
-    aliases:
-    - rust
-  Statistical Modeling:
-    category: methods
-    parent: Statistics
-    mentions: 18
-    aliases:
-    - modélisation statistique
-    - statistical modeling
-    - statistical modelling
-    - statistical models
-    - statistische grundmodelle
-    - statistische modelle
-    - statistische modellering
-    - statistische modellierung
-  AWS SageMaker:
-    category: cloud
-    parent: AWS
-    mentions: 17
-    aliases:
-    - amazon sagemaker
-    - aws sagemaker
-    - sagemaker
-  Causal Inference:
-    category: methods
-    parent: null
-    mentions: 17
-    aliases:
-    - causal analysis
-    - causal inference
-    - causal reasoning
-    - kausale inferenz
-    - kausale modellierung
-    - quasi-experimental methods
-  Code Review:
-    category: software_engineering
-    parent: null
-    mentions: 17
-    aliases:
-    - code review
-    - code reviews
-    - code-reviews
-    - pull-request-based development
+    - cuda
   Data Cleaning:
     category: data_engineering
     parent: null
-    mentions: 17
+    mentions: 18
     aliases:
     - data cleaning
     - data cleansing
@@ -2133,6 +2286,83 @@ skills:
     - datenaufbereitung
     - datenbereinigung
     - deduplication
+  Experimental Design:
+    category: methods
+    parent: Statistics
+    mentions: 18
+    aliases:
+    - experiment design
+    - experimental design
+    - experimentation design
+    - experimentdesign
+    - experimenteel ontwerp
+    - kontrollgruppen
+    - randomized controlled trials
+  LLMOps:
+    category: ml_ai
+    parent: MLOps
+    mentions: 18
+    aliases:
+    - language models in production
+    - llmops
+    - prompt management
+  Model Registry:
+    category: ml_ai
+    parent: MLOps
+    mentions: 18
+    aliases:
+    - model registries
+    - model registry
+    - model versioning
+    - modellversionierung
+  OpenAI Codex:
+    category: software_engineering
+    parent: AI-Assisted Coding
+    mentions: 18
+    aliases:
+    - codex
+  React:
+    category: software_engineering
+    parent: null
+    mentions: 18
+    aliases:
+    - react
+    - react.js
+  Star Schema:
+    category: data_engineering
+    parent: Dimensional Modeling
+    mentions: 18
+    aliases:
+    - star schema
+    - star schemas
+    - star-schema
+  DAX:
+    category: analytics_bi
+    parent: Power BI
+    mentions: 17
+    aliases:
+    - dax
+  NVIDIA Triton Inference Server:
+    category: ml_ai
+    parent: Model Serving
+    mentions: 17
+    aliases:
+    - nvidia triton
+    - triton
+    - triton inference server
+  Query Optimization:
+    category: database
+    parent: Database Performance Tuning
+    mentions: 17
+    aliases:
+    - abfrageoptimierung
+    - database-optimalisatie
+    - query optimisation
+    - query optimization
+    - query performance
+    - query-optimierung
+    - query-tuning
+    - sql performance optimization
   Ranking Systems:
     category: ml_ai
     parent: null
@@ -2148,18 +2378,13 @@ skills:
     - ranking-verfahren
     - search and ranking
     - two-tower
-  CUDA:
-    category: programming
-    parent: null
+  Apache Flink:
+    category: data_engineering
+    parent: Stream Processing
     mentions: 16
     aliases:
-    - cuda
-  DAX:
-    category: analytics_bi
-    parent: Power BI
-    mentions: 16
-    aliases:
-    - dax
+    - apache flink
+    - flink
   Data Security:
     category: software_engineering
     parent: null
@@ -2168,6 +2393,13 @@ skills:
     - column-level security
     - data security
     - datensicherheit
+  Delta Lake:
+    category: data_engineering
+    parent: null
+    mentions: 16
+    aliases:
+    - delta
+    - delta lake
   Digital Signal Processing:
     category: methods
     parent: null
@@ -2183,24 +2415,19 @@ skills:
     - spectral analysis
     - traitement du signal
     - wavelet transforms
-  Distributed Training:
-    category: ml_ai
-    parent: Deep Learning
+  Distributed Computing:
+    category: data_engineering
+    parent: null
     mentions: 16
     aliases:
-    - distributed training
-    - fsdp
-    - multi-gpu
-    - pytorch distributed
-    - training orchestration
-  LLMOps:
-    category: ml_ai
-    parent: MLOps
-    mentions: 16
-    aliases:
-    - language models in production
-    - llmops
-    - prompt management
+    - cluster-computing
+    - distributed computing
+    - distributed data processing
+    - distributed processing
+    - distributed processing framework
+    - distributed query engines
+    - verteilte datenverarbeitung
+    - verteilte query-engines
   Logging:
     category: devops
     parent: Monitoring
@@ -2226,20 +2453,24 @@ skills:
     - objektorientiertes softwaredesign
     - ood
     - oop
-  OpenAI API:
-    category: ml_ai
-    parent: LLM APIs
+  Performance Optimization:
+    category: software_engineering
+    parent: null
     mentions: 16
     aliases:
-    - openai
-    - openai api
-    - openai apis
-  Scala:
+    - performance optimisation
+    - performance optimization
+    - performance tuning
+    - performance-optimierung
+    - performance-tuning
+    - performanceoptimierung
+  SAS:
     category: programming
     parent: null
     mentions: 16
     aliases:
-    - scala
+    - base sas
+    - sas
   Speech Recognition:
     category: ml_ai
     parent: null
@@ -2258,62 +2489,10 @@ skills:
     - speech-to-text
     - streaming asr
     - stt
-  Delta Lake:
-    category: data_engineering
-    parent: null
-    mentions: 15
-    aliases:
-    - delta
-    - delta lake
-  Experimental Design:
-    category: methods
-    parent: Statistics
-    mentions: 15
-    aliases:
-    - experiment design
-    - experimental design
-    - experimentdesign
-    - kontrollgruppen
-    - randomized controlled trials
-  Model Registry:
-    category: ml_ai
-    parent: MLOps
-    mentions: 15
-    aliases:
-    - model registries
-    - model registry
-    - model versioning
-  NVIDIA Triton Inference Server:
-    category: ml_ai
-    parent: Model Serving
-    mentions: 15
-    aliases:
-    - nvidia triton
-    - triton
-    - triton inference server
-  Performance Optimization:
-    category: software_engineering
-    parent: null
-    mentions: 15
-    aliases:
-    - performance optimisation
-    - performance optimization
-    - performance tuning
-    - performance-optimierung
-    - performance-tuning
-    - performanceoptimierung
-  Star Schema:
-    category: data_engineering
-    parent: Dimensional Modeling
-    mentions: 15
-    aliases:
-    - star schema
-    - star schemas
-    - star-schema
   API Design:
     category: software_engineering
     parent: APIs
-    mentions: 14
+    mentions: 15
     aliases:
     - api design
     - api documentation
@@ -2322,6 +2501,95 @@ skills:
     - api-entwicklung
     - api-oriented architectures
     - sdk design
+  Amazon Bedrock:
+    category: cloud
+    parent: AWS
+    mentions: 15
+    aliases:
+    - amazon bedrock
+    - aws bedrock
+    - aws bedrock agentcore
+    - bedrock
+  C#:
+    category: programming
+    parent: null
+    mentions: 15
+    aliases:
+    - c#
+  Data Vault:
+    category: data_engineering
+    parent: Data Modeling
+    mentions: 15
+    aliases:
+    - data vault
+    - data vault 2.0
+    - data vault modeling
+    - data vault-modellering
+    - data-vault-datenmodellierung
+  Experiment Tracking:
+    category: ml_ai
+    parent: MLOps
+    mentions: 15
+    aliases:
+    - experiment tracking
+    - experiment-tracking
+    - experimentverwaltung
+    - ml experiment tracking
+  Frontend Development:
+    category: software_engineering
+    parent: null
+    mentions: 15
+    aliases:
+    - front end
+    - front-end
+    - front-end frameworks
+    - front-end web framework
+    - frontend
+    - frontend development
+    - frontend technologies
+  Gemini:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 15
+    aliases:
+    - gemini
+    - google gemini
+  Microsoft SQL Server:
+    category: database
+    parent: null
+    mentions: 15
+    aliases:
+    - microsoft sql
+    - microsoft sql server
+    - ms sql server
+    - mssql
+    - sql server
+    - sql-server
+  Multi-Agent Systems:
+    category: ml_ai
+    parent: AI Agents
+    mentions: 15
+    aliases:
+    - ai-multi-agenten-architekturen
+    - multi-agent ai systems
+    - multi-agent architectures
+    - multi-agent coordination
+    - multi-agent orchestration
+    - multi-agent systems
+    - multi-agent-architekturen
+    - multi-agent-systeme
+    - multi-agenten-systeme
+    - multi-agents
+  Risk Management:
+    category: business_domain
+    parent: null
+    mentions: 15
+    aliases:
+    - analyse de risques
+    - crisam
+    - risikoanalysen
+    - risikobewertungen
+    - risikomanagement
   Algorithms:
     category: software_engineering
     parent: null
@@ -2333,30 +2601,20 @@ skills:
     - algorithmenentwicklung
     - algorithms
     - data structures
-  Context Engineering:
+  Anthropic API:
     category: ml_ai
-    parent: Large Language Models
+    parent: LLM APIs
     mentions: 14
     aliases:
-    - context assembly
-    - context engineering
-    - context management
-    - context window
-    - context window optimization
-    - context windows
-    - context-engineering
-    - kontext-engineering
-    - kontext-management
-  Data Vault:
-    category: data_engineering
-    parent: Data Modeling
+    - anthropic
+    - anthropic api
+    - api d'anthropic
+  Dataiku:
+    category: ml_ai
+    parent: null
     mentions: 14
     aliases:
-    - data vault
-    - data vault 2.0
-    - data vault modeling
-    - data vault-modellering
-    - data-vault-datenmodellierung
+    - dataiku
   Event-Driven Architecture:
     category: software_engineering
     parent: null
@@ -2371,14 +2629,6 @@ skills:
     - event-driven systems
     - event-getriebene architekturen
     - eventgetriebene architekturen
-  Experiment Tracking:
-    category: ml_ai
-    parent: MLOps
-    mentions: 14
-    aliases:
-    - experiment tracking
-    - experiment-tracking
-    - experimentverwaltung
   GIS:
     category: analytics_bi
     parent: null
@@ -2395,40 +2645,20 @@ skills:
     - koordinatensysteme
     - map-tile pipelines
     - wfs
-  GitHub Copilot:
-    category: software_engineering
-    parent: AI-Assisted Coding
-    mentions: 14
-    aliases:
-    - copilot
-    - github copilot
-  Multi-Agent Systems:
+  Hugging Face:
     category: ml_ai
-    parent: AI Agents
+    parent: null
     mentions: 14
     aliases:
-    - ai-multi-agenten-architekturen
-    - multi-agent ai systems
-    - multi-agent architectures
-    - multi-agent coordination
-    - multi-agent orchestration
-    - multi-agent systems
-    - multi-agent-architekturen
-    - multi-agent-systeme
-    - multi-agenten-systeme
-    - multi-agents
-  Query Optimization:
-    category: database
-    parent: Database Performance Tuning
+    - hugging face
+    - huggingface
+  Qlik:
+    category: analytics_bi
+    parent: null
     mentions: 14
     aliases:
-    - abfrageoptimierung
-    - query optimisation
-    - query optimization
-    - query performance
-    - query-optimierung
-    - query-tuning
-    - sql performance optimization
+    - qlik
+    - qlik data+
   3D Computer Vision:
     category: ml_ai
     parent: Computer Vision
@@ -2445,15 +2675,23 @@ skills:
     - mesh reconstruction
     - multi-view geometry
     - point clouds
-  Amazon Bedrock:
-    category: cloud
-    parent: AWS
+  AWS CDK:
+    category: devops
+    parent: Infrastructure as Code
     mentions: 13
     aliases:
-    - amazon bedrock
-    - aws bedrock
-    - aws bedrock agentcore
-    - bedrock
+    - aws cdk
+    - cdk
+  Chatbots:
+    category: ml_ai
+    parent: null
+    mentions: 13
+    aliases:
+    - chatbot
+    - chatbots
+    - conversational ai
+    - conversational-ai
+    - conversational-ai-plattformen
   Data Lineage:
     category: data_engineering
     parent: Data Governance
@@ -2462,18 +2700,25 @@ skills:
     - data lineage
     - lineage
     - lineage tracking
-  Distributed Computing:
-    category: data_engineering
-    parent: null
+  Database Design:
+    category: database
+    parent: Databases
     mentions: 13
     aliases:
-    - cluster-computing
-    - distributed computing
-    - distributed data processing
-    - distributed processing
-    - distributed processing framework
-    - verteilte datenverarbeitung
-    - verteilte query-engines
+    - database design
+    - datenbank-architekturen
+    - datenbankarchitekturen
+    - datenbankaufbau
+    - datenbankmodelle
+    - relational database design
+    - schema design
+    - schema-design
+  Grafana:
+    category: devops
+    parent: Monitoring
+    mentions: 13
+    aliases:
+    - grafana
   Image Processing:
     category: ml_ai
     parent: Computer Vision
@@ -2484,6 +2729,25 @@ skills:
     - image analysis
     - image processing
     - image reconstruction
+  Intelligent Document Processing:
+    category: ml_ai
+    parent: null
+    mentions: 13
+    aliases:
+    - advanced document processing
+    - document intelligence
+    - document parsing
+    - document processing
+    - dokumentenanalyse
+    - dokumentenverarbeitung
+    - ki-gestützte extraktion
+    - pdf-parsing
+  Langfuse:
+    category: ml_ai
+    parent: LLM Observability
+    mentions: 13
+    aliases:
+    - langfuse
   Microservices:
     category: software_engineering
     parent: Software Architecture
@@ -2493,6 +2757,18 @@ skills:
     - microservice-architekturen
     - microservices
     - service registry
+  Multimodal Learning:
+    category: ml_ai
+    parent: Deep Learning
+    mentions: 13
+    aliases:
+    - multi-modal learning
+    - multimodal ai
+    - multimodal architectures
+    - multimodal data fusion
+    - multimodal modeling
+    - multimodal models
+    - multimodal pipelines
   Object Detection:
     category: ml_ai
     parent: Computer Vision
@@ -2503,43 +2779,19 @@ skills:
     - map
     - object detection
     - objekterkennung
-  Qlik:
-    category: analytics_bi
-    parent: null
-    mentions: 13
-    aliases:
-    - qlik
-    - qlik data+
-  React:
-    category: software_engineering
-    parent: null
-    mentions: 13
-    aliases:
-    - react
-    - react.js
-  Risk Management:
-    category: business_domain
-    parent: null
-    mentions: 13
-    aliases:
-    - analyse de risques
-    - crisam
-    - risikoanalysen
-    - risikobewertungen
-    - risikomanagement
   vLLM:
     category: ml_ai
     parent: Model Serving
     mentions: 13
     aliases:
     - vllm
-  AWS CDK:
-    category: devops
-    parent: Infrastructure as Code
+  AWS Lambda:
+    category: cloud
+    parent: AWS
     mentions: 12
     aliases:
-    - aws cdk
-    - cdk
+    - aws lambda
+    - lambda
   Anomaly Detection:
     category: ml_ai
     parent: Machine Learning
@@ -2549,24 +2801,6 @@ skills:
     - anomaly detection
     - fault diagnosis
     - outlier analysis
-  Anthropic API:
-    category: ml_ai
-    parent: LLM APIs
-    mentions: 12
-    aliases:
-    - anthropic
-    - anthropic api
-    - api d'anthropic
-  Chatbots:
-    category: ml_ai
-    parent: null
-    mentions: 12
-    aliases:
-    - chatbot
-    - chatbots
-    - conversational ai
-    - conversational-ai
-    - conversational-ai-plattformen
   Classification:
     category: ml_ai
     parent: Machine Learning
@@ -2576,25 +2810,19 @@ skills:
     - classification models
     - classifiers
     - klassifikation
-  Database Design:
-    category: database
-    parent: Databases
-    mentions: 12
-    aliases:
-    - database design
-    - datenbank-architekturen
-    - datenbankarchitekturen
-    - datenbankaufbau
-    - datenbankmodelle
-    - relational database design
-    - schema design
-    - schema-design
-  Dataiku:
-    category: ml_ai
+  Data Transformation:
+    category: data_engineering
     parent: null
     mentions: 12
     aliases:
-    - dataiku
+    - data transformation
+    - data transformations
+    - datentransformation
+    - datentransformationen
+    - preprocessing
+    - transformation and testing frameworks
+    - transformation framework
+    - yaml-driven transformation frameworks
   Finance:
     category: business_domain
     parent: null
@@ -2612,12 +2840,13 @@ skills:
     - finanzumfeld
     - gross-to-net
     - p&l
-  GitLab:
+  GitLab CI:
     category: devops
-    parent: Git
+    parent: CI/CD
     mentions: 12
     aliases:
-    - gitlab
+    - gitlab ci
+    - gitlab ci/cd
   Google Analytics:
     category: analytics_bi
     parent: Web Analytics
@@ -2626,55 +2855,6 @@ skills:
     - ga4
     - google analytics
     - google analytics 4
-  Grafana:
-    category: devops
-    parent: Monitoring
-    mentions: 12
-    aliases:
-    - grafana
-  Hugging Face:
-    category: ml_ai
-    parent: null
-    mentions: 12
-    aliases:
-    - hugging face
-    - huggingface
-  Intelligent Document Processing:
-    category: ml_ai
-    parent: null
-    mentions: 12
-    aliases:
-    - advanced document processing
-    - document intelligence
-    - document parsing
-    - document processing
-    - dokumentenanalyse
-    - dokumentenverarbeitung
-    - ki-gestützte extraktion
-    - pdf-parsing
-  Langfuse:
-    category: ml_ai
-    parent: LLM Observability
-    mentions: 12
-    aliases:
-    - langfuse
-  Microsoft SQL Server:
-    category: database
-    parent: null
-    mentions: 12
-    aliases:
-    - microsoft sql
-    - microsoft sql server
-    - ms sql server
-    - mssql
-    - sql server
-    - sql-server
-  OpenAI Codex:
-    category: software_engineering
-    parent: AI-Assisted Coding
-    mentions: 12
-    aliases:
-    - codex
   Power Query:
     category: analytics_bi
     parent: null
@@ -2685,19 +2865,67 @@ skills:
     - power query
     - power query m
     - powerquery
+  Pricing Analytics:
+    category: methods
+    parent: null
+    mentions: 12
+    aliases:
+    - markdown-optimierung
+    - preiselastizitäten
+    - preiselastizitätsanalysen
+    - preismodelle
+    - price optimisation
+    - pricing
+    - pricing algorithms
+    - pricing analytics
+  Regression Analysis:
+    category: methods
+    parent: Statistics
+    mentions: 12
+    aliases:
+    - lineare regression
+    - logistische regression
+    - regression
+    - regression analysis
+    - regressors
   n8n:
     category: software_engineering
     parent: Workflow Automation
     mentions: 12
     aliases:
     - n8n
-  Apache Flink:
-    category: data_engineering
-    parent: Stream Processing
+  AWS Glue:
+    category: cloud
+    parent: AWS
     mentions: 11
     aliases:
-    - apache flink
-    - flink
+    - aws glue
+    - glue
+  Amazon Athena:
+    category: database
+    parent: AWS
+    mentions: 11
+    aliases:
+    - amazon athena
+    - athena
+  Azure AI Foundry:
+    category: cloud
+    parent: Azure
+    mentions: 11
+    aliases:
+    - ai foundry
+    - azure ai foundry
+    - foundry
+    - microsoft foundry
+    - microsoft foundry agents service
+  CRM:
+    category: business_domain
+    parent: null
+    mentions: 11
+    aliases:
+    - crm
+    - crm-system
+    - crm-systeme
   Clustering:
     category: ml_ai
     parent: Machine Learning
@@ -2705,13 +2933,23 @@ skills:
     aliases:
     - clustering
     - k-means
-  Gemini:
-    category: ml_ai
-    parent: Large Language Models
+  Customer Segmentation:
+    category: methods
+    parent: null
     mentions: 11
     aliases:
-    - gemini
-    - google gemini
+    - audience segmentation
+    - customer segmentation
+    - segmentation
+    - segmentation techniques
+    - segmentations
+    - segmentierung
+  DataOps:
+    category: data_engineering
+    parent: null
+    mentions: 11
+    aliases:
+    - dataops
   Kanban:
     category: business_domain
     parent: Agile
@@ -2725,25 +2963,48 @@ skills:
     aliases:
     - distillation
     - model distillation
-  Multimodal Learning:
+  LlamaIndex:
     category: ml_ai
-    parent: Deep Learning
+    parent: Large Language Models
     mentions: 11
     aliases:
-    - multi-modal learning
-    - multimodal ai
-    - multimodal architectures
-    - multimodal data fusion
-    - multimodal modeling
-    - multimodal models
-    - multimodal pipelines
-  SAS:
-    category: programming
+    - llamaindex
+  Medallion Architecture:
+    category: data_engineering
+    parent: Data Lakehouse
+    mentions: 11
+    aliases:
+    - medallion
+    - medallion architecture
+  Node.js:
+    category: software_engineering
+    parent: JavaScript
+    mentions: 11
+    aliases:
+    - node
+    - node.js
+    - nodejs
+  Platform Engineering:
+    category: devops
     parent: null
     mentions: 11
     aliases:
-    - base sas
-    - sas
+    - platform engineering
+    - plattform engineering
+    - plattform-administration
+    - self-service developer platforms
+  Reinforcement Learning:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 11
+    aliases:
+    - deep reinforcement learning
+    - mdps
+    - off-policy evaluation
+    - ppo
+    - reinforcement learning
+    - rl
+    - rl infrastructure
   Search Relevance:
     category: ml_ai
     parent: Information Retrieval
@@ -2755,12 +3016,6 @@ skills:
     - relevance modeling
     - search quality evaluation
     - search relevance
-  AWS Lambda:
-    category: cloud
-    parent: AWS
-    mentions: 10
-    aliases:
-    - lambda
   Alerting:
     category: devops
     parent: Monitoring
@@ -2770,13 +3025,6 @@ skills:
     - alerting
     - alerting-threshold calibration
     - alerts
-  Amazon Athena:
-    category: database
-    parent: AWS
-    mentions: 10
-    aliases:
-    - amazon athena
-    - athena
   Audio Signal Processing:
     category: ml_ai
     parent: null
@@ -2790,22 +3038,20 @@ skills:
     - spectrograms
     - speech processing
     - vad
-  Azure AI Foundry:
+  Azure Synapse Analytics:
     category: cloud
     parent: Azure
     mentions: 10
     aliases:
-    - ai foundry
-    - azure ai foundry
-    - foundry
-    - microsoft foundry
-    - microsoft foundry agents service
-  C#:
-    category: programming
+    - azure synapse
+    - azure synapse analytics
+    - synapse
+  Confluence:
+    category: business_domain
     parent: null
     mentions: 10
     aliases:
-    - c#
+    - confluence
   Controlling:
     category: business_domain
     parent: null
@@ -2839,43 +3085,54 @@ skills:
     - datenimporte
     - incremental extraction
     - pipeline ingestion
-  Data Transformation:
-    category: data_engineering
+  Edge AI:
+    category: ml_ai
     parent: null
     mentions: 10
     aliases:
-    - data transformation
-    - data transformations
-    - datentransformation
-    - preprocessing
-    - transformation and testing frameworks
-    - transformation framework
-    - yaml-driven transformation frameworks
-  DataOps:
-    category: data_engineering
-    parent: null
-    mentions: 10
-    aliases:
-    - dataops
-  Frontend Development:
+    - edge ai
+    - edge deployment
+    - embedded inference
+    - embedded ml
+    - nvidia jetson
+    - on-device deployment
+    - qualcomm edge devices
+  Full-Stack Development:
     category: software_engineering
     parent: null
     mentions: 10
     aliases:
-    - front end
-    - front-end
-    - front-end frameworks
-    - front-end web framework
-    - frontend
-    - frontend development
-    - frontend technologies
-  GitLab CI:
-    category: devops
-    parent: CI/CD
+    - full stack
+    - full-stack engineering
+    - full-stack-entwicklung
+    - fullstack
+    - fullstack development
+    - fullstack web development
+    - fullstack-entwicklung
+  Healthcare:
+    category: business_domain
+    parent: null
     mentions: 10
     aliases:
-    - gitlab ci
-    - gitlab ci/cd
+    - analytik im gesundheitswesen
+    - healthcare
+    - healthcare data
+    - healthcare software
+    - schweizerisches gesundheitssystem
+  High-Performance Computing:
+    category: devops
+    parent: null
+    mentions: 10
+    aliases:
+    - hpc
+    - hpc / slurm
+    - numa
+  JAX:
+    category: ml_ai
+    parent: Deep Learning
+    mentions: 10
+    aliases:
+    - jax
   ML Pipelines:
     category: ml_ai
     parent: MLOps
@@ -2898,13 +3155,6 @@ skills:
     - messtechnik
     - optische messtechnik
     - sensoren
-  Medallion Architecture:
-    category: data_engineering
-    parent: Data Lakehouse
-    mentions: 10
-    aliases:
-    - medallion
-    - medallion architecture
   Medical Imaging:
     category: business_domain
     parent: Healthcare
@@ -2918,6 +3168,30 @@ skills:
     - pet/ct
     - psma-pet
     - spect
+  Message Brokers:
+    category: software_engineering
+    parent: null
+    mentions: 10
+    aliases:
+    - message brokers
+    - messaging systems
+    - pub/sub
+    - queues
+    - service bus
+  Open-Source LLMs:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 10
+    aliases:
+    - open-source llms
+    - self-hosted llms
+  Oracle Database:
+    category: database
+    parent: null
+    mentions: 10
+    aliases:
+    - oracle
+    - oracle sql
   PLC Programming:
     category: software_engineering
     parent: null
@@ -2929,38 +3203,6 @@ skills:
     - scl
     - sps-programmierung
     - structured text
-  Platform Engineering:
-    category: devops
-    parent: null
-    mentions: 10
-    aliases:
-    - platform engineering
-    - plattform engineering
-    - plattform-administration
-  Pricing Analytics:
-    category: methods
-    parent: null
-    mentions: 10
-    aliases:
-    - markdown-optimierung
-    - preiselastizitäten
-    - preiselastizitätsanalysen
-    - preismodelle
-    - price optimisation
-    - pricing
-    - pricing algorithms
-    - pricing analytics
-  Reinforcement Learning:
-    category: ml_ai
-    parent: Machine Learning
-    mentions: 10
-    aliases:
-    - deep reinforcement learning
-    - mdps
-    - off-policy evaluation
-    - ppo
-    - reinforcement learning
-    - rl
   Reranking:
     category: ml_ai
     parent: Information Retrieval
@@ -2970,29 +3212,37 @@ skills:
     - neural rerankers
     - re-ranking
     - reranking
-  AWS Glue:
-    category: cloud
-    parent: AWS
-    mentions: 9
-    aliases:
-    - aws glue
-    - glue
-  Azure Synapse Analytics:
-    category: cloud
-    parent: Azure
-    mentions: 9
-    aliases:
-    - azure synapse
-    - azure synapse analytics
-    - synapse
-  CRM:
+  SAP S/4HANA:
     category: business_domain
+    parent: SAP
+    mentions: 10
+    aliases:
+    - s/4hana
+    - sap s/4
+    - sap s/4hana
+  Unit Testing:
+    category: software_engineering
+    parent: Testing
+    mentions: 10
+    aliases:
+    - modultests
+    - tests unitaires
+    - unit testing
+    - unit tests
+    - unit-tests
+  Agent2Agent Protocol:
+    category: ml_ai
+    parent: AI Agents
+    mentions: 9
+    aliases:
+    - a2a
+  Apache Iceberg:
+    category: data_engineering
     parent: null
     mentions: 9
     aliases:
-    - crm
-    - crm-system
-    - crm-systeme
+    - apache iceberg
+    - iceberg
   Compliance:
     category: business_domain
     parent: null
@@ -3004,12 +3254,19 @@ skills:
     - regulated environments
     - standards und regulatorische anforderungen
     - wien-erlass
-  Confluence:
-    category: business_domain
+  Data Annotation:
+    category: ml_ai
     parent: null
     mentions: 9
     aliases:
-    - confluence
+    - annotation
+    - annotation workflows
+    - coco format
+    - data annotation pipelines
+    - human-in-the-loop labeling
+    - inter-annotator agreement
+    - labeling
+    - labeling pipelines
   Data Migration:
     category: data_engineering
     parent: null
@@ -3018,6 +3275,30 @@ skills:
     - data migration
     - datenmigration
     - migration de données
+  Data Mining:
+    category: ml_ai
+    parent: null
+    mentions: 9
+    aliases:
+    - data mining
+    - data-mining
+    - datamining
+    - pattern mining
+  DeepSpeed:
+    category: ml_ai
+    parent: Distributed Training
+    mentions: 9
+    aliases:
+    - deepspeed
+    - zero
+    - zero optimization
+  Developer Tooling:
+    category: software_engineering
+    parent: null
+    mentions: 9
+    aliases:
+    - developer tooling
+    - ides
   EU AI Act:
     category: business_domain
     parent: Compliance
@@ -3033,21 +3314,19 @@ skills:
     aliases:
     - feature store
     - feature stores
-  LlamaIndex:
+  LLM-as-a-Judge:
     category: ml_ai
-    parent: Large Language Models
+    parent: AI Evaluation
     mentions: 9
     aliases:
-    - llamaindex
-  Message Brokers:
-    category: software_engineering
+    - llm-as-a-judge
+    - llm-as-judge
+  MySQL:
+    category: database
     parent: null
     mentions: 9
     aliases:
-    - message brokers
-    - pub/sub
-    - queues
-    - service bus
+    - mysql
   Network Security:
     category: software_engineering
     parent: Information Security
@@ -3071,26 +3350,47 @@ skills:
     - people analytics
     - people cost and headcount planning
     - personalcontrolling
-  SAP S/4HANA:
-    category: business_domain
-    parent: SAP
+  Qlik Sense:
+    category: analytics_bi
+    parent: Qlik
     mentions: 9
     aliases:
-    - s/4hana
-    - sap s/4
-    - sap s/4hana
+    - qlik cloud
+    - qlik sense
+  System Design:
+    category: software_engineering
+    parent: null
+    mentions: 9
+    aliases:
+    - scalability
+    - skalierbare systemarchitekturen
+    - system design
+    - systems design
   Alteryx:
     category: analytics_bi
     parent: null
     mentions: 8
     aliases:
     - alteryx
+  Amazon Kinesis:
+    category: cloud
+    parent: AWS
+    mentions: 8
+    aliases:
+    - kinesis
   Analytics Engineering:
     category: data_engineering
     parent: null
     mentions: 8
     aliases:
     - analytics engineering
+  Apache Hadoop:
+    category: data_engineering
+    parent: null
+    mentions: 8
+    aliases:
+    - hadoop
+    - hadoop migration
   Argo CD:
     category: devops
     parent: Argo
@@ -3115,24 +3415,6 @@ skills:
     mentions: 8
     aliases:
     - chatgpt
-  Customer Segmentation:
-    category: methods
-    parent: null
-    mentions: 8
-    aliases:
-    - audience segmentation
-    - customer segmentation
-    - segmentation
-    - segmentation techniques
-  Data Mining:
-    category: ml_ai
-    parent: null
-    mentions: 8
-    aliases:
-    - data mining
-    - data-mining
-    - datamining
-    - pattern mining
   Database Performance Tuning:
     category: database
     parent: Databases
@@ -3144,26 +3426,12 @@ skills:
     - indexing
     - indizierung
     - partitionierung
-  Edge AI:
-    category: ml_ai
+  Debugging:
+    category: software_engineering
     parent: null
     mentions: 8
     aliases:
-    - edge ai
-    - edge deployment
-    - embedded inference
-    - embedded ml
-    - nvidia jetson
-    - on-device deployment
-    - qualcomm edge devices
-  High-Performance Computing:
-    category: devops
-    parent: null
-    mentions: 8
-    aliases:
-    - hpc
-    - hpc / slurm
-    - numa
+    - debugging
   ISO 27001:
     category: business_domain
     parent: Compliance
@@ -3173,27 +3441,53 @@ skills:
     - iso 27001
     - iso 27001 lead implementer
     - iso/iec 27001
-  LLM-as-a-Judge:
+  Kubeflow:
     category: ml_ai
-    parent: AI Evaluation
+    parent: MLOps
     mentions: 8
     aliases:
-    - llm-as-a-judge
-    - llm-as-judge
+    - kubeflow
+    - kubeflow pipelines
   LiteLLM:
     category: ml_ai
     parent: LLM Gateways
     mentions: 8
     aliases:
     - litellm
-  Node.js:
-    category: software_engineering
-    parent: JavaScript
+  Marketing Attribution:
+    category: methods
+    parent: null
     mentions: 8
     aliases:
-    - node
-    - node.js
-    - nodejs
+    - attribution
+    - attribution modeling
+    - attribution multi-touch
+    - marketing attribution
+    - mta
+  Metabase:
+    category: analytics_bi
+    parent: Business Intelligence
+    mentions: 8
+    aliases:
+    - metabase
+  Mistral AI:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 8
+    aliases:
+    - mistral
+  MongoDB:
+    category: database
+    parent: NoSQL Databases
+    mentions: 8
+    aliases:
+    - mongodb
+  ONNX:
+    category: ml_ai
+    parent: Inference Optimization
+    mentions: 8
+    aliases:
+    - onnx
   Ontologies:
     category: data_engineering
     parent: null
@@ -3209,45 +3503,34 @@ skills:
     mentions: 8
     aliases:
     - ocr
-  Oracle Database:
-    category: database
-    parent: null
-    mentions: 8
-    aliases:
-    - oracle
-    - oracle sql
-  Qlik Sense:
+  SAP Analytics Cloud:
     category: analytics_bi
-    parent: Qlik
+    parent: SAP
     mentions: 8
     aliases:
-    - qlik cloud
-    - qlik sense
-  Regression Analysis:
-    category: methods
-    parent: Statistics
+    - sap analytics cloud
+    - sap analytics cloud (sac)
+  Site Reliability Engineering:
+    category: devops
+    parent: null
     mentions: 8
     aliases:
-    - regression
-    - regression analysis
-    - regressors
-  System Design:
+    - reliability engineering
+    - site reliability engineering
+    - sla services
+    - sre
+  System Integration:
     category: software_engineering
     parent: null
     mentions: 8
     aliases:
-    - skalierbare systemarchitekturen
-    - system design
-    - systems design
-  Unit Testing:
-    category: software_engineering
-    parent: Testing
-    mentions: 8
-    aliases:
-    - tests unitaires
-    - unit testing
-    - unit tests
-    - unit-tests
+    - anwendungsintegration
+    - integraties
+    - integration von softwarelösungen
+    - integrationen
+    - integrations
+    - system integration
+    - systemintegration
   AWS Step Functions:
     category: cloud
     parent: AWS
@@ -3255,20 +3538,12 @@ skills:
     aliases:
     - step functions
     - stepfunctions
-  Apache Hadoop:
-    category: data_engineering
-    parent: null
+  Amazon ECS:
+    category: cloud
+    parent: AWS
     mentions: 7
     aliases:
-    - hadoop
-    - hadoop migration
-  Apache Iceberg:
-    category: data_engineering
-    parent: null
-    mentions: 7
-    aliases:
-    - apache iceberg
-    - iceberg
+    - ecs
   Change Data Capture:
     category: data_engineering
     parent: null
@@ -3282,26 +3557,26 @@ skills:
     mentions: 7
     aliases:
     - clickhouse
-  Data Annotation:
-    category: ml_ai
+  Cohort Analysis:
+    category: methods
     parent: null
     mentions: 7
     aliases:
-    - annotation
-    - annotation workflows
-    - coco format
-    - human-in-the-loop labeling
-    - inter-annotator agreement
-    - labeling
-    - labeling pipelines
-  DeepSpeed:
-    category: ml_ai
-    parent: Distributed Training
+    - analyses de cohortes
+    - cohort analysis
+    - cohort-analysen
+    - kohortenanalyse
+    - kohortenanalysen
+  Credit Risk:
+    category: business_domain
+    parent: Risk Management
     mentions: 7
     aliases:
-    - deepspeed
-    - zero
-    - zero optimization
+    - credit risk
+    - crédit
+    - kreditprozesse
+    - kreditrisikomodelle
+    - risikoparameterschätzung
   FinOps:
     category: cloud
     parent: Cloud Computing
@@ -3319,6 +3594,20 @@ skills:
     aliases:
     - foundation models
     - pre-training
+  GitOps:
+    category: devops
+    parent: null
+    mentions: 7
+    aliases:
+    - gitops
+  Gradient Boosting:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 7
+    aliases:
+    - boosting algorithms
+    - gbms
+    - gradient boosting
   Graph Databases:
     category: database
     parent: null
@@ -3328,6 +3617,18 @@ skills:
     - graph-datenbanken
     - graph-dbs
     - property graph databases
+  HTML:
+    category: software_engineering
+    parent: null
+    mentions: 7
+    aliases:
+    - html
+  Helm:
+    category: devops
+    parent: Kubernetes
+    mentions: 7
+    aliases:
+    - helm
   HubSpot:
     category: business_domain
     parent: CRM
@@ -3343,40 +3644,58 @@ skills:
     - hypothesis testing
     - statistical testing
     - statistische signifikanz
-  JAX:
-    category: ml_ai
-    parent: Deep Learning
+  Internet of Things:
+    category: software_engineering
+    parent: null
     mentions: 7
     aliases:
-    - jax
-  Kubeflow:
-    category: ml_ai
-    parent: MLOps
+    - industrial telemetry
+    - iot
+    - ot/iot
+    - sensordata
+  Knowledge Graphs:
+    category: data_engineering
+    parent: null
     mentions: 7
     aliases:
-    - kubeflow
-    - kubeflow pipelines
-  Marketing Attribution:
+    - knowledge engineering
+    - knowledge graph
+    - knowledge graph design
+    - knowledge graphs
+    - wissensgraphen
+  Mathematics:
     category: methods
     parent: null
     mentions: 7
     aliases:
-    - attribution
-    - attribution modeling
-    - marketing attribution
-    - mta
-  MongoDB:
-    category: database
-    parent: NoSQL Databases
-    mentions: 7
-    aliases:
-    - mongodb
+    - calculus
+    - combinatorics
+    - mathematics
+    - mathematik
+    - mathematische methoden
   OneLake:
     category: cloud
     parent: Microsoft Fabric
     mentions: 7
     aliases:
     - onelake
+  Open Source:
+    category: software_engineering
+    parent: null
+    mentions: 7
+    aliases:
+    - open source
+    - open-source
+    - open-source contributions
+    - open-source ml projects
+  Power Automate:
+    category: software_engineering
+    parent: Microsoft Power Platform
+    mentions: 7
+    aliases:
+    - microsoft power automate
+    - power automate
+    - powerautomate
   Prefect:
     category: data_engineering
     parent: Workflow Orchestration
@@ -3397,6 +3716,27 @@ skills:
     mentions: 7
     aliases:
     - prometheus
+  RLHF:
+    category: ml_ai
+    parent: LLM Fine-tuning
+    mentions: 7
+    aliases:
+    - rlaif
+    - rlhf
+  Ray Serve:
+    category: ml_ai
+    parent: Model Serving
+    mentions: 7
+    aliases:
+    - ray serve
+  SAP Business Data Cloud:
+    category: data_engineering
+    parent: SAP
+    mentions: 7
+    aliases:
+    - sap bdc
+    - sap business data cloud
+    - sap business data cloud (datasphere)
   SGLang:
     category: ml_ai
     parent: Model Serving
@@ -3420,15 +3760,13 @@ skills:
     - sensor data streams
     - sensor signal analysis
     - telemetry data
-  Site Reliability Engineering:
-    category: devops
-    parent: null
+  Strands Agents:
+    category: ml_ai
+    parent: AI Agents
     mentions: 7
     aliases:
-    - reliability engineering
-    - site reliability engineering
-    - sla services
-    - sre
+    - aws strands
+    - strands
   Technical Documentation:
     category: software_engineering
     parent: null
@@ -3463,6 +3801,29 @@ skills:
     - vision language models
     - vlm
     - vlms
+  Vue.js:
+    category: software_engineering
+    parent: Frontend Development
+    mentions: 7
+    aliases:
+    - vue
+    - vue.js
+    - vuejs
+  XGBoost:
+    category: ml_ai
+    parent: Gradient Boosting
+    mentions: 7
+    aliases:
+    - xgboost
+  API Gateway:
+    category: software_engineering
+    parent: APIs
+    mentions: 6
+    aliases:
+    - api gateway
+    - api gateways
+    - api management
+    - api-gateways
   AdTech:
     category: business_domain
     parent: null
@@ -3473,27 +3834,30 @@ skills:
     - adtech
     - auction systems
     - pacing
-  Amazon ECS:
-    category: cloud
+  Airbyte:
+    category: data_engineering
+    parent: null
+    mentions: 6
+    aliases:
+    - airbyte
+  Amazon DynamoDB:
+    category: database
     parent: AWS
     mentions: 6
     aliases:
-    - ecs
+    - dynamodb
+  Angular:
+    category: software_engineering
+    parent: null
+    mentions: 6
+    aliases:
+    - angular
   Bicep:
     category: devops
     parent: Infrastructure as Code
     mentions: 6
     aliases:
     - bicep
-  Cohort Analysis:
-    category: methods
-    parent: null
-    mentions: 6
-    aliases:
-    - cohort analysis
-    - cohort-analysen
-    - kohortenanalyse
-    - kohortenanalysen
   Data Curation:
     category: ml_ai
     parent: null
@@ -3509,6 +3873,21 @@ skills:
     mentions: 6
     aliases:
     - data mesh
+  Diffusion Models:
+    category: ml_ai
+    parent: Generative AI
+    mentions: 6
+    aliases:
+    - diffusion
+    - diffusion models
+    - stable diffusion
+  Elasticsearch:
+    category: database
+    parent: null
+    mentions: 6
+    aliases:
+    - elastic
+    - elasticsearch
   Entity Resolution:
     category: data_engineering
     parent: Data Quality
@@ -3518,60 +3897,19 @@ skills:
     - name-matching
     - probabilistic record linkage
     - record linkage
-  Full-Stack Development:
-    category: software_engineering
-    parent: null
-    mentions: 6
-    aliases:
-    - full stack
-    - full-stack engineering
-    - full-stack-entwicklung
-    - fullstack development
-    - fullstack web development
-    - fullstack-entwicklung
-  GitOps:
-    category: devops
-    parent: null
-    mentions: 6
-    aliases:
-    - gitops
-  HTML:
-    category: software_engineering
-    parent: null
-    mentions: 6
-    aliases:
-    - html
-  Healthcare:
-    category: business_domain
-    parent: null
-    mentions: 6
-    aliases:
-    - analytik im gesundheitswesen
-    - healthcare
-    - healthcare data
-    - schweizerisches gesundheitssystem
-  Helm:
-    category: devops
-    parent: Kubernetes
-    mentions: 6
-    aliases:
-    - helm
   KServe:
     category: ml_ai
     parent: Model Serving
     mentions: 6
     aliases:
     - kserve
-  Knowledge Graphs:
-    category: data_engineering
-    parent: null
+  Kiro:
+    category: software_engineering
+    parent: AI-Assisted Coding
     mentions: 6
     aliases:
-    - knowledge engineering
-    - knowledge graph
-    - knowledge graph design
-    - knowledge graphs
-    - wissensgraphen
+    - aws kiro
+    - kiro cli
   LLM Gateways:
     category: ml_ai
     parent: LLMOps
@@ -3610,12 +3948,17 @@ skills:
     - marktanalyse
     - marktforschung
     - nielseniq
-  Metabase:
+  Marketing Analytics:
     category: analytics_bi
-    parent: Business Intelligence
+    parent: null
     mentions: 6
     aliases:
-    - metabase
+    - crm marketing analytics
+    - marketing analytics
+    - marketing campaign analysis
+    - marketing measurement
+    - marketing-daten
+    - marketingmessung
   Microsoft Dynamics 365:
     category: business_domain
     parent: ERP
@@ -3636,12 +3979,6 @@ skills:
     - entra id
     - microsoft entra id
     - service principals
-  Mistral AI:
-    category: ml_ai
-    parent: Large Language Models
-    mentions: 6
-    aliases:
-    - mistral
   Multi-Tenancy:
     category: software_engineering
     parent: Software Architecture
@@ -3653,18 +3990,12 @@ skills:
     - multi-tenant platforms
     - multi-tenant saas data architecture
     - multi-tenant-architekturen
-  MySQL:
-    category: database
-    parent: null
+  Next.js:
+    category: software_engineering
+    parent: React
     mentions: 6
     aliases:
-    - mysql
-  ONNX:
-    category: ml_ai
-    parent: Inference Optimization
-    mentions: 6
-    aliases:
-    - onnx
+    - next.js
   Object Storage:
     category: cloud
     parent: null
@@ -3672,15 +4003,12 @@ skills:
     aliases:
     - object storage
     - s3-kompatibler object storage
-  Open Source:
-    category: software_engineering
-    parent: null
+  Polars:
+    category: programming
+    parent: Python
     mentions: 6
     aliases:
-    - open source
-    - open-source
-    - open-source contributions
-    - open-source ml projects
+    - polars
   Process Optimization:
     category: business_domain
     parent: null
@@ -3698,13 +4026,6 @@ skills:
     - rdf
     - rdf triple stores
     - rdf/rdfs
-  RLHF:
-    category: ml_ai
-    parent: LLM Fine-tuning
-    mentions: 6
-    aliases:
-    - rlaif
-    - rlhf
   ROS:
     category: software_engineering
     parent: null
@@ -3719,12 +4040,6 @@ skills:
     mentions: 6
     aliases:
     - random forest
-  Ray Serve:
-    category: ml_ai
-    parent: Model Serving
-    mentions: 6
-    aliases:
-    - ray serve
   Robotics:
     category: business_domain
     parent: null
@@ -3744,6 +4059,12 @@ skills:
     - root cause analysis
     - root-cause analysis
     - root-cause-analysen
+  SAP Datasphere:
+    category: business_domain
+    parent: SAP
+    mentions: 6
+    aliases:
+    - sap datasphere
   Simulation:
     category: methods
     parent: null
@@ -3758,38 +4079,21 @@ skills:
     - supply chain
     - supply chain analytics
     - supply chain management
-  System Integration:
-    category: software_engineering
-    parent: null
-    mentions: 6
-    aliases:
-    - anwendungsintegration
-    - integraties
-    - integration von softwarelösungen
-    - integrationen
-    - integrations
-    - systemintegration
   Trino:
     category: database
     parent: null
     mentions: 6
     aliases:
     - trino
-  XGBoost:
+  Voice AI:
     category: ml_ai
-    parent: Gradient Boosting
+    parent: null
     mentions: 6
     aliases:
-    - xgboost
-  API Gateway:
-    category: software_engineering
-    parent: APIs
-    mentions: 5
-    aliases:
-    - api gateway
-    - api gateways
-    - api management
-    - api-gateways
+    - ai voice agents
+    - voice ai
+    - voice workflows
+    - voice-ai
   AWS CloudFormation:
     category: devops
     parent: Infrastructure as Code
@@ -3803,24 +4107,14 @@ skills:
     aliases:
     - active learning
     - uncertainty sampling
-  Airbyte:
-    category: data_engineering
-    parent: null
-    mentions: 5
-    aliases:
-    - airbyte
-  Amazon Kinesis:
-    category: cloud
+  Amazon QuickSight:
+    category: analytics_bi
     parent: AWS
     mentions: 5
     aliases:
-    - kinesis
-  Angular:
-    category: software_engineering
-    parent: null
-    mentions: 5
-    aliases:
-    - angular
+    - amazon quicksight
+    - aws quicksight
+    - quicksight
   Apache Superset:
     category: analytics_bi
     parent: Business Intelligence
@@ -3836,6 +4130,16 @@ skills:
     - asynchronous processing
     - background jobs
     - concurrent programming
+  Authentication:
+    category: software_engineering
+    parent: null
+    mentions: 5
+    aliases:
+    - auth
+    - authentication
+    - authentifizierung
+    - identity
+    - workload identity federation
   Azure Functions:
     category: cloud
     parent: Azure
@@ -3866,6 +4170,20 @@ skills:
     aliases:
     - cloud composer
     - composer
+  Cloud Run:
+    category: cloud
+    parent: Google Cloud
+    mentions: 5
+    aliases:
+    - cloud run
+    - gcp cloud run
+  Computer Architecture:
+    category: software_engineering
+    parent: null
+    mentions: 5
+    aliases:
+    - core pinning
+    - cpu/memory/pcie
   CrewAI:
     category: ml_ai
     parent: AI Agents
@@ -3891,21 +4209,13 @@ skills:
     mentions: 5
     aliases:
     - datahub
-  Diffusion Models:
-    category: ml_ai
-    parent: Generative AI
-    mentions: 5
-    aliases:
-    - diffusion
-    - diffusion models
-    - stable diffusion
-  Elasticsearch:
-    category: database
+  E-Commerce:
+    category: business_domain
     parent: null
     mentions: 5
     aliases:
-    - elastic
-    - elasticsearch
+    - e-commerce
+    - ecommerce systeme
   Electrical Engineering:
     category: business_domain
     parent: null
@@ -3916,6 +4226,12 @@ skills:
     - elektrotechnik
     - stromversorgungskonzepte
     - électricité ht/bt
+  Fivetran:
+    category: data_engineering
+    parent: null
+    mentions: 5
+    aliases:
+    - fivetran
   Fraud Detection:
     category: ml_ai
     parent: Anomaly Detection
@@ -3923,6 +4239,16 @@ skills:
     aliases:
     - fraud
     - fraud detection
+  Funnel Analysis:
+    category: methods
+    parent: null
+    mentions: 5
+    aliases:
+    - digital acquisition funnels
+    - funnel metrics
+    - funnel-analysen
+    - funnel-metriken
+    - optimisation du funnel marketing
   IT Infrastructure:
     category: devops
     parent: null
@@ -3933,14 +4259,35 @@ skills:
     - on-premise-infrastruktur
     - on-premises
     - on-premises deployment
-  Internet of Things:
-    category: software_engineering
+  Incrementality Testing:
+    category: methods
+    parent: Causal Inference
+    mentions: 5
+    aliases:
+    - incrementality
+    - incrementality measurement
+    - inkrementalität
+    - tests d'incrémentalité
+  Information Extraction:
+    category: ml_ai
     parent: null
     mentions: 5
     aliases:
-    - industrial telemetry
-    - iot
-    - ot/iot
+    - structured data extraction
+  Jenkins:
+    category: devops
+    parent: CI/CD
+    mentions: 5
+    aliases:
+    - jenkins
+  Jupyter:
+    category: programming
+    parent: Python
+    mentions: 5
+    aliases:
+    - jupyter
+    - jupyter notebooks
+    - notebooks
   Learning to Rank:
     category: ml_ai
     parent: Ranking Systems
@@ -3956,25 +4303,15 @@ skills:
     - data studio
     - google looker studio
     - looker studio
-  Marketing Analytics:
-    category: analytics_bi
-    parent: null
-    mentions: 5
-    aliases:
-    - crm marketing analytics
-    - marketing campaign analysis
-    - marketing measurement
-    - marketing-daten
-    - marketingmessung
-  Mathematics:
+  Marketing Mix Modeling:
     category: methods
     parent: null
     mentions: 5
     aliases:
-    - calculus
-    - combinatorics
-    - mathematik
-    - mathematische methoden
+    - bayesian media mix models
+    - marketing mix modeling
+    - media mix models
+    - mmm
   Metadata Management:
     category: data_engineering
     parent: Data Governance
@@ -3991,18 +4328,19 @@ skills:
     - copilots
     - microsoft 365 copilot
     - microsoft copilot
+  Microsoft Copilot Studio:
+    category: software_engineering
+    parent: Microsoft Power Platform
+    mentions: 5
+    aliases:
+    - copilot studio
+    - microsoft copilot studio
   NVIDIA Dynamo:
     category: ml_ai
     parent: Model Serving
     mentions: 5
     aliases:
     - nvidia dynamo
-  Next.js:
-    category: software_engineering
-    parent: React
-    mentions: 5
-    aliases:
-    - next.js
   OpenCV:
     category: ml_ai
     parent: Computer Vision
@@ -4029,13 +4367,6 @@ skills:
     aliases:
     - optik
     - photonik
-  Power Automate:
-    category: software_engineering
-    parent: Microsoft Power Platform
-    mentions: 5
-    aliases:
-    - power automate
-    - powerautomate
   Pydantic AI:
     category: ml_ai
     parent: AI Agents
@@ -4043,6 +4374,12 @@ skills:
     aliases:
     - pydantic ai
     - pydanticai
+  Redis:
+    category: database
+    parent: NoSQL Databases
+    mentions: 5
+    aliases:
+    - redis
   Remote Sensing:
     category: analytics_bi
     parent: GIS
@@ -4052,6 +4389,20 @@ skills:
     - fernerkundung
     - remote sensing
     - satellite imagery
+  Requirements Engineering:
+    category: software_engineering
+    parent: null
+    mentions: 5
+    aliases:
+    - anforderungsanalyse
+    - fachkonzepte
+    - requirements engineering
+  Responsible AI:
+    category: ml_ai
+    parent: null
+    mentions: 5
+    aliases:
+    - responsible ai
   Reverse ETL:
     category: data_engineering
     parent: Data Integration
@@ -4072,13 +4423,6 @@ skills:
     aliases:
     - rails
     - ruby on rails
-  SAP Analytics Cloud:
-    category: analytics_bi
-    parent: SAP
-    mentions: 5
-    aliases:
-    - sap analytics cloud
-    - sap analytics cloud (sac)
   SAP BW:
     category: database
     parent: SAP
@@ -4093,6 +4437,12 @@ skills:
     - sap ecc
     - sap erp
     - sap r/3
+  SAP MM:
+    category: business_domain
+    parent: SAP
+    mentions: 5
+    aliases:
+    - sap mm
   Snowflake Schema:
     category: data_engineering
     parent: Dimensional Modeling
@@ -4113,6 +4463,12 @@ skills:
     aliases:
     - tdd
     - testgetriebene entwicklung
+  VBA:
+    category: programming
+    parent: null
+    mentions: 5
+    aliases:
+    - vba
   Video Analytics:
     category: ml_ai
     parent: Computer Vision
@@ -4121,33 +4477,38 @@ skills:
     - video data processing
     - video pipelines
     - videoanalyse
-  Vue.js:
-    category: software_engineering
-    parent: Frontend Development
-    mentions: 5
-    aliases:
-    - vue
-    - vue.js
   gRPC:
     category: software_engineering
     parent: APIs
     mentions: 5
     aliases:
     - grpc
-  Agent2Agent Protocol:
-    category: ml_ai
-    parent: AI Agents
+  pgvector:
+    category: database
+    parent: Vector Databases
+    mentions: 5
+    aliases:
+    - pgvector
+  .NET:
+    category: software_engineering
+    parent: null
     mentions: 4
     aliases:
-    - a2a
-  Amazon QuickSight:
-    category: analytics_bi
+    - .net
+    - .net core
+    - .net framework
+  Amazon EMR:
+    category: cloud
     parent: AWS
     mentions: 4
     aliases:
-    - amazon quicksight
-    - aws quicksight
-    - quicksight
+    - emr
+  Amazon RDS:
+    category: database
+    parent: AWS
+    mentions: 4
+    aliases:
+    - rds
   Ansible:
     category: devops
     parent: null
@@ -4164,15 +4525,6 @@ skills:
     - arcgis enterprise administration professional
     - arcgis pro
     - esri arcgis
-  Authentication:
-    category: software_engineering
-    parent: null
-    mentions: 4
-    aliases:
-    - auth
-    - authentication
-    - identity
-    - workload identity federation
   Azure Machine Learning:
     category: cloud
     parent: Azure
@@ -4188,6 +4540,15 @@ skills:
     - backup strategies
     - backup- und restore-strategien
     - disaster recovery
+  Banking:
+    category: business_domain
+    parent: null
+    mentions: 4
+    aliases:
+    - bankenumfeld
+    - bankfachliche kenntnisse
+    - banking
+    - bankwesen
   C:
     category: programming
     parent: null
@@ -4208,13 +4569,6 @@ skills:
     - clinical data
     - clinical trial design
     - real world evidence
-  Cloud Run:
-    category: cloud
-    parent: Google Cloud
-    mentions: 4
-    aliases:
-    - cloud run
-    - gcp cloud run
   Columnar Databases:
     category: database
     parent: null
@@ -4232,13 +4586,6 @@ skills:
     - salary benchmarking
     - stock option programmes
     - total rewards
-  Computer Architecture:
-    category: software_engineering
-    parent: null
-    mentions: 4
-    aliases:
-    - core pinning
-    - cpu/memory/pcie
   Data Observability:
     category: data_engineering
     parent: Data Quality
@@ -4292,25 +4639,32 @@ skills:
     mentions: 4
     aliases:
     - datadog
-  Developer Tooling:
+  Design Patterns:
     category: software_engineering
     parent: null
     mentions: 4
     aliases:
-    - developer tooling
+    - entwurfsmuster
+    - software design patterns
   Direct Preference Optimization:
     category: ml_ai
     parent: LLM Fine-tuning
     mentions: 4
     aliases:
     - dpo
-  E-Commerce:
-    category: business_domain
-    parent: null
+  Distributed Tracing:
+    category: devops
+    parent: Monitoring
     mentions: 4
     aliases:
-    - e-commerce
-    - ecommerce systeme
+    - traces
+    - tracing
+  Django:
+    category: software_engineering
+    parent: Python
+    mentions: 4
+    aliases:
+    - django
   Embedded Systems:
     category: software_engineering
     parent: null
@@ -4320,21 +4674,15 @@ skills:
     - embedded systems
     - mcus
     - physical computing
-  Fivetran:
-    category: data_engineering
-    parent: null
+  Explainable AI:
+    category: ml_ai
+    parent: Machine Learning
     mentions: 4
     aliases:
-    - fivetran
-  Funnel Analysis:
-    category: methods
-    parent: null
-    mentions: 4
-    aliases:
-    - digital acquisition funnels
-    - funnel metrics
-    - funnel-analysen
-    - funnel-metriken
+    - explainability
+    - explainable ai
+    - grad-cam
+    - interpretability
   Google Agent Development Kit:
     category: ml_ai
     parent: AI Agents
@@ -4343,13 +4691,6 @@ skills:
     - adk
     - google adk
     - google vertex ai agent sdk / adk
-  Gradient Boosting:
-    category: ml_ai
-    parent: Machine Learning
-    mentions: 4
-    aliases:
-    - boosting algorithms
-    - gradient boosting
   Graph Neural Networks:
     category: ml_ai
     parent: Deep Learning
@@ -4363,6 +4704,12 @@ skills:
     mentions: 4
     aliases:
     - graphql
+  Great Expectations:
+    category: data_engineering
+    parent: Data Quality
+    mentions: 4
+    aliases:
+    - great expectations
   Group Relative Policy Optimization:
     category: ml_ai
     parent: LLM Fine-tuning
@@ -4392,13 +4739,6 @@ skills:
     aliases:
     - json schema
     - json schema enforcement
-  Jupyter:
-    category: programming
-    parent: Python
-    mentions: 4
-    aliases:
-    - jupyter
-    - notebooks
   Kotlin:
     category: programming
     parent: null
@@ -4421,14 +4761,6 @@ skills:
     - low-code-/no-code-plattformen
     - low-code/no-code platforms
     - low-code/no-code-plattformen
-  Marketing Mix Modeling:
-    category: methods
-    parent: null
-    mentions: 4
-    aliases:
-    - bayesian media mix models
-    - media mix models
-    - mmm
   Master Data Management:
     category: data_engineering
     parent: Data Management
@@ -4438,13 +4770,6 @@ skills:
     - masterdata
     - stammdatenmanagement
     - stammdatenprozesse
-  Microsoft Copilot Studio:
-    category: software_engineering
-    parent: Microsoft Power Platform
-    mentions: 4
-    aliases:
-    - copilot studio
-    - microsoft copilot studio
   Microsoft Power Platform:
     category: software_engineering
     parent: Low-Code Platforms
@@ -4484,6 +4809,12 @@ skills:
     - contextual bandits
     - epsilon-greedy
     - thompson sampling
+  NATS:
+    category: software_engineering
+    parent: Message Brokers
+    mentions: 4
+    aliases:
+    - nats.io
   NIS2:
     category: business_domain
     parent: Compliance
@@ -4499,62 +4830,42 @@ skills:
     aliases:
     - oauth
     - oauth 2.0
+  Omni:
+    category: analytics_bi
+    parent: Business Intelligence
+    mentions: 4
+    aliases:
+    - omni
   PHP:
     category: software_engineering
     parent: null
     mentions: 4
     aliases:
     - php
-  Polars:
-    category: programming
-    parent: Python
-    mentions: 4
-    aliases:
-    - polars
   PostGIS:
     category: database
     parent: PostgreSQL
     mentions: 4
     aliases:
     - postgis
+  Process Mining:
+    category: business_domain
+    parent: null
+    mentions: 4
+    aliases:
+    - process mining
   Pydantic:
     category: programming
     parent: Python
     mentions: 4
     aliases:
     - pydantic
-  Redis:
-    category: database
-    parent: NoSQL Databases
-    mentions: 4
-    aliases:
-    - redis
-  Responsible AI:
-    category: ml_ai
-    parent: null
-    mentions: 4
-    aliases:
-    - responsible ai
   Ruby:
     category: software_engineering
     parent: null
     mentions: 4
     aliases:
     - ruby
-  SAP Business Data Cloud:
-    category: data_engineering
-    parent: SAP
-    mentions: 4
-    aliases:
-    - sap bdc
-    - sap business data cloud
-    - sap business data cloud (datasphere)
-  SAP MM:
-    category: business_domain
-    parent: SAP
-    mentions: 4
-    aliases:
-    - sap mm
   SPARQL:
     category: data_engineering
     parent: Knowledge Graphs
@@ -4620,12 +4931,27 @@ skills:
     aliases:
     - sdlc
     - software development lifecycle
+  Spark Streaming:
+    category: data_engineering
+    parent: Apache Spark
+    mentions: 4
+    aliases:
+    - spark streaming
+    - structured streaming
   Spring Boot:
     category: software_engineering
     parent: Java
     mentions: 4
     aliases:
     - spring boot
+  Storage Systems:
+    category: devops
+    parent: IT Infrastructure
+    mentions: 4
+    aliases:
+    - nas
+    - storage
+    - storage systems
   Streamlit:
     category: analytics_bi
     parent: Python
@@ -4638,6 +4964,12 @@ skills:
     mentions: 4
     aliases:
     - t-sql
+  Talend:
+    category: data_engineering
+    parent: Data Integration
+    mentions: 4
+    aliases:
+    - talend
   Temporal:
     category: data_engineering
     parent: Workflow Orchestration
@@ -4660,21 +4992,21 @@ skills:
     aliases:
     - text-to-speech
     - tts
-  VBA:
-    category: programming
+  Vespa:
+    category: database
     parent: null
     mentions: 4
     aliases:
-    - vba
-  Voice AI:
-    category: ml_ai
-    parent: null
+    - vespa
+  Web Scraping:
+    category: data_engineering
+    parent: Data Ingestion
     mentions: 4
     aliases:
-    - ai voice agents
-    - voice ai
-    - voice workflows
-    - voice-ai
+    - api scraping
+    - crawling
+    - web scraping
+    - webscraping
   Weights & Biases:
     category: ml_ai
     parent: Experiment Tracking
@@ -4695,12 +5027,6 @@ skills:
     - dbt metricflow
     - dbt semantic layer
     - metricflow
-  pgvector:
-    category: database
-    parent: Vector Databases
-    mentions: 4
-    aliases:
-    - pgvector
   AI Security:
     category: ml_ai
     parent: null
@@ -4714,18 +5040,18 @@ skills:
     mentions: 3
     aliases:
     - lake formation
-  Amazon DynamoDB:
-    category: database
+  Amazon CloudWatch:
+    category: cloud
     parent: AWS
     mentions: 3
     aliases:
-    - dynamodb
-  Amazon RDS:
-    category: database
+    - cloudwatch
+  Amazon EC2:
+    category: cloud
     parent: AWS
     mentions: 3
     aliases:
-    - rds
+    - ec2
   Anaplan:
     category: business_domain
     parent: null
@@ -4779,14 +5105,6 @@ skills:
     aliases:
     - azure sql
     - sql db
-  Banking:
-    category: business_domain
-    parent: null
-    mentions: 3
-    aliases:
-    - bankenumfeld
-    - bankfachliche kenntnisse
-    - banking
   Business Analysis:
     category: business_domain
     parent: null
@@ -4800,6 +5118,14 @@ skills:
     mentions: 3
     aliases:
     - css
+  Churn Analysis:
+    category: methods
+    parent: null
+    mentions: 3
+    aliases:
+    - churn
+    - churn-analysen
+    - retention-analysen
   Comet ML:
     category: ml_ai
     parent: MLOps
@@ -4873,6 +5199,14 @@ skills:
     aliases:
     - data version control
     - dvc
+  Database Administration:
+    category: database
+    parent: Databases
+    mentions: 3
+    aliases:
+    - database management
+    - databasebeheer
+    - datenbankverwaltung
   Databricks Genie:
     category: data_engineering
     parent: Databricks
@@ -4880,12 +5214,6 @@ skills:
     aliases:
     - databricks genie
     - genie code
-  Debugging:
-    category: software_engineering
-    parent: null
-    mentions: 3
-    aliases:
-    - debugging
   Deep Agents:
     category: ml_ai
     parent: AI Agents
@@ -4893,26 +5221,6 @@ skills:
     aliases:
     - deep agents
     - deepagents
-  Design Patterns:
-    category: software_engineering
-    parent: null
-    mentions: 3
-    aliases:
-    - entwurfsmuster
-    - software design patterns
-  Distributed Tracing:
-    category: devops
-    parent: Monitoring
-    mentions: 3
-    aliases:
-    - traces
-    - tracing
-  Django:
-    category: software_engineering
-    parent: Python
-    mentions: 3
-    aliases:
-    - django
   Drug Discovery:
     category: business_domain
     parent: null
@@ -4921,14 +5229,21 @@ skills:
     - admet
     - drug-response modeling
     - structure-based ml
-  Explainable AI:
-    category: ml_ai
-    parent: Machine Learning
+  Edge Computing:
+    category: cloud
+    parent: null
     mentions: 3
     aliases:
-    - explainability
-    - explainable ai
-    - grad-cam
+    - edge computing
+    - edge-computing
+  Event Tracking:
+    category: analytics_bi
+    parent: Web Analytics
+    mentions: 3
+    aliases:
+    - event-based data
+    - tracking design
+    - tracking-tools
   Exploratory Data Analysis:
     category: analytics_bi
     parent: Data Analysis
@@ -4983,12 +5298,20 @@ skills:
     aliases:
     - graph-based retrieval
     - graphrag
-  Great Expectations:
-    category: data_engineering
-    parent: Data Quality
+  IBM Cognos:
+    category: analytics_bi
+    parent: null
     mentions: 3
     aliases:
-    - great expectations
+    - cognos
+    - ibm cognos
+  IBM Db2:
+    category: database
+    parent: null
+    mentions: 3
+    aliases:
+    - db2
+    - ibm db2
   Image Segmentation:
     category: ml_ai
     parent: Computer Vision
@@ -4997,14 +5320,6 @@ skills:
     - image segmentation
     - instance segmentation
     - u-nets
-  Incrementality Testing:
-    category: methods
-    parent: Causal Inference
-    mentions: 3
-    aliases:
-    - incrementality
-    - incrementality measurement
-    - inkrementalität
   InfluxDB:
     category: database
     parent: null
@@ -5026,12 +5341,6 @@ skills:
     mentions: 3
     aliases:
     - jedox
-  Jenkins:
-    category: devops
-    parent: CI/CD
-    mentions: 3
-    aliases:
-    - jenkins
   Kaggle:
     category: ml_ai
     parent: null
@@ -5068,6 +5377,12 @@ skills:
     mentions: 3
     aliases:
     - lidar
+  Linear:
+    category: business_domain
+    parent: null
+    mentions: 3
+    aliases:
+    - linear
   Logistics:
     category: business_domain
     parent: null
@@ -5088,6 +5403,12 @@ skills:
     aliases:
     - customer.io
     - marketing automation
+  Megatron-LM:
+    category: ml_ai
+    parent: Distributed Training
+    mentions: 3
+    aliases:
+    - megatron-lm
   Metaflow:
     category: ml_ai
     parent: MLOps
@@ -5102,12 +5423,14 @@ skills:
     - expert parallelism
     - mmoe
     - moe
-  NATS:
-    category: software_engineering
-    parent: Message Brokers
+  Named Entity Recognition:
+    category: ml_ai
+    parent: Natural Language Processing
     mentions: 3
     aliases:
-    - nats.io
+    - entity extraction
+    - ner
+    - reconnaissance d'entités nommées
   Ollama:
     category: ml_ai
     parent: Large Language Models
@@ -5126,6 +5449,12 @@ skills:
     mentions: 3
     aliases:
     - opencode
+  OpenSearch:
+    category: database
+    parent: null
+    mentions: 3
+    aliases:
+    - opensearch
   OpenShift:
     category: devops
     parent: Kubernetes
@@ -5175,12 +5504,6 @@ skills:
     - probability
     - probability theory
     - wahrscheinlichkeitsrechnung
-  Process Mining:
-    category: business_domain
-    parent: null
-    mentions: 3
-    aliases:
-    - process mining
   Protocol Buffers:
     category: software_engineering
     parent: null
@@ -5193,20 +5516,40 @@ skills:
     mentions: 3
     aliases:
     - rabbitmq
-  Requirements Engineering:
+  Ray:
+    category: data_engineering
+    parent: Distributed Computing
+    mentions: 3
+    aliases:
+    - ray
+  Regression Testing:
     category: software_engineering
+    parent: Testing
+    mentions: 3
+    aliases:
+    - regression testing
+    - regressionstests
+  Regulatory Reporting:
+    category: business_domain
     parent: null
     mentions: 3
     aliases:
-    - anforderungsanalyse
-    - fachkonzepte
-    - requirements engineering
-  SAP Datasphere:
+    - aufsichtsrechtliches meldewesen
+    - meldewesen
+    - regulatory reporting
+  RisingWave:
+    category: data_engineering
+    parent: Stream Processing
+    mentions: 3
+    aliases:
+    - risingwave
+  SAP SuccessFactors:
     category: business_domain
     parent: SAP
     mentions: 3
     aliases:
-    - sap datasphere
+    - sap successfactors
+    - successfactors
   SAS Visual Analytics:
     category: analytics_bi
     parent: SAS
@@ -5221,6 +5564,12 @@ skills:
     aliases:
     - seo
     - seo/geo
+  SQLAlchemy:
+    category: programming
+    parent: Python
+    mentions: 3
+    aliases:
+    - sqlalchemy
   Scientific Computing:
     category: methods
     parent: null
@@ -5251,13 +5600,19 @@ skills:
     aliases:
     - semantic technologies
     - semantic web
-  Spark Streaming:
-    category: data_engineering
-    parent: Apache Spark
+  Service-Oriented Architecture:
+    category: software_engineering
+    parent: Software Architecture
     mentions: 3
     aliases:
-    - spark streaming
-    - structured streaming
+    - service-oriented architecture
+    - serviceorientierte architekturen
+  Slurm:
+    category: devops
+    parent: High-Performance Computing
+    mentions: 3
+    aliases:
+    - slurm
   Spatial Databases:
     category: database
     parent: Databases
@@ -5265,14 +5620,6 @@ skills:
     aliases:
     - räumliche datenbanken
     - spatial indexing
-  Storage Systems:
-    category: devops
-    parent: IT Infrastructure
-    mentions: 3
-    aliases:
-    - nas
-    - storage
-    - storage systems
   Survival Analysis:
     category: methods
     parent: Statistics
@@ -5287,12 +5634,6 @@ skills:
     aliases:
     - synthetic data
     - synthetic data generation
-  Talend:
-    category: data_engineering
-    parent: Data Integration
-    mentions: 3
-    aliases:
-    - talend
   Teamcenter:
     category: business_domain
     parent: Product Lifecycle Management
@@ -5359,6 +5700,12 @@ skills:
     mentions: 2
     aliases:
     - ai governance
+  AI Safety:
+    category: ml_ai
+    parent: null
+    mentions: 2
+    aliases:
+    - ai safety
   API Testing:
     category: software_engineering
     parent: Testing
@@ -5366,6 +5713,24 @@ skills:
     aliases:
     - api-testing
     - schnittstellentests
+  AWS Batch:
+    category: cloud
+    parent: AWS
+    mentions: 2
+    aliases:
+    - aws batch
+  AWS DMS:
+    category: cloud
+    parent: AWS
+    mentions: 2
+    aliases:
+    - dms
+  AWS EKS:
+    category: cloud
+    parent: AWS
+    mentions: 2
+    aliases:
+    - eks
   Adversarial Robustness:
     category: ml_ai
     parent: null
@@ -5373,30 +5738,18 @@ skills:
     aliases:
     - adversarial evaluation
     - adversarial robustness
-  Amazon CloudWatch:
-    category: cloud
-    parent: AWS
-    mentions: 2
-    aliases:
-    - cloudwatch
-  Amazon EC2:
-    category: cloud
-    parent: AWS
-    mentions: 2
-    aliases:
-    - ec2
   Amazon EKS:
     category: cloud
     parent: AWS
     mentions: 2
     aliases:
     - aws eks
-  Amazon EMR:
-    category: cloud
-    parent: AWS
+  Amplitude:
+    category: analytics_bi
+    parent: null
     mentions: 2
     aliases:
-    - emr
+    - amplitude
   Anti-Money Laundering:
     category: business_domain
     parent: null
@@ -5416,12 +5769,24 @@ skills:
     mentions: 2
     aliases:
     - druid
+  Apache NiFi:
+    category: data_engineering
+    parent: Data Integration
+    mentions: 2
+    aliases:
+    - apache nifi
   Apache Parquet:
     category: data_engineering
     parent: null
     mentions: 2
     aliases:
     - parquet
+  Apache Pinot:
+    category: database
+    parent: null
+    mentions: 2
+    aliases:
+    - apache pinot
   Apptio:
     category: analytics_bi
     parent: null
@@ -5429,6 +5794,12 @@ skills:
     aliases:
     - apptio bi
     - tbm studio
+  Asana:
+    category: business_domain
+    parent: null
+    mentions: 2
+    aliases:
+    - asana
   AutoGen:
     category: ml_ai
     parent: AI Agents
@@ -5460,6 +5831,12 @@ skills:
     mentions: 2
     aliases:
     - logic apps
+  Basel Accords:
+    category: business_domain
+    parent: Banking Regulation
+    mentions: 2
+    aliases:
+    - basel ii
   Bayesian Optimization:
     category: methods
     parent: Optimization
@@ -5485,6 +5862,12 @@ skills:
     aliases:
     - cell culture
     - perfusion
+  Celonis:
+    category: business_domain
+    parent: Process Mining
+    mentions: 2
+    aliases:
+    - celonis
   Change Management:
     category: business_domain
     parent: null
@@ -5492,13 +5875,6 @@ skills:
     aliases:
     - change control
     - gestion des changements
-  Churn Analysis:
-    category: methods
-    parent: null
-    mentions: 2
-    aliases:
-    - churn-analysen
-    - retention-analysen
   Cloudera:
     category: data_engineering
     parent: null
@@ -5539,12 +5915,25 @@ skills:
     aliases:
     - content moderation
     - harmful content detection
+  Customer Lifetime Value:
+    category: methods
+    parent: null
+    mentions: 2
+    aliases:
+    - ltv-modelle
+    - modélisation ltv / sac
   Cypher:
     category: database
     parent: Graph Databases
     mentions: 2
     aliases:
     - cypher
+  DATEV:
+    category: business_domain
+    parent: Financial Accounting
+    mentions: 2
+    aliases:
+    - datev
   DSPy:
     category: ml_ai
     parent: Large Language Models
@@ -5570,13 +5959,6 @@ skills:
     mentions: 2
     aliases:
     - data sovereignty
-  Database Administration:
-    category: database
-    parent: Databases
-    mentions: 2
-    aliases:
-    - databasebeheer
-    - datenbankverwaltung
   Dataform:
     category: data_engineering
     parent: Data Transformation
@@ -5596,6 +5978,12 @@ skills:
     mentions: 2
     aliases:
     - debezium
+  Debt Collection:
+    category: business_domain
+    parent: null
+    mentions: 2
+    aliases:
+    - recouvrement
   Delta Live Tables:
     category: data_engineering
     parent: Databricks
@@ -5634,13 +6022,6 @@ skills:
     mentions: 2
     aliases:
     - dynatrace
-  Edge Computing:
-    category: cloud
-    parent: null
-    mentions: 2
-    aliases:
-    - edge computing
-    - edge-computing
   Electronics:
     category: business_domain
     parent: null
@@ -5683,6 +6064,12 @@ skills:
     aliases:
     - superglue
     - superpoint
+  FinTech:
+    category: business_domain
+    parent: Finance
+    mentions: 2
+    aliases:
+    - fintech
   Financial Accounting:
     category: business_domain
     parent: Finance
@@ -5715,6 +6102,13 @@ skills:
     aliases:
     - air sampling
     - gas handling
+  Generalized Linear Models:
+    category: methods
+    parent: Statistics
+    mentions: 2
+    aliases:
+    - glm
+    - glms
   Generative Design:
     category: business_domain
     parent: CAD
@@ -5778,19 +6172,6 @@ skills:
     mentions: 2
     aliases:
     - hybrid search
-  IBM Cognos:
-    category: analytics_bi
-    parent: null
-    mentions: 2
-    aliases:
-    - cognos
-    - ibm cognos
-  IBM Db2:
-    category: database
-    parent: null
-    mentions: 2
-    aliases:
-    - db2
   IBM Storage Scale:
     category: devops
     parent: Storage Systems
@@ -5798,6 +6179,12 @@ skills:
     aliases:
     - gpfs
     - ibm storage scale
+  IFRS 9:
+    category: business_domain
+    parent: Financial Accounting
+    mentions: 2
+    aliases:
+    - ifrs 9
   IT Governance:
     category: business_domain
     parent: null
@@ -5836,6 +6223,12 @@ skills:
     aliases:
     - claims adjudication
     - versicherungsumfeld
+  Intercom:
+    category: business_domain
+    parent: CRM
+    mentions: 2
+    aliases:
+    - intercom
   Julia:
     category: programming
     parent: null
@@ -5848,6 +6241,12 @@ skills:
     mentions: 2
     aliases:
     - knime
+  Kafka Streams:
+    category: data_engineering
+    parent: Apache Kafka
+    mentions: 2
+    aliases:
+    - kafka streams
   Knowledge Management:
     category: business_domain
     parent: null
@@ -5879,12 +6278,12 @@ skills:
     mentions: 2
     aliases:
     - librechat
-  Linear:
-    category: business_domain
-    parent: null
+  LightGBM:
+    category: ml_ai
+    parent: Gradient Boosting
     mentions: 2
     aliases:
-    - linear
+    - lightgbm
   Linear Algebra:
     category: methods
     parent: Mathematics
@@ -5956,12 +6355,6 @@ skills:
     aliases:
     - konstruktion
     - mechanical schematics
-  Megatron-LM:
-    category: ml_ai
-    parent: Distributed Training
-    mentions: 2
-    aliases:
-    - megatron-lm
   Microsoft Purview:
     category: cloud
     parent: Azure
@@ -6005,13 +6398,6 @@ skills:
     mentions: 2
     aliases:
     - nist
-  Named Entity Recognition:
-    category: ml_ai
-    parent: Natural Language Processing
-    mentions: 2
-    aliases:
-    - entity extraction
-    - ner
   Neo4j:
     category: database
     parent: Graph Databases
@@ -6038,31 +6424,18 @@ skills:
     aliases:
     - electrical safety
     - esd/loto/ppe
-  Omni:
-    category: analytics_bi
-    parent: Business Intelligence
+  Open Table Formats:
+    category: data_engineering
+    parent: Data Lakehouse
     mentions: 2
     aliases:
-    - omni
-  Open-Source LLMs:
-    category: ml_ai
-    parent: Large Language Models
-    mentions: 2
-    aliases:
-    - open-source llms
-    - self-hosted llms
+    - opentable formate
   OpenID Connect:
     category: software_engineering
     parent: Authentication
     mentions: 2
     aliases:
     - oidc
-  OpenSearch:
-    category: database
-    parent: null
-    mentions: 2
-    aliases:
-    - opensearch
   OpenStreetMap:
     category: analytics_bi
     parent: GIS
@@ -6189,38 +6562,24 @@ skills:
     mentions: 2
     aliases:
     - svhc
-  Ray:
-    category: data_engineering
-    parent: Distributed Computing
-    mentions: 2
-    aliases:
-    - ray
   React Native:
     category: software_engineering
     parent: Mobile Development
     mentions: 2
     aliases:
     - react native
+  Real-time Analytics:
+    category: data_engineering
+    parent: Stream Processing
+    mentions: 2
+    aliases:
+    - near real-time analytics
   Redash:
     category: analytics_bi
     parent: Business Intelligence
     mentions: 2
     aliases:
     - redash
-  Regression Testing:
-    category: software_engineering
-    parent: Testing
-    mentions: 2
-    aliases:
-    - regression testing
-    - regressionstests
-  Regulatory Reporting:
-    category: business_domain
-    parent: null
-    mentions: 2
-    aliases:
-    - aufsichtsrechtliches meldewesen
-    - regulatory reporting
   Renewable Energy:
     category: business_domain
     parent: Energy
@@ -6254,12 +6613,6 @@ skills:
     mentions: 2
     aliases:
     - reward modeling
-  RisingWave:
-    category: data_engineering
-    parent: Stream Processing
-    mentions: 2
-    aliases:
-    - risingwave
   Row-Level Security:
     category: software_engineering
     parent: Access Control
@@ -6336,12 +6689,6 @@ skills:
     aliases:
     - sql server integration services
     - ssis
-  SQLAlchemy:
-    category: programming
-    parent: Python
-    mentions: 2
-    aliases:
-    - sqlalchemy
   SaaS:
     category: cloud
     parent: Cloud Computing
@@ -6376,6 +6723,12 @@ skills:
     aliases:
     - secure computation
     - secure multi-party computation
+  Segment:
+    category: data_engineering
+    parent: null
+    mentions: 2
+    aliases:
+    - segment
   Semantic Caching:
     category: ml_ai
     parent: LLMOps
@@ -6401,31 +6754,31 @@ skills:
     aliases:
     - sequence modeling
     - sequence modelling
-  Service-Oriented Architecture:
-    category: software_engineering
-    parent: Software Architecture
-    mentions: 2
-    aliases:
-    - service-oriented architecture
-    - serviceorientierte architekturen
   SharePoint:
     category: business_domain
     parent: null
     mentions: 2
     aliases:
     - sharepoint
+  Slack:
+    category: business_domain
+    parent: null
+    mentions: 2
+    aliases:
+    - slack
   Snowflake Semantic Views:
     category: cloud
     parent: Snowflake
     mentions: 2
     aliases:
     - snowflake semantic views
-  Strands Agents:
-    category: ml_ai
-    parent: AI Agents
+  Structural Equation Modeling:
+    category: methods
+    parent: Statistics
     mentions: 2
     aliases:
-    - aws strands
+    - equations structurelles
+    - équations structurelles
   Supervised Learning:
     category: ml_ai
     parent: Machine Learning
@@ -6457,12 +6810,32 @@ skills:
     mentions: 2
     aliases:
     - telekommunikation
+  Text Summarization:
+    category: ml_ai
+    parent: Natural Language Processing
+    mentions: 2
+    aliases:
+    - résumé de texte
+    - summarisation
   Ticketing Systems:
     category: business_domain
     parent: null
     mentions: 2
     aliases:
     - ticketsysteme
+  Topic Modeling:
+    category: ml_ai
+    parent: Natural Language Processing
+    mentions: 2
+    aliases:
+    - modélisation de topic
+    - topic modeling
+  Unix:
+    category: devops
+    parent: null
+    mentions: 2
+    aliases:
+    - unix
   Uplift Modeling:
     category: methods
     parent: Causal Inference
@@ -6482,12 +6855,6 @@ skills:
     mentions: 2
     aliases:
     - vertex ai agent builder
-  Vespa:
-    category: database
-    parent: null
-    mentions: 2
-    aliases:
-    - vespa
   Weaviate:
     category: database
     parent: Vector Databases
@@ -6500,6 +6867,12 @@ skills:
     mentions: 2
     aliases:
     - webrtc
+  WebSockets:
+    category: software_engineering
+    parent: APIs
+    mentions: 2
+    aliases:
+    - websockets
   Windmill:
     category: data_engineering
     parent: Workflow Orchestration
@@ -6513,6 +6886,12 @@ skills:
     aliases:
     - windows
     - windows-systeme
+  Zendesk:
+    category: business_domain
+    parent: Ticketing Systems
+    mentions: 2
+    aliases:
+    - zendesk
   nginx:
     category: devops
     parent: null
@@ -6525,12 +6904,6 @@ skills:
     mentions: 2
     aliases:
     - pytest
-  .NET:
-    category: software_engineering
-    parent: null
-    mentions: 1
-    aliases:
-    - .net framework
   AIOps:
     category: devops
     parent: null
@@ -6555,12 +6928,24 @@ skills:
     mentions: 1
     aliases:
     - aveva
-  AWS Batch:
+  AWS CloudFront:
     category: cloud
     parent: AWS
     mentions: 1
     aliases:
-    - aws batch
+    - cloudfront
+  AWS ECS:
+    category: cloud
+    parent: AWS
+    mentions: 1
+    aliases:
+    - ecs fargate
+  AWS SQS:
+    category: cloud
+    parent: AWS
+    mentions: 1
+    aliases:
+    - sqs
   Adobe Analytics:
     category: analytics_bi
     parent: Web Analytics
@@ -6657,12 +7042,18 @@ skills:
     mentions: 1
     aliases:
     - hive
-  Apache NiFi:
+  Apache Hudi:
     category: data_engineering
-    parent: Data Integration
+    parent: null
     mentions: 1
     aliases:
-    - apache nifi
+    - hudi
+  Apache Pulsar:
+    category: data_engineering
+    parent: Stream Processing
+    mentions: 1
+    aliases:
+    - pulsar
   Apigee:
     category: software_engineering
     parent: API Gateway
@@ -6699,12 +7090,6 @@ skills:
     mentions: 1
     aliases:
     - aruba
-  Asana:
-    category: business_domain
-    parent: null
-    mentions: 1
-    aliases:
-    - asana
   AspenTech:
     category: business_domain
     parent: null
@@ -6789,12 +7174,24 @@ skills:
     mentions: 1
     aliases:
     - azure storage
+  BCBS 239:
+    category: business_domain
+    parent: Banking Regulation
+    mentions: 1
+    aliases:
+    - bcbs 239
   BIM:
     category: business_domain
     parent: null
     mentions: 1
     aliases:
     - bim
+  Banking Regulation:
+    category: business_domain
+    parent: Banking
+    mentions: 1
+    aliases:
+    - aufsichtsrecht
   Baserow:
     category: database
     parent: null
@@ -6819,6 +7216,12 @@ skills:
     mentions: 1
     aliases:
     - clinical biostatistics
+  Bitbucket:
+    category: devops
+    parent: Git
+    mentions: 1
+    aliases:
+    - bitbucket
   Board:
     category: analytics_bi
     parent: null
@@ -6879,12 +7282,6 @@ skills:
     mentions: 1
     aliases:
     - celery
-  Celonis:
-    category: business_domain
-    parent: Process Mining
-    mentions: 1
-    aliases:
-    - celonis
   Chef:
     category: devops
     parent: null
@@ -7017,12 +7414,6 @@ skills:
     mentions: 1
     aliases:
     - kostenrechnung
-  Credit Risk:
-    category: business_domain
-    parent: Risk Management
-    mentions: 1
-    aliases:
-    - credit risk
   Crystal Reports:
     category: analytics_bi
     parent: Reporting
@@ -7041,24 +7432,12 @@ skills:
     mentions: 1
     aliases:
     - customer experience
-  Customer Lifetime Value:
-    category: methods
-    parent: null
-    mentions: 1
-    aliases:
-    - ltv-modelle
   Cypress:
     category: software_engineering
     parent: Testing
     mentions: 1
     aliases:
     - cypress
-  DATEV:
-    category: business_domain
-    parent: Financial Accounting
-    mentions: 1
-    aliases:
-    - datev
   DICOM:
     category: business_domain
     parent: Healthcare
@@ -7251,12 +7630,6 @@ skills:
     mentions: 1
     aliases:
     - equation discovery
-  Event Tracking:
-    category: analytics_bi
-    parent: Web Analytics
-    mentions: 1
-    aliases:
-    - event-based data
   Exact Online:
     category: business_domain
     parent: ERP
@@ -7323,12 +7696,6 @@ skills:
     mentions: 1
     aliases:
     - figma
-  FinTech:
-    category: business_domain
-    parent: Finance
-    mentions: 1
-    aliases:
-    - fintech
   Financial Market Data:
     category: business_domain
     parent: Finance
@@ -7395,6 +7762,12 @@ skills:
     mentions: 1
     aliases:
     - safety-critical design
+  Fundraising:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - digital fundraising
   G-code:
     category: business_domain
     parent: Manufacturing
@@ -7437,12 +7810,6 @@ skills:
     mentions: 1
     aliases:
     - game theory
-  Generalized Linear Models:
-    category: methods
-    parent: Statistics
-    mentions: 1
-    aliases:
-    - glm
   Generative Adversarial Networks:
     category: ml_ai
     parent: Generative AI
@@ -7473,12 +7840,24 @@ skills:
     mentions: 1
     aliases:
     - artifact registry
+  Google Cloud Functions:
+    category: cloud
+    parent: Google Cloud
+    mentions: 1
+    aliases:
+    - cloud functions
   Google Cloud Pub/Sub:
     category: cloud
     parent: Google Cloud
     mentions: 1
     aliases:
     - gcp pub/sub
+  Google Cloud Tasks:
+    category: cloud
+    parent: Google Cloud
+    mentions: 1
+    aliases:
+    - cloud tasks
   Google OR-Tools:
     category: methods
     parent: Optimization
@@ -7575,6 +7954,12 @@ skills:
     mentions: 1
     aliases:
     - ibm instana
+  IBM Storage Protect:
+    category: devops
+    parent: null
+    mentions: 1
+    aliases:
+    - ibm storage protect
   IBM Watson:
     category: ml_ai
     parent: null
@@ -7641,12 +8026,6 @@ skills:
     mentions: 1
     aliases:
     - informatica
-  Information Extraction:
-    category: ml_ai
-    parent: null
-    mentions: 1
-    aliases:
-    - structured data extraction
   Infracost:
     category: cloud
     parent: FinOps
@@ -7665,12 +8044,6 @@ skills:
     mentions: 1
     aliases:
     - integrationstests
-  Intercom:
-    category: business_domain
-    parent: CRM
-    mentions: 1
-    aliases:
-    - intercom
   Inverse Problems:
     category: methods
     parent: Scientific Computing
@@ -7719,12 +8092,12 @@ skills:
     mentions: 1
     aliases:
     - jinja
-  Kafka Streams:
+  Kafka Connect:
     category: data_engineering
     parent: Apache Kafka
     mentions: 1
     aliases:
-    - kafka streams
+    - kafka connect
   Keycloak:
     category: software_engineering
     parent: Authentication
@@ -7737,12 +8110,6 @@ skills:
     mentions: 1
     aliases:
     - kibana
-  Kiro:
-    category: software_engineering
-    parent: AI-Assisted Coding
-    mentions: 1
-    aliases:
-    - kiro cli
   Kong:
     category: software_engineering
     parent: API Gateway
@@ -7755,6 +8122,18 @@ skills:
     mentions: 1
     aliases:
     - kubecost
+  LLaMA:
+    category: ml_ai
+    parent: Large Language Models
+    mentions: 1
+    aliases:
+    - llama
+  Lead Scoring:
+    category: methods
+    parent: null
+    mentions: 1
+    aliases:
+    - lead scoring
   Leak Testing:
     category: business_domain
     parent: null
@@ -7773,12 +8152,6 @@ skills:
     mentions: 1
     aliases:
     - lightfm
-  LightGBM:
-    category: ml_ai
-    parent: Gradient Boosting
-    mentions: 1
-    aliases:
-    - lightgbm
   Lightdash:
     category: analytics_bi
     parent: Business Intelligence
@@ -7875,6 +8248,12 @@ skills:
     mentions: 1
     aliases:
     - maven
+  Media Bias:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - media bias
   Medical Devices:
     category: business_domain
     parent: Healthcare
@@ -7893,6 +8272,12 @@ skills:
     mentions: 1
     aliases:
     - metric learning
+  MicroStrategy:
+    category: analytics_bi
+    parent: Business Intelligence
+    mentions: 1
+    aliases:
+    - microstrategy
   Microfluidics:
     category: business_domain
     parent: null
@@ -7947,6 +8332,12 @@ skills:
     mentions: 1
     aliases:
     - mixpanel
+  Mobile Marketing:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - mobile marketing
   Molecular Docking:
     category: business_domain
     parent: Drug Discovery
@@ -7983,12 +8374,24 @@ skills:
     mentions: 1
     aliases:
     - multi-task learning
+  Multivariate Testing:
+    category: methods
+    parent: A/B Testing
+    mentions: 1
+    aliases:
+    - multivariates testing
   MyReport:
     category: analytics_bi
     parent: Reporting
     mentions: 1
     aliases:
     - myreport
+  NFS:
+    category: devops
+    parent: null
+    mentions: 1
+    aliases:
+    - nfs
   NVIDIA DeepStream:
     category: ml_ai
     parent: Computer Vision
@@ -8019,6 +8422,12 @@ skills:
     mentions: 1
     aliases:
     - nestjs
+  NetApp:
+    category: devops
+    parent: null
+    mentions: 1
+    aliases:
+    - netapp
   New Relic:
     category: devops
     parent: Application Performance Monitoring
@@ -8079,12 +8488,12 @@ skills:
     mentions: 1
     aliases:
     - onestream
-  Open Table Formats:
-    category: data_engineering
-    parent: Data Lakehouse
+  OpenAI Agents SDK:
+    category: ml_ai
+    parent: AI Agents
     mentions: 1
     aliases:
-    - opentable formate
+    - openai agent sdk
   OpenAPI:
     category: software_engineering
     parent: API Design
@@ -8217,6 +8626,18 @@ skills:
     mentions: 1
     aliases:
     - process engineering
+  Process Modeling:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - prozessvisualisierung
+  Product-led Growth:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - product-led growth
   Promptfoo:
     category: ml_ai
     parent: AI Evaluation
@@ -8289,6 +8710,12 @@ skills:
     mentions: 1
     aliases:
     - questdb
+  RLVR:
+    category: ml_ai
+    parent: Reinforcement Learning
+    mentions: 1
+    aliases:
+    - rlvr
   Rapid Prototyping:
     category: business_domain
     parent: null
@@ -8355,6 +8782,12 @@ skills:
     mentions: 1
     aliases:
     - s1000d
+  SAN:
+    category: devops
+    parent: null
+    mentions: 1
+    aliases:
+    - san
   SAP Analysis for Office:
     category: analytics_bi
     parent: SAP
@@ -8379,6 +8812,12 @@ skills:
     mentions: 1
     aliases:
     - sap finance
+  SAP HANA:
+    category: business_domain
+    parent: SAP
+    mentions: 1
+    aliases:
+    - sap hana
   SAP HCM:
     category: business_domain
     parent: SAP
@@ -8403,12 +8842,6 @@ skills:
     mentions: 1
     aliases:
     - sap retail
-  SAP SuccessFactors:
-    category: business_domain
-    parent: SAP
-    mentions: 1
-    aliases:
-    - successfactors
   SAP Variant Configuration:
     category: business_domain
     parent: SAP
@@ -8451,6 +8884,12 @@ skills:
     mentions: 1
     aliases:
     - soql
+  SOX Compliance:
+    category: business_domain
+    parent: null
+    mentions: 1
+    aliases:
+    - sox compliance
   SQL Server Analysis Services:
     category: database
     parent: Microsoft SQL Server
@@ -8529,12 +8968,6 @@ skills:
     mentions: 1
     aliases:
     - seeq
-  Segment:
-    category: data_engineering
-    parent: null
-    mentions: 1
-    aliases:
-    - segment
   Sentry:
     category: devops
     parent: Monitoring
@@ -8577,24 +9010,18 @@ skills:
     mentions: 1
     aliases:
     - sim-to-real deployment
+  SkyRL:
+    category: ml_ai
+    parent: Reinforcement Learning
+    mentions: 1
+    aliases:
+    - skyrl
   Skywise:
     category: analytics_bi
     parent: null
     mentions: 1
     aliases:
     - skywise
-  Slack:
-    category: business_domain
-    parent: null
-    mentions: 1
-    aliases:
-    - slack
-  Slurm:
-    category: devops
-    parent: High-Performance Computing
-    mentions: 1
-    aliases:
-    - slurm
   Small Area Estimation:
     category: methods
     parent: Statistics
@@ -8661,6 +9088,12 @@ skills:
     mentions: 1
     aliases:
     - spring
+  StarRocks:
+    category: database
+    parent: null
+    mentions: 1
+    aliases:
+    - starrocks
   Stata:
     category: methods
     parent: Statistics
@@ -8679,6 +9112,12 @@ skills:
     mentions: 1
     aliases:
     - stochastic processes
+  Supabase:
+    category: database
+    parent: null
+    mentions: 1
+    aliases:
+    - supabase
   SuperAnnotate:
     category: ml_ai
     parent: Data Annotation
@@ -8703,12 +9142,42 @@ skills:
     mentions: 1
     aliases:
     - svelte
+  SwiftUI:
+    category: software_engineering
+    parent: null
+    mentions: 1
+    aliases:
+    - swiftui
   Synthetic Aperture Radar:
     category: analytics_bi
     parent: Remote Sensing
     mentions: 1
     aliases:
     - sar interpretation
+  TFX:
+    category: ml_ai
+    parent: MLOps
+    mentions: 1
+    aliases:
+    - tfx
+  TabDPT:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 1
+    aliases:
+    - tabdpt
+  TabICL:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 1
+    aliases:
+    - tabicl
+  TabPFN:
+    category: ml_ai
+    parent: Machine Learning
+    mentions: 1
+    aliases:
+    - tabpfn
   Tailwind CSS:
     category: software_engineering
     parent: CSS
@@ -8751,12 +9220,12 @@ skills:
     mentions: 1
     aliases:
     - teradata
-  Text Summarization:
+  Text-to-SQL:
     category: ml_ai
-    parent: Natural Language Processing
+    parent: Large Language Models
     mentions: 1
     aliases:
-    - summarisation
+    - text-to-sql
   Thermodynamics:
     category: business_domain
     parent: null
@@ -8781,24 +9250,18 @@ skills:
     mentions: 1
     aliases:
     - timescaledb
-  Topic Modeling:
+  TorchTitan:
     category: ml_ai
-    parent: Natural Language Processing
+    parent: Distributed Training
     mentions: 1
     aliases:
-    - topic modeling
+    - torchtitan
   Uncertainty Quantification:
     category: methods
     parent: Statistics
     mentions: 1
     aliases:
     - uncertainty quantification
-  Unix:
-    category: devops
-    parent: null
-    mentions: 1
-    aliases:
-    - unix
   Unsupervised Learning:
     category: ml_ai
     parent: Machine Learning
@@ -8823,6 +9286,12 @@ skills:
     mentions: 1
     aliases:
     - vait
+  VeRL:
+    category: ml_ai
+    parent: Reinforcement Learning
+    mentions: 1
+    aliases:
+    - verl
   Vercel:
     category: cloud
     parent: null
@@ -8847,6 +9316,12 @@ skills:
     mentions: 1
     aliases:
     - vertex ai vector search
+  Vertica:
+    category: database
+    parent: null
+    mentions: 1
+    aliases:
+    - vertica
   Video Editing:
     category: business_domain
     parent: null
@@ -8883,24 +9358,12 @@ skills:
     mentions: 1
     aliases:
     - web applications
-  Web Scraping:
-    category: data_engineering
-    parent: Data Ingestion
-    mentions: 1
-    aliases:
-    - webscraping
   WebGL:
     category: software_engineering
     parent: Computer Graphics
     mentions: 1
     aliases:
     - webgl
-  WebSockets:
-    category: software_engineering
-    parent: APIs
-    mentions: 1
-    aliases:
-    - websockets
   Webflow:
     category: software_engineering
     parent: Low-Code Platforms
@@ -8937,12 +9400,6 @@ skills:
     mentions: 1
     aliases:
     - yaml
-  Zendesk:
-    category: business_domain
-    parent: Ticketing Systems
-    mentions: 1
-    aliases:
-    - zendesk
   Zod:
     category: software_engineering
     parent: TypeScript
@@ -8992,8 +9449,11 @@ skills:
     aliases:
     - seaborn
 dropped:
+- ai architectures
 - ai building tools
+- ai pipelines
 - ai tooling
+- ai-powered analytics
 - ai-tools
 - ais telemetry
 - ait-prozesse
@@ -9001,6 +9461,7 @@ dropped:
 - anlagenbetrieb
 - arm
 - availability calculations
+- backend language
 - batching
 - benchmarking
 - betriebs- und supportprozesse
@@ -9020,6 +9481,7 @@ dropped:
 - content analysis
 - copywriting
 - data handling
+- data-analytics-plattformen
 - data-driven modelling
 - data-processing frameworks
 - datenkonzepte
@@ -9031,6 +9493,7 @@ dropped:
 - digitalisierungs- und automatisierungstools
 - din en
 - dispatch logic
+- déploiement
 - elasticity
 - ems
 - enterprise planning software
@@ -9047,6 +9510,7 @@ dropped:
 - gse-konzepte
 - gtm data
 - harness engineering
+- harnesses
 - heuristics
 - high-qps applications
 - implementing research papers
@@ -9063,6 +9527,7 @@ dropped:
 - ltsa
 - marketing systems
 - measurement data
+- measurement frameworks
 - memory
 - mesh
 - metrics
@@ -9088,6 +9553,7 @@ dropped:
 - programmeertalen
 - programmiererfahrung
 - programmierkenntnisse
+- programmiersprache
 - programmiersprachen
 - programmierung
 - programming
@@ -9099,9 +9565,11 @@ dropped:
 - recall
 - reconciliations
 - redaktionsprozesse
+- reliability
 - research prototypes
 - rkeg
 - rma tooling
+- roi
 - routing
 - schulungskonzeption
 - scientific and data-science libraries
@@ -9119,12 +9587,15 @@ dropped:
 - stateful workloads
 - strategic planning
 - structureren van data
+- systems language
 - technical leadership
 - technische beratung
 - ticketsystem
+- trace-router
 - transformation
 - typeform
 - typsichere programmiersprache
+- validation
 - vs code
 - wissenschaftliches arbeiten
 - workflows

@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Button, Card, Group, Progress, Spoiler, Stack, Switch, Text, TextInput, Tooltip } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, Group, Progress, Spoiler, Stack, Text, TextInput, Tooltip } from "@mantine/core";
 import { IconCheck, IconExternalLink, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { api, type Card as CardT, type Coverage } from "../api/client";
@@ -20,7 +20,6 @@ export function CoverageBar({ coverage }: { coverage: Coverage | undefined }) {
 
 export default function JobCard({ card, coverage, isNew }: { card: CardT; coverage?: Coverage; isNew?: boolean }) {
   const [note, setNote] = useState("");
-  const [letter, setLetter] = useState(false);
   const select = useAction(api.select, `Selected: ${card.title}. Run "Prepare drafts" next.`);
   const skip = useAction(api.skip, `Skipped: ${card.title}`);
 
@@ -56,14 +55,14 @@ export default function JobCard({ card, coverage, isNew }: { card: CardT; covera
         </Spoiler>
         <TextInput size="xs" placeholder="Note: what to stress, or why you skip" value={note} onChange={(e) => setNote(e.currentTarget.value)} />
         <Group justify="space-between">
-          <Switch size="xs" label="cover letter" checked={letter} onChange={(e) => setLetter(e.currentTarget.checked)} />
+          <Text size="xs" c="dimmed">Selecting drafts a tailored résumé; decide on a letter later, in Applications.</Text>
           <Group gap="xs">
             <Button size="xs" variant="default" leftSection={<IconX size={14} />} loading={skip.isPending}
               onClick={() => skip.mutate([card.job_id, note || null])}>
               Skip
             </Button>
             <Button size="xs" leftSection={<IconCheck size={14} />} loading={select.isPending}
-              onClick={() => select.mutate([card.job_id, letter, note || null])}>
+              onClick={() => select.mutate([card.job_id, false, note || null])}>
               Select
             </Button>
           </Group>

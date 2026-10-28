@@ -104,3 +104,8 @@ def test_stream_json_becomes_readable_lines() -> None:
     assert runner.render_event(json.dumps(use))[0] == ["→ save_extraction(job_id=7)"]
     assert runner.render_event(json.dumps(err))[0] == ["✗ stale prompt_version"]
     assert runner.render_event(json.dumps(done)) == (["✓ finished after 4 s, 3 turns"], "## Report")
+
+
+def test_mail_run_fetches_only_alert_emails() -> None:
+    assert runner.command("mail")[-1] == "--mail-only"
+    assert runner.KINDS["mail"] == "Check mail"

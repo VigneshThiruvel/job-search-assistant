@@ -5,7 +5,6 @@ import pytest
 from job_search_assistant import db, evalset, inbox
 from job_search_assistant.models import Job
 
-SINCE = "2000-01-01"
 DESCRIPTION = "We are looking for a junior data engineer to build pipelines in Python and SQL. " * 8
 
 
@@ -47,23 +46,19 @@ def setup():
 
 def test_templates_only_for_alert_jobs_without_any_text(setup, tmp_path) -> None:
     conn, ids = setup
-    written = inbox.write_templates(conn, SINCE, tmp_path)
+    written = inbox.write_templates(conn, tmp_path)
     # The xing twin shares the group; the Beta job has an Arbeitnow twin with text; senior
-    # and working-student titles are out of scope; the old email is before the window.
-    assert [p.name for p in inbox.write_templates(conn, "2026-06-01", tmp_path / "w")] == [
-        f"{ids['li']}-acme.txt"
-    ]
-    # The January email is also outside the 2-day ranking window: no file either way.
+    # and working-student titles are out of scope; the January email is not fresh.
     assert [p.name for p in written] == [f"{ids['li']}-acme.txt"]
     assert inbox.MARKER in written[0].read_text()
     assert "https://example.com/linkedin/1" in written[0].read_text()
-    assert inbox.write_templates(conn, SINCE, tmp_path) == []  # existing files are left alone
+    assert inbox.write_templates(conn, tmp_path) == []  # existing files are left alone
     assert inbox.is_untouched(written[0])
 
 
 def test_pasted_text_survives_reingest_and_enters_target_scope(setup, tmp_path) -> None:
     conn, ids = setup
-    template = inbox.write_templates(conn, SINCE, tmp_path)[0]
+    template = inbox.write_templates(conn, tmp_path)[0]
     template.write_text(template.read_text() + DESCRIPTION)
     (tmp_path / "untouched-template.txt").write_text(f"# x\n{inbox.MARKER}\n")
     (tmp_path / f"{ids['other']}-delta.txt").write_text(DESCRIPTION)
@@ -82,7 +77,7 @@ def test_pasted_text_survives_reingest_and_enters_target_scope(setup, tmp_path) 
     description = "SELECT description FROM jobs WHERE id = ?"
     assert conn.execute(description, (ids["li"],)).fetchone()[0] == ""
     assert inbox.apply_pasted(conn) == 1
-    assert [r["id"] for r in inbox.needs_description(conn, SINCE)] == [ids["old_mail"]]
+    assert inbox.needs_description(conn) == []  # pasted; the January one is not fresh
 
     target = {j["id"] for j in evalset.target_jobs(conn)}
     # Pasted alert job, the Arbeitnow twin standing in for its LinkedIn alert, and Delta.
@@ -100,15 +95,12 @@ def test_channels_follow_the_duplicate_group(setup) -> None:
     }
 
 
-def test_mail_window_starts_at_the_previous_full_run(setup) -> None:
-    conn, _ = setup
-    today = inbox.mail_window_start(conn)  # no runs recorded yet: since local midnight
-    assert today <= datetime.now(UTC).isoformat()
-    conn.execute("INSERT INTO daily_runs (started_at) VALUES ('2026-10-24T11:00:00+00:00')")
-    assert inbox.mail_window_start(conn) == today  # only the current run: still today
-    conn.execute("INSERT INTO daily_runs (started_at) VALUES ('2026-10-26T07:00:00+00:00')")
-    # Skipped a day: everything since the previous run, so Sunday's mails are not lost.
-    assert inbox.mail_window_start(conn) == "2026-10-24T11:00:00+00:00"
+def test_a_fresh_job_missed_by_an_earlier_run_still_gets_a_file(setup, tmp_path) -> None:
+    conn, ids = setup
+    # Runs happened after the email arrived (e.g. the title rule matched only later):
+    # freshness, not the time of the last run, decides.
+    conn.execute("INSERT INTO daily_runs (started_at) VALUES (?)", (datetime.now(UTC).isoformat(),))
+    assert [r["id"] for r in inbox.needs_description(conn)] == [ids["li"]]
 
 
 def test_notes_and_expired_lines(setup, tmp_path) -> None:

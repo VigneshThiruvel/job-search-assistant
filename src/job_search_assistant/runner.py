@@ -1,6 +1,7 @@
 """Phase 7: background runs started from the UI — the pipeline and headless Claude Code.
 
     fetch          python -m job_search_assistant.daily               (ingest, inbox, embed)
+    mail           python -m job_search_assistant.daily --mail-only   (alert emails only)
     embed          python -m job_search_assistant.daily --skip-ingest (after pasting)
     agent_daily    claude -p <prompts.daily_run>                      (extract, rank, queue)
     agent_prepare  claude -p <prompts.prepare_applications>           (résumés, letters)
@@ -37,9 +38,10 @@ from job_search_assistant import prompts
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNS = Path("data/runs")
-Kind = Literal["fetch", "embed", "agent_daily", "agent_prepare", "neo4j"]
+Kind = Literal["fetch", "mail", "embed", "agent_daily", "agent_prepare", "neo4j"]
 KINDS: dict[str, str] = {
     "fetch": "Fetch new jobs",
+    "mail": "Check mail",
     "embed": "Import pastes & embed",
     "agent_daily": "Daily agent",
     "agent_prepare": "Prepare drafts",
@@ -86,6 +88,8 @@ def command(kind: str, k: int = 10, max_extract: int = 30) -> list[str] | None:
     python = [sys.executable, "-m", "job_search_assistant.daily"]
     if kind == "fetch":
         return python
+    if kind == "mail":
+        return [*python, "--mail-only"]
     if kind == "embed":
         return [*python, "--skip-ingest"]
     if kind in ("agent_daily", "agent_prepare"):

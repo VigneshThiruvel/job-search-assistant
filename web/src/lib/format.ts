@@ -5,6 +5,14 @@ export const STATUS_COLOR = {
   ready: "teal",
   applied: "violet",
   skipped: "red",
+  screening: "cyan",
+  interviewing: "indigo",
+  offer: "lime",
+  accepted: "green",
+  declined: "gray",
+  rejected: "red",
+  withdrawn: "gray",
+  ghosted: "orange",
 } as const;
 export const RUN_COLOR = {
   running: "blue",

@@ -94,3 +94,16 @@ def test_reprocess_applies_new_normalize_without_touching_seen_dates(conn) -> No
     after = rows(conn)[0]
     assert after["title"] == "DATA ANALYST"
     assert (after["first_seen"], after["last_seen"]) == (before["first_seen"], before["last_seen"])
+
+
+def test_run_all_can_fetch_only_some_sources(conn, monkeypatch, tmp_path) -> None:
+    from job_search_assistant import ingest
+
+    mail, api = (
+        FakeSource([{"id": "m1", "title": "Mail job"}]),
+        FakeSource([{"id": "a1", "title": "API job"}]),
+    )
+    mail.name, api.name = "linkedin", "arbeitnow"
+    monkeypatch.setattr(ingest, "build_sources", lambda raw_dir: [api, mail])
+    ingest.run_all(conn, tmp_path, only=("linkedin", "xing"))
+    assert [r["title"] for r in rows(conn)] == ["Mail job"]
